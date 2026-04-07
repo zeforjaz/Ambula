@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMBULA — Report Operacional Abril 2026</title>
+<title>AMBULA â Report Operacional Abril 2026</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -160,8 +160,8 @@
 <div class="header">
   <div class="header-inner">
     <h1>AMBULA</h1>
-    <div class="subtitle">Report Operacional & Estrategico — Analise Airtable + Fase 1</div>
-    <div class="date">7 de Abril 2026 · Manapar — New Business · Preparado para Ze Forjaz</div>
+    <div class="subtitle">Report Operacional & EstratÃ©gico â AnÃ¡lise Airtable + Fase 1</div>
+    <div class="date">7 de Abril 2026 &middot; Manapar â New Business &middot; Preparado para Ze Forjaz</div>
   </div>
 </div>
 
@@ -170,27 +170,27 @@
   <!-- KPI GRID -->
   <div class="kpi-grid">
     <div class="kpi-card">
-      <div class="kpi-label">Faturacao Total</div>
-      <div class="kpi-value">€974.5K</div>
-      <div class="kpi-detail">11.490 agendamentos historico</div>
+      <div class="kpi-label">GMV (Cobrado ao Cliente)</div>
+      <div class="kpi-value">&euro;1.385M</div>
+      <div class="kpi-detail">11.498 agendamentos historico</div>
       <span class="kpi-trend down">-15% m/m desde Jan</span>
     </div>
     <div class="kpi-card amber">
-      <div class="kpi-label">Comissoes Ambula</div>
-      <div class="kpi-value">€73.2K</div>
-      <div class="kpi-detail">~€4.4K/mes (media ultimos 3m)</div>
-      <span class="kpi-trend down">Gap: custos fixos ~€15K</span>
+      <div class="kpi-label">Pago a Parceiros</div>
+      <div class="kpi-value">&euro;1.277M</div>
+      <div class="kpi-detail">92.2% do GMV vai para ambulancias</div>
+      <span class="kpi-trend neutral">64 empresas registadas</span>
     </div>
     <div class="kpi-card green">
-      <div class="kpi-label">Ticket Medio</div>
-      <div class="kpi-value">€129,75</div>
-      <div class="kpi-detail">Estavel entre €116-€164</div>
-      <span class="kpi-trend neutral">Estavel</span>
+      <div class="kpi-label">Receita Ambula</div>
+      <div class="kpi-value">&euro;106K</div>
+      <div class="kpi-detail">Take rate efectivo: 7.7%</div>
+      <span class="kpi-trend down">61% bookings sem comissao</span>
     </div>
     <div class="kpi-card purple">
-      <div class="kpi-label">Pipeline B2B</div>
-      <div class="kpi-value">513</div>
-      <div class="kpi-detail">243 B2B + 270 Lares</div>
+      <div class="kpi-label">Ticket Medio / Pipeline</div>
+      <div class="kpi-value">&euro;120</div>
+      <div class="kpi-detail">GMV/booking &middot; 513 leads B2B</div>
       <span class="kpi-trend up">75% por contactar</span>
     </div>
   </div>
@@ -217,7 +217,7 @@
     <div class="kpi-card amber">
       <div class="kpi-label">Conversao</div>
       <div class="kpi-value">~28%</div>
-      <div class="kpi-detail">Simulacao → Finalizado</div>
+      <div class="kpi-detail">Simulacao &rarr; Finalizado</div>
       <span class="kpi-trend down">79% Mar vs 84% Fev</span>
     </div>
   </div>
@@ -231,79 +231,81 @@
       <div class="chart-card full">
         <div class="card-title">Volume de Agendamentos & Receita Mensal</div>
         <canvas id="revenueChart"></canvas>
-        <div class="chart-comment warn"><strong>Pico em Nov-Dez 2025</strong> (936 agendamentos, €152K receita) seguido de queda sustentada. Janeiro-Março 2026 mostra retração de ~15% m/m. A comissão Ambula acompanha a queda — de €6.4K (Nov) para €4.4K (Mar). <strong>Se a tendência continuar, a receita mensal fica abaixo do breakeven operacional (~€15K custos fixos).</strong></div>
+        <div class="chart-comment warn"><strong>Pico em Nov-Dez 2025</strong> (936 agendamentos, â¬152K GMV) seguido de queda sustentada. Janeiro-MarÃ§o 2026 mostra retraÃ§Ã£o de ~15% m/m. A comissÃ£o Ambula acompanha a queda â de â¬6.4K (Nov) para â¬4.4K (Mar). <strong>Take rate efectivo: 7.7% do GMV. 61% dos bookings passam sem comissÃ£o â oportunidade enorme de monetizaÃ§Ã£o.</strong></div>
       </div>
 
       <div class="chart-card">
-        <div class="card-title">Funil de Conversão (últimos 6 meses)</div>
+        <div class="card-title">Funil de ConversÃ£o (Ãºltimos 6 meses)</div>
         <canvas id="funnelChart"></canvas>
-        <div class="chart-comment danger"><strong>Conversão a cair:</strong> de 84% (Fev) para 79% (Mar). O volume de simulações mantém-se estável (~600/mês), mas menos chegam a finalizar. Os cancelamentos por pagamento (100 casos) sugerem que o pagamento upfront pode recuperar 5-8pp de conversão.</div>
+        <div class="chart-comment danger"><strong>ConversÃ£o a cair:</strong> de 84% (Fev) para 79% (Mar). O volume de simulaÃ§Ãµes mantÃ©m-se estÃ¡vel (~600/mÃªs), mas menos chegam a finalizar. Os cancelamentos por pagamento (100 casos) sugerem que o pagamento upfront pode recuperar 5-8pp de conversÃ£o.</div>
       </div>
 
       <div class="chart-card">
-        <div class="card-title">Canais de Aquisição</div>
+        <div class="card-title">Canais de AquisiÃ§Ã£o</div>
         <canvas id="channelChart"></canvas>
-        <div class="chart-comment"><strong>Website domina (74%)</strong> mas é um canal passivo — sem tracking de origem, não sabemos se é SEO, directo ou referral. O call center (25%) converte bem mas custa caro. <strong>WhatsApp = 0%</strong> — oportunidade imediata de canal com custo baixo e conversão alta.</div>
+        <div class="chart-comment"><strong>Website domina (74%)</strong> mas Ã© um canal passivo â sem tracking de origem, nÃ£o sabemos se Ã© SEO, directo ou referral. O call center (25%) converte bem mas custa caro. <strong>WhatsApp = 0%</strong> â oportunidade imediata de canal com custo baixo e conversÃ£o alta.</div>
       </div>
 
       <div class="chart-card">
-        <div class="card-title">Novos Utilizadores por Mês</div>
+        <div class="card-title">Novos Utilizadores por MÃªs</div>
         <canvas id="usersChart"></canvas>
-        <div class="chart-comment danger"><strong>Queda de -57% desde o pico</strong> (542 em Ago 2025 → 188 em Mar 2026). Sem campanhas pagas ou SEO activo, o crescimento depende apenas de boca-a-boca e tráfego directo. A reactivação dos 5.677 utilizadores registados via email/WhatsApp é o quick win mais óbvio.</div>
+        <div class="chart-comment danger"><strong>Queda de -57% desde o pico</strong> (542 em Ago 2025 â 188 em Mar 2026). Sem campanhas pagas ou SEO activo, o crescimento depende apenas de boca-a-boca e trÃ¡fego directo. A reactivaÃ§Ã£o dos 5.677 utilizadores registados via email/WhatsApp Ã© o quick win mais Ã³bvio.</div>
       </div>
 
       <div class="chart-card">
         <div class="card-title">Motivos de Cancelamento</div>
         <canvas id="cancelChart"></canvas>
-        <div class="chart-comment warn"><strong>464 cancelamentos no total.</strong> "Responsável" (35%) e "Sem motivo" (24%) são difíceis de atacar, mas "Pagamento" (22%) = €13K+ de receita perdida — resolúvel com pagamento upfront obrigatório. "Espera" (14%) indica falta de supply em certas zonas/horários.</div>
+        <div class="chart-comment warn"><strong>464 cancelamentos no total.</strong> "ResponsÃ¡vel" (35%) e "Sem motivo" (24%) sÃ£o difÃ­ceis de atacar, mas "Pagamento" (22%) = â¬13K+ de receita perdida â resolvÃ­vel com pagamento upfront obrigatÃ³rio. "Espera" (14%) indica falta de supply em certas zonas/horÃ¡rios.</div>
       </div>
     </div>
   </div>
 
   <!-- TOP PARTNERS -->
   <div class="section">
-    <div class="section-title">Top Parceiros <span class="badge">Supply Side</span></div>
-    <div class="section-subtitle">Alta concentracao: Top 3 = ~75% do volume. 30 parceiros com 0 transportes.</div>
+    <div class="section-title">Top Parceiros & Margem Real <span class="badge">Supply Side</span></div>
+    <div class="section-subtitle">GMV = valor cobrado ao cliente. Pago = valor transferido ao parceiro. Receita Ambula = diferenca (comissao). Take rate efectivo: 7.7% global.</div>
 
     <div class="card">
       <table class="data-table">
         <thead>
-          <tr><th>Empresa</th><th>Agend.</th><th>Saldo Geral</th><th>Ticket Medio</th><th>Aval.</th><th>Quota</th></tr>
+          <tr><th>Empresa</th><th>Agend.</th><th>GMV (Cliente)</th><th>Pago (Parceiro)</th><th>Receita Ambula</th><th>Take Rate</th></tr>
         </thead>
         <tbody>
-          <tr><td class="highlight">Amb. Saint Martin</td><td class="num">913</td><td class="num">€77.355</td><td class="num">€84,73</td><td class="num">4.9</td><td><div class="progress-bar"><div class="progress-fill blue" style="width:100%"></div></div></td></tr>
-          <tr><td class="highlight">+Mobilidade, Lda</td><td class="num">549</td><td class="num">€47.361</td><td class="num">€86,27</td><td class="num">5.0</td><td><div class="progress-bar"><div class="progress-fill blue" style="width:60%"></div></div></td></tr>
-          <tr><td class="highlight">A.S.V.CELA</td><td class="num">478</td><td class="num">€38.206</td><td class="num">€79,93</td><td class="num">5.0</td><td><div class="progress-bar"><div class="progress-fill blue" style="width:52%"></div></div></td></tr>
-          <tr><td>Allavarium Tours</td><td class="num">119</td><td class="num">€1.428</td><td class="num">€12,00</td><td class="num">5.0</td><td><div class="progress-bar"><div class="progress-fill green" style="width:13%"></div></div></td></tr>
-          <tr><td>Paramedicos Catastrofe</td><td class="num">108</td><td class="num">€11.080</td><td class="num">€102,60</td><td class="num">5.0</td><td><div class="progress-bar"><div class="progress-fill green" style="width:12%"></div></div></td></tr>
-          <tr><td>AMBFAF</td><td class="num">108</td><td class="num">€8.567</td><td class="num">€79,33</td><td class="num">5.0</td><td><div class="progress-bar"><div class="progress-fill green" style="width:12%"></div></div></td></tr>
-          <tr><td>Impactepisode (TVDE)</td><td class="num">88</td><td class="num">€5.538</td><td class="num">€62,94</td><td class="num">5.0</td><td><div class="progress-bar"><div class="progress-fill amber" style="width:10%"></div></div></td></tr>
-          <tr><td>Fenix Ambulancia</td><td class="num">77</td><td class="num">€6.066</td><td class="num">€78,78</td><td class="num">5.0</td><td><div class="progress-bar"><div class="progress-fill amber" style="width:8%"></div></div></td></tr>
+          <tr><td class="highlight">Amb. Saint Martin</td><td class="num">914</td><td class="num">&euro;90.341</td><td class="num">&euro;69.523</td><td class="num" style="color:var(--green);font-weight:700">&euro;20.803</td><td class="num" style="font-weight:700">23.0%</td></tr>
+          <tr><td class="highlight">+Mobilidade, Lda</td><td class="num">551</td><td class="num">&euro;53.427</td><td class="num">&euro;41.720</td><td class="num" style="color:var(--green);font-weight:700">&euro;11.693</td><td class="num" style="font-weight:700">21.9%</td></tr>
+          <tr><td class="highlight">A.S.V.CELA</td><td class="num">478</td><td class="num">&euro;46.519</td><td class="num">&euro;36.935</td><td class="num" style="color:var(--green);font-weight:700">&euro;9.508</td><td class="num" style="font-weight:700">20.4%</td></tr>
+          <tr><td>Paramedicos Catastrofe</td><td class="num">108</td><td class="num">&euro;15.670</td><td class="num">&euro;10.858</td><td class="num" style="color:var(--green)">&euro;4.062</td><td class="num">25.9%</td></tr>
+          <tr><td>Ambatlantico Amb.</td><td class="num">41</td><td class="num">&euro;7.768</td><td class="num">&euro;3.956</td><td class="num" style="color:var(--green)">&euro;2.812</td><td class="num" style="color:var(--green);font-weight:700">36.2%</td></tr>
+          <tr><td>Vouga Coimbra</td><td class="num">55</td><td class="num">&euro;8.252</td><td class="num">&euro;6.449</td><td class="num" style="color:var(--green)">&euro;1.802</td><td class="num">21.8%</td></tr>
+          <tr><td>AMBFAF</td><td class="num">108</td><td class="num">&euro;9.608</td><td class="num">&euro;7.747</td><td class="num" style="color:var(--green)">&euro;1.792</td><td class="num">18.7%</td></tr>
+          <tr><td>Fenix Ambulancia</td><td class="num">77</td><td class="num">&euro;7.457</td><td class="num">&euro;5.912</td><td class="num" style="color:var(--green)">&eurn;1.545</td><td class="num">20.7%</td></tr>
         </tbody>
       </table>
     </div>
 
+    <div class="chart-comment warn" style="margin-bottom:16px"><strong>Dado critico:</strong> Dos 11.498 agendamentos totais, apenas 38.6% geram comissao para a Ambula. Os restantes 61.4% passam pela plataforma sem receita. Nos bookings COM comissao, o take rate medio e ~22% â mas diluido pelo total, fica em 7.7%. <strong>Prioridade: garantir comissao em 100% dos agendamentos.</strong></div>
+
     <div class="alert-box">
       <div class="alert-title">Risco de Concentracao</div>
-      <p>Saint Martin sozinha representa ~35% de todo o volume. Se este parceiro sair ou reduzir actividade, o impacto e devastador. Prioridade: diversificar a base de supply e activar os 30 parceiros dormentes.</p>
+      <p>Saint Martin + Mobilidade + CELA = 66% do volume e 62% da receita Ambula. Se um destes parceiros sair, o impacto e devastador. Prioridade: diversificar a base de supply e activar os 30 parceiros dormentes.</p>
     </div>
   </div>
 
   <!-- MEDIA & ACQUISITION STRATEGY -->
   <div class="section">
     <div class="section-title">Estrategia de Media & Aquisicao <span class="badge">Demand Side</span></div>
-    <div class="section-subtitle">Como e que os clientes chegam a Ambula — e o que esta a falhar</div>
+    <div class="section-subtitle">Como e que os clientes chegam a Ambula â e o que esta a falhar</div>
 
     <div class="chart-grid">
       <div class="chart-card">
-        <div class="card-title">Distribui˛ ao de Canais</div>
+        <div class="card-title">DistribuiÃ§Ã£o de Canais</div>
         <canvas id="mediaDetailChart"></canvas>
-        <div class="chart-comment"><strong>Sem paid media, sem social, sem referral tracking.</strong> Toda a aquisi˛ ao depende de trafego org ̂anico ao site e chamadas. Com UTM tracking + Google Ads para "transporte de doentes [cidade]", conseguimos visibilidade imediata sobre o que funciona.</div>
+        <div class="chart-comment"><strong>Sem paid media, sem social, sem referral tracking.</strong> Toda a aquisiÃ§Ã£o depende de trÃ¡fego orgÃ¢nico ao site e chamadas. Com UTM tracking + Google Ads para "transporte de doentes [cidade]", conseguimos visibilidade imediata sobre o que funciona.</div>
       </div>
       <div class="chart-card">
         <div class="card-title">Tipo de Transporte Pedido</div>
         <canvas id="transportChart"></canvas>
-        <div class="chart-comment good"><strong>81% dos pedidos são acamado/maca</strong> — serviço de maior valor e que exige ambulância. Isto valida a tese de frota própria: com 2 VDTD em Lisboa cobrimos o segmento mais lucrativo. Cadeira de rodas (17%) pode ser servido com veículos adaptados mais baratos.</div>
+        <div class="chart-comment good"><strong>81% dos pedidos sÃ£o acamado/maca</strong> â serviÃ§o de maior valor e que exige ambulÃ¢ncia. Isto valida a tese de frota prÃ³pria: com 2 VDTD em Lisboa cobrimos o segmento mais lucrativo. Cadeira de rodas (17%) pode ser servido com veÃ­culos adaptados mais baratos.</div>
       </div>
     </div>
 
@@ -316,8 +318,8 @@
       </div>
 
       <div class="insight-box">
-        <div class="insight-title">2. Call Center e o segundo canal (25%) — e critico</div>
-        <p>Quase 2.000 pedidos vieram por chamada telefonica. Este canal tem custo operacional elevado mas alta conversao. O Valdemir (TI) e a Roseanne (CS) ja gerem este canal — a integracao de WhatsApp pode aliviar o call center e aumentar conversao.</p>
+        <div class="insight-title">2. Call Center e o segundo canal (25%) â e critico</div>
+        <p>Quase 2.000 pedidos vieram por chamada telefÃ³nica. Este canal tem custo operacional elevado mas alta conversÃ£o. O Valdemir (TI) e a Roseanne (CS) jÃ¡ gerem este canal â a integraÃ§Ã£o de WhatsApp pode aliviar o call center e aumentar conversÃ£o.</p>
       </div>
 
       <div class="alert-box">
@@ -363,11 +365,11 @@
         <div class="fase-title">Supply Strategy</div>
         <span class="fase-status amber">Em Risco</span>
         <div class="fase-body">
-          <strong>Objectivo:</strong> Parcerias com bombeiros + canal escalável para Taxi/TVDE/NEMT<br>
-          <strong>Responsável:</strong> Zé + Ricardo | <em style="color:#B45309">B2B Sales Rep</em>
+          <strong>Objectivo:</strong> Parcerias com bombeiros + canal escalÃ¡vel para Taxi/TVDE/NEMT<br>
+          <strong>ResponsÃ¡vel:</strong> ZÃ© + Ricardo | <em style="color:#B45309">B2B Sales Rep</em>
         </div>
         <div class="fase-data">
-          <strong>Dados Airtable:</strong> 64 empresas registadas, mas so ~20 activas. 9 parceiros TVDE/Veiculo Adaptado registados, poucos activos. 2 bombeiros registados (Obidos, Campo de Ourique) — ambos com 0 transportes. Precisa de proposta de valor clara e push comercial.
+          <strong>Dados Airtable:</strong> 64 empresas registadas, mas so ~20 activas. 9 parceiros TVDE/Veiculo Adaptado registados, poucos activos. 2 bombeiros registados (Obidos, Campo de Ourique) â ambos com 0 transportes. Precisa de proposta de valor clara e push comercial.
         </div>
       </div>
 
@@ -376,8 +378,8 @@
         <div class="fase-title">Supply Scaling & Frota Propria</div>
         <span class="fase-status amber">Em Risco</span>
         <div class="fase-body">
-          <strong>Objectivo:</strong> Estratégia de frota própria (quando e onde)<br>
-          <strong>Responsável:</strong> Zé + Ricardo
+          <strong>Objectivo:</strong> EstratÃ©gia de frota prÃ³pria (quando e onde)<br>
+          <strong>ResponsÃ¡vel:</strong> ZÃ© + Ricardo
         </div>
         <div class="fase-data">
           <strong>Dados Airtable:</strong> 28 viaturas registadas (parceiros), 0 proprias. 14 VDTD, 4 A1, 4 A2. Prioridade: Lisboa (53% da procura). Break-even estimado: ~165 servicos/mes com 2 ambulancias proprias. Ricardo a explorar hibridas.
@@ -389,11 +391,11 @@
         <div class="fase-title">Retencao de Receita & Cancelamentos</div>
         <span class="fase-status red">Atrasado</span>
         <div class="fase-body">
-          <strong>Objectivo:</strong> Pagamento upfront + política cancelamento + tracking<br>
-          <strong>Responsável:</strong> Valdemir (implementação) + Zé (decisão)
+          <strong>Objectivo:</strong> Pagamento upfront + polÃ­tica cancelamento + tracking<br>
+          <strong>ResponsÃ¡vel:</strong> Valdemir (implementaÃ§Ã£o) + ZÃ© (decisÃ£o)
         </div>
         <div class="fase-data">
-          <strong>Dados Airtable:</strong> 464 cancelamentos identificados: 162 pelo responsavel, 111 sem motivo, 100 por pagamento, 64 por espera, 25 pela empresa. <strong>Cancelamento por pagamento = €13K+ potencial perdido.</strong> Pagamento upfront resolveria 22% dos cancelamentos.
+          <strong>Dados Airtable:</strong> 464 cancelamentos identificados: 162 pelo responsavel, 111 sem motivo, 100 por pagamento, 64 por espera, 25 pela empresa. <strong>Cancelamento por pagamento = &euro;13K+ potencial perdido.</strong> Pagamento upfront resolveria 22% dos cancelamentos.
         </div>
       </div>
 
@@ -402,11 +404,11 @@
         <div class="fase-title">Jornada de Cliente (WhatsApp + Tel.)</div>
         <span class="fase-status amber">Em Risco</span>
         <div class="fase-body">
-          <strong>Objectivo:</strong> WhatsApp como canal dominante + automatização<br>
-          <strong>Responsável:</strong> Valdemir (implementação) + Roseanne (operação)
+          <strong>Objectivo:</strong> WhatsApp como canal dominante + automaÃ§Ã£o<br>
+          <strong>ResponsÃ¡vel:</strong> Valdemir (implementaÃ§Ã£o) + Roseanne (operaÃ§Ã£o)
         </div>
         <div class="fase-data">
-          <strong>Dados Airtable:</strong> 74% dos pedidos via WebBase, 25% chamada. 0% WhatsApp (nao existe como canal registado). A transicao para WhatsApp e critica — pode reduzir custo do call center em 50% e aumentar conversao. 93% dos users nao indicaram motivo de registo (onboarding fraco).
+          <strong>Dados Airtable:</strong> 74% dos pedidos via WebBase, 25% chamada. 0% WhatsApp (nao existe como canal registado). A transicao para WhatsApp e critica â pode reduzir custo do call center em 50% e aumentar conversao. 93% dos users nao indicaram motivo de registo (onboarding fraco).
         </div>
       </div>
 
@@ -415,8 +417,8 @@
         <div class="fase-title">Controlo Financeiro & Cash Flow</div>
         <span class="fase-status red">Atrasado</span>
         <div class="fase-body">
-          <strong>Objectivo:</strong> Owner de cobranças + Dashboard faturado vs recebido<br>
-          <strong>Responsável:</strong> Zé + Ricardo
+          <strong>Objectivo:</strong> Owner de cobranÃ§as + Dashboard faturado vs recebido<br>
+          <strong>ResponsÃ¡vel:</strong> ZÃ© + Ricardo
         </div>
         <div class="fase-data">
           <strong>Dados Airtable:</strong> Existe tabela de Transacoes e Relatorios Semanais/Mensais por empresa, mas nao ha campo de "estado pagamento" preenchido de forma consistente. A tabela CancelamentosCSV tem dados de faturacao mas esta isolada do fluxo principal. Dashboard nao existe.
@@ -429,7 +431,7 @@
         <span class="fase-status amber">Em Risco</span>
         <div class="fase-body">
           <strong>Objectivo:</strong> 2-3 contratos B2B + playbook de vendas<br>
-          <strong>Responsável:</strong> Zé → <em style="color:#B45309">B2B Sales Rep</em>
+          <strong>ResponsÃ¡vel:</strong> ZÃ© â <em style="color:#B45309">B2B Sales Rep</em>
         </div>
         <div class="fase-data">
           <strong>Dados Airtable:</strong> Pipeline robusto (243 B2B + 270 lares) mas <strong>75% por contactar</strong>. So 2 clientes activos B2B, 1 em piloto, 3 em negociacao. 19 lares activos. 70 contactos alta prioridade parados. Com outreach sistematico, fechar 2-3 contratos em 60 dias e viavel.
@@ -440,22 +442,22 @@
 
   <!-- TEAM -->
   <div class="section">
-    <div class="section-title">Equipa & Responsabilidades <span class="badge">Quem faz o quê</span></div>
-    <div class="section-subtitle">Divisão de tarefas por perfil — inclui B2B Sales Rep a contratar nas próximas semanas</div>
+    <div class="section-title">Equipa & Responsabilidades <span class="badge">Quem faz o quÃª</span></div>
+    <div class="section-subtitle">DivisÃ£o de tarefas por perfil â inclui B2B Sales Rep a contratar nas prÃ³ximas semanas</div>
 
     <div class="card" style="padding:20px 24px">
       <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:12px;">
         <div style="padding:12px; background:var(--sky); border-radius:8px; text-align:center;">
-          <div style="font-size:20px; font-weight:800; color:var(--navy);">Zé</div>
-          <div style="font-size:11px; color:var(--gray-500); margin-top:4px;">Estratégia, Decisões<br>Supply Side, Produto</div>
+          <div style="font-size:20px; font-weight:800; color:var(--navy);">ZÃ©</div>
+          <div style="font-size:11px; color:var(--gray-500); margin-top:4px;">EstratÃ©gia, DecisÃµes<br>Supply Side, Produto</div>
         </div>
         <div style="padding:12px; background:var(--sky); border-radius:8px; text-align:center;">
           <div style="font-size:20px; font-weight:800; color:var(--navy);">Ricardo</div>
-          <div style="font-size:11px; color:var(--gray-500); margin-top:4px;">Supply, Frota Própria<br>Financeiro</div>
+          <div style="font-size:11px; color:var(--gray-500); margin-top:4px;">Supply, Frota PrÃ³pria<br>Financeiro</div>
         </div>
         <div style="padding:12px; background:var(--sky); border-radius:8px; text-align:center;">
           <div style="font-size:20px; font-weight:800; color:var(--navy);">Valdemir</div>
-          <div style="font-size:11px; color:var(--gray-500); margin-top:4px;">TI, Plataforma, Apps<br>Integrações Técnicas</div>
+          <div style="font-size:11px; color:var(--gray-500); margin-top:4px;">TI, Plataforma, Apps<br>IntegraÃ§Ãµes TÃ©cnicas</div>
         </div>
         <div style="padding:12px; background:var(--sky); border-radius:8px; text-align:center;">
           <div style="font-size:20px; font-weight:800; color:var(--navy);">Roseanne</div>
@@ -472,35 +474,35 @@
 
   <!-- SPRINT PLAN -->
   <div class="section">
-    <div class="section-title">Plano de Ação: Próximas 2 Semanas <span class="badge">7-21 Abril 2026</span></div>
-    <div class="section-subtitle">Ações concretas e mensuráveis alinhadas com a Fase 1. Tasks B2B preparadas para handover ao Sales Rep quando entrar.</div>
+    <div class="section-title">Plano de AcÃ§Ã£o: PrÃ³ximas 2 Semanas <span class="badge">7-21 Abril 2026</span></div>
+    <div class="section-subtitle">AcÃ§Ãµes concretas e mensurÃ¡veis alinhadas com a Fase 1. Tasks B2B preparadas para handover ao Sales Rep quando entrar.</div>
 
     <div class="card">
       <table class="sprint-table">
         <thead>
-          <tr><th>#</th><th>Ação</th><th>Fase 1</th><th>Owner</th><th>Meta</th><th>Prazo</th></tr>
+          <tr><th>#</th><th>AcÃ§Ã£o</th><th>Fase 1</th><th>Owner</th><th>Meta</th><th>Prazo</th></tr>
         </thead>
         <tbody>
           <tr>
             <td>1</td>
-            <td><strong>Blitz B2B: contactar 20 leads alta prioridade</strong><br><span style="font-size:11px;color:var(--gray-500)">Dos 70 B2B alta prioridade por contactar — seguradoras, hospitais, clínicas</span></td>
+            <td><strong>Blitz B2B: contactar 20 leads alta prioridade</strong><br><span style="font-size:11px;color:var(--gray-500)">Dos 70 B2B alta prioridade por contactar â seguradoras, hospitais, clÃ­nicas</span></td>
             <td><span class="tag b2b">B2B Engine</span></td>
-            <td>Zé → <em style="color:#B45309">B2B Sales Rep</em></td>
-            <td>20 contactos, 3 reuniões agendadas</td>
+            <td>ZÃ© â <em style="color:#B45309">B2B Sales Rep</em></td>
+            <td>20 contactos, 3 reuniÃµes agendadas</td>
             <td>14 Abr</td>
           </tr>
           <tr>
             <td>2</td>
-            <td><strong>Contactar 10 lares Tier A</strong><br><span style="font-size:11px;color:var(--gray-500)">Focus nos 44 lares Tier A por converter — Lisboa e Porto</span></td>
+            <td><strong>Contactar 10 lares Tier A</strong><br><span style="font-size:11px;color:var(--gray-500)">Focus nos 44 lares Tier A por converter â Lisboa e Porto</span></td>
             <td><span class="tag b2b">B2B Engine</span></td>
-            <td>Zé → <em style="color:#B45309">B2B Sales Rep</em></td>
+            <td>ZÃ© â <em style="color:#B45309">B2B Sales Rep</em></td>
             <td>10 contactos, 2 pilotos iniciados</td>
             <td>18 Abr</td>
           </tr>
           <tr>
             <td>3</td>
-            <td><strong>Implementar pagamento upfront</strong><br><span style="font-size:11px;color:var(--gray-500)">Resolver os 100 cancelamentos por pagamento — prepagamento mínimo obrigatório. Valdemir implementa no flow da plataforma.</span></td>
-            <td><span class="tag ops">Retenção</span></td>
+            <td><strong>Implementar pagamento upfront</strong><br><span style="font-size:11px;color:var(--gray-500)">Resolver os 100 cancelamentos por pagamento â prepagamento mÃ­nimo obrigatÃ³rio. Valdemir implementa no flow da plataforma.</span></td>
+            <td><span class="tag ops">RetenÃ§Ã£o</span></td>
             <td>Valdemir</td>
             <td>Flow de pagamento live</td>
             <td>18 Abr</td>
@@ -509,13 +511,13 @@
             <td>4</td>
             <td><strong>Ligar a 5 parceiros dormentes</strong><br><span style="font-size:11px;color:var(--gray-500)">Dos 30 com 0 transportes: perceber bloqueios e reactivar</span></td>
             <td><span class="tag supply">Supply</span></td>
-            <td>Zé + Ricardo</td>
+            <td>ZÃ© + Ricardo</td>
             <td>5 chamadas, 2 reactivados</td>
             <td>14 Abr</td>
           </tr>
           <tr>
             <td>5</td>
-            <td><strong>Setup WhatsApp Business + flow básico</strong><br><span style="font-size:11px;color:var(--gray-500)">Integração técnica do canal WhatsApp na plataforma — substituir parte do call center</span></td>
+            <td><strong>Setup WhatsApp Business + flow bÃ¡sico</strong><br><span style="font-size:11px;color:var(--gray-500)">IntegraÃ§Ã£o tÃ©cnica do canal WhatsApp na plataforma â substituir parte do call center</span></td>
             <td><span class="tag demand">Jornada</span></td>
             <td>Valdemir</td>
             <td>WhatsApp live como canal</td>
@@ -523,7 +525,7 @@
           </tr>
           <tr>
             <td>6</td>
-            <td><strong>UTM tracking em todos os links</strong><br><span style="font-size:11px;color:var(--gray-500)">Website, emails, social — saber de onde vem cada lead. Implementação técnica.</span></td>
+            <td><strong>UTM tracking em todos os links</strong><br><span style="font-size:11px;color:var(--gray-500)">Website, emails, social â saber de onde vem cada lead. ImplementaÃ§Ã£o tÃ©cnica.</span></td>
             <td><span class="tag media">Media</span></td>
             <td>Valdemir</td>
             <td>100% links com UTM</td>
@@ -531,7 +533,7 @@
           </tr>
           <tr>
             <td>7</td>
-            <td><strong>Email blast para 5.677 utilizadores</strong><br><span style="font-size:11px;color:var(--gray-500)">Roseanne prepara lista e envia — conteúdo aprovado pelo Zé</span></td>
+            <td><strong>Email blast para 5.677 utilizadores</strong><br><span style="font-size:11px;color:var(--gray-500)">Roseanne prepara lista e envia â conteÃºdo aprovado pelo ZÃ©</span></td>
             <td><span class="tag media">Media</span></td>
             <td>Roseanne</td>
             <td>Email enviado, track opens/clicks</td>
@@ -539,41 +541,41 @@
           </tr>
           <tr>
             <td>8</td>
-            <td><strong>Dashboard financeiro básico</strong><br><span style="font-size:11px;color:var(--gray-500)">Faturado vs recebido vs overdue — pode ser Google Sheet inicial</span></td>
+            <td><strong>Dashboard financeiro bÃ¡sico</strong><br><span style="font-size:11px;color:var(--gray-500)">Faturado vs recebido vs overdue â pode ser Google Sheet inicial</span></td>
             <td><span class="tag finance">Financeiro</span></td>
-            <td>Zé + Ricardo</td>
+            <td>ZÃ© + Ricardo</td>
             <td>Dashboard operacional</td>
             <td>21 Abr</td>
           </tr>
           <tr>
             <td>9</td>
-            <td><strong>Entrevistar 3 tripulantes top</strong><br><span style="font-size:11px;color:var(--gray-500)">Marcos (390 trans), João Paulino (187), Bruno (183) — pain points e feedback da app</span></td>
+            <td><strong>Entrevistar 3 tripulantes top</strong><br><span style="font-size:11px;color:var(--gray-500)">Marcos (390 trans), JoÃ£o Paulino (187), Bruno (183) â pain points e feedback da app</span></td>
             <td><span class="tag supply">Supply</span></td>
-            <td>Zé</td>
+            <td>ZÃ©</td>
             <td>3 entrevistas realizadas</td>
             <td>18 Abr</td>
           </tr>
           <tr>
             <td>10</td>
-            <td><strong>Proposta bombeiros: 2 corpos</strong><br><span style="font-size:11px;color:var(--gray-500)">Óbidos e Campo de Ourique já registados — proposta de valor + pricing</span></td>
+            <td><strong>Proposta bombeiros: 2 corpos</strong><br><span style="font-size:11px;color:var(--gray-500)">Ãbidos e Campo de Ourique jÃ¡ registados â proposta de valor + pricing</span></td>
             <td><span class="tag supply">Supply</span></td>
-            <td>Zé + Ricardo</td>
+            <td>ZÃ© + Ricardo</td>
             <td>2 propostas enviadas</td>
             <td>21 Abr</td>
           </tr>
           <tr>
             <td>11</td>
-            <td><strong>Cobrar maca retida: definir regra + implementar</strong><br><span style="font-size:11px;color:var(--gray-500)">4-5 hospitais em Lisboa retêm macas — cobrar 50€/hora ao cliente. Valdemir implementa no sistema.</span></td>
-            <td><span class="tag ops">Retenção</span></td>
-            <td>Zé + Valdemir</td>
+            <td><strong>Cobrar maca retida: definir regra + implementar</strong><br><span style="font-size:11px;color:var(--gray-500)">4-5 hospitais em Lisboa retÃªm macas â cobrar 50â¬/hora ao cliente. Valdemir implementa no sistema.</span></td>
+            <td><span class="tag ops">RetenÃ§Ã£o</span></td>
+            <td>ZÃ© + Valdemir</td>
             <td>Regra definida + campo no sistema</td>
             <td>21 Abr</td>
           </tr>
           <tr>
             <td>12</td>
-            <td><strong>Preparar playbook B2B para Sales Rep</strong><br><span style="font-size:11px;color:var(--gray-500)">Pitch deck, pricing, lista de leads prioritários, script de chamada — tudo pronto para onboarding</span></td>
+            <td><strong>Preparar playbook B2B para Sales Rep</strong><br><span style="font-size:11px;color:var(--gray-500)">Pitch deck, pricing, lista de leads prioritÃ¡rios, script de chamada â tudo pronto para onboarding</span></td>
             <td><span class="tag b2b">B2B Engine</span></td>
-            <td>Zé</td>
+            <td>ZÃ©</td>
             <td>Playbook completo + lista de 50 leads</td>
             <td>21 Abr</td>
           </tr>
@@ -583,12 +585,12 @@
 
     <div class="insight-box">
       <div class="insight-title">Nota sobre B2B Sales Rep</div>
-      <p>As tasks 1 e 2 (outreach B2B e lares) estão atribuídas ao Zé como interim — quando o Sales Rep entrar, faz-se handover imediato. A task 12 (playbook) garante que o onboarding é rápido. O Sales Rep deve herdar também o pipeline de 243 contactos B2B + 270 lares do Airtable.</p>
+      <p>As tasks 1 e 2 (outreach B2B e lares) estÃ£o atribuÃ­das ao ZÃ© como interim â quando o Sales Rep entrar, faz-se handover imediato. A task 12 (playbook) garante que o onboarding Ã© rÃ¡pido. O Sales Rep deve herdar tambÃ©m o pipeline de 243 contactos B2B + 270 lares do Airtable.</p>
     </div>
   </div>
 
   <div style="text-align:center; padding:32px 0; color:var(--gray-500); font-size:12px; border-top:1px solid var(--gray-200); margin-top:40px;">
-    Report gerado a 7 de Abril 2026 · Dados: AMBULA BASE Airtable + Ambula_Fase 1 (Google Doc) · Manapar — New Business
+    Report gerado a 7 de Abril 2026 &middot; Dados: AMBULA BASE Airtable + Ambula_Fase 1 (Google Doc) &middot; Manapar â New Business
   </div>
 </div>
 
@@ -609,20 +611,28 @@ new Chart(document.getElementById('revenueChart'), {
     labels: ['Mai 25','Jun 25','Jul 25','Ago 25','Set 25','Out 25','Nov 25','Dez 25','Jan 26','Fev 26','Mar 26','Abr 26*'],
     datasets: [
       {
-        label: 'Valor Servicos (€)',
-        data: [26082,28901,31584,42590,45120,71174,118327,152133,107192,102491,90550,29949],
+        label: 'GMV â Cobrado ao Cliente (â¬)',
+        data: [28182,31481,34358,45888,48765,76139,124764,157697,111678,107267,94912,30586],
         backgroundColor: COLORS.blue,
         borderRadius: 4,
         yAxisID: 'y',
         order: 2
       },
       {
-        label: 'Comissao Ambula (€)',
+        label: 'Pago a Parceiros (â¬)',
+        data: [26082,28901,31584,42590,45120,71174,118327,152133,107192,102491,90550,29949],
+        backgroundColor: '#93C5FD',
+        borderRadius: 4,
+        yAxisID: 'y',
+        order: 3
+      },
+      {
+        label: 'Receita Ambula (â¬)',
         data: [2100,2580,2774,3298,3645,4965,6437,5564,4486,4776,4362,637],
         backgroundColor: COLORS.amber,
         borderRadius: 4,
         yAxisID: 'y',
-        order: 3
+        order: 4
       },
       {
         label: 'Nr Agendamentos',
@@ -643,7 +653,7 @@ new Chart(document.getElementById('revenueChart'), {
     interaction: { mode: 'index', intersect: false },
     plugins: { legend: { position: 'top', labels: { usePointStyle: true, padding: 16, font: { size: 11 } } } },
     scales: {
-      y: { beginAtZero: true, position: 'left', ticks: { callback: v => '€' + (v/1000).toFixed(0) + 'K', font: {size:10} }, grid: { color: '#F3F4F6' } },
+      y: { beginAtZero: true, position: 'left', ticks: { callback: v => 'â¬' + (v/1000).toFixed(0) + 'K', font: {size:10} }, grid: { color: '#F3F4F6' } },
       y1: { beginAtZero: true, position: 'right', grid: { drawOnChartArea: false }, ticks: { font: {size:10} } },
       x: { ticks: { font: {size:10} }, grid: { display: false } }
     }
