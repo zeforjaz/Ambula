@@ -185,7 +185,7 @@
       <div class="kpi-label">Receita Ambula</div>
       <div class="kpi-value">&euro;106K</div>
       <div class="kpi-detail">Take rate efectivo: 7.7%</div>
-      <span class="kpi-trend down">61% bookings sem comissao</span>
+      <span class="kpi-trend up">99.4% dos finalizados com comissao</span>
     </div>
     <div class="kpi-card purple">
       <div class="kpi-label">Ticket Medio / Pipeline</div>
@@ -231,7 +231,7 @@
       <div class="chart-card full">
         <div class="card-title">Volume de Agendamentos & Receita Mensal</div>
         <canvas id="revenueChart"></canvas>
-        <div class="chart-comment warn"><strong>Pico em Nov-Dez 2025</strong> (936 agendamentos, €152K GMV) seguido de queda sustentada. Janeiro-Março 2026 mostra retração de ~15% m/m. A comissão Ambula acompanha a queda — de €6.4K (Nov) para €4.4K (Mar). <strong>Take rate efectivo: 7.7% do GMV. 61% dos bookings passam sem comissão — oportunidade enorme de monetização.</strong></div>
+        <div class="chart-comment warn"><strong>Pico em Nov-Dez 2025</strong> (936 agendamentos, €152K GMV) seguido de queda sustentada. Janeiro-Março 2026 mostra retração de ~15% m/m. A comissão Ambula acompanha a queda — de €6.4K (Nov) para €4.4K (Mar). <strong>Dos 11.498 agendamentos, apenas 3.028 foram finalizados (26%). Destes, 99.4% geraram comissao. O desafio real e aumentar a conversao do funil, nao a cobranca de comissao.</strong></div>
       </div>
 
       <div class="chart-card">
@@ -263,31 +263,101 @@
   <!-- TOP PARTNERS -->
   <div class="section">
     <div class="section-title">Top Parceiros & Margem Real <span class="badge">Supply Side</span></div>
-    <div class="section-subtitle">GMV = valor cobrado ao cliente. Pago = valor transferido ao parceiro. Receita Ambula = diferenca (comissao). Take rate efectivo: 7.7% global.</div>
+    <div class="section-subtitle">GMV = valor cobrado ao cliente (todos os estados). Pago = valor transferido ao parceiro. Receita Ambula = diferenca (comissao). Take rate nos finalizados: 29.5%.</div>
 
     <div class="card">
       <table class="data-table">
         <thead>
-          <tr><th>Empresa</th><th>Agend.</th><th>GMV (Cliente)</th><th>Pago (Parceiro)</th><th>Receita Ambula</th><th>Take Rate</th></tr>
+          <tr><th>Empresa</th><th>Total Agend.</th><th>Finalizados</th><th>GMV (Cliente)</th><th>Comissao Ambula</th><th>Take Rate</th><th>&euro;/Servico</th></tr>
         </thead>
         <tbody>
-          <tr><td class="highlight">Amb. Saint Martin</td><td class="num">914</td><td class="num">&euro;90.341</td><td class="num">&euro;69.523</td><td class="num" style="color:var(--green);font-weight:700">&euro;20.803</td><td class="num" style="font-weight:700">23.0%</td></tr>
-          <tr><td class="highlight">+Mobilidade, Lda</td><td class="num">551</td><td class="num">&euro;53.427</td><td class="num">&euro;41.720</td><td class="num" style="color:var(--green);font-weight:700">&euro;11.693</td><td class="num" style="font-weight:700">21.9%</td></tr>
-          <tr><td class="highlight">A.S.V.CELA</td><td class="num">478</td><td class="num">&euro;46.519</td><td class="num">&euro;36.935</td><td class="num" style="color:var(--green);font-weight:700">&euro;9.508</td><td class="num" style="font-weight:700">20.4%</td></tr>
-          <tr><td>Paramedicos Catastrofe</td><td class="num">108</td><td class="num">&euro;15.670</td><td class="num">&euro;10.858</td><td class="num" style="color:var(--green)">&euro;4.062</td><td class="num">25.9%</td></tr>
-          <tr><td>Ambatlantico Amb.</td><td class="num">41</td><td class="num">&euro;7.768</td><td class="num">&euro;3.956</td><td class="num" style="color:var(--green)">&euro;2.812</td><td class="num" style="color:var(--green);font-weight:700">36.2%</td></tr>
-          <tr><td>Vouga Coimbra</td><td class="num">55</td><td class="num">&euro;8.252</td><td class="num">&euro;6.449</td><td class="num" style="color:var(--green)">&euro;1.802</td><td class="num">21.8%</td></tr>
-          <tr><td>AMBFAF</td><td class="num">108</td><td class="num">&euro;9.608</td><td class="num">&euro;7.747</td><td class="num" style="color:var(--green)">&euro;1.792</td><td class="num">18.7%</td></tr>
-          <tr><td>Fenix Ambulancia</td><td class="num">77</td><td class="num">&euro;7.457</td><td class="num">&euro;5.912</td><td class="num" style="color:var(--green)">&euro;1.545</td><td class="num">20.7%</td></tr>
+          <tr><td class="highlight">Amb. Saint Martin</td><td class="num">914</td><td class="num">907</td><td class="num">&euro;77.005</td><td class="num" style="color:var(--green);font-weight:700">&euro;23.431</td><td class="num" style="font-weight:700">30.4%</td><td class="num">&euro;26</td></tr>
+          <tr><td class="highlight">+Mobilidade, Lda</td><td class="num">551</td><td class="num">548</td><td class="num">&euro;47.311</td><td class="num" style="color:var(--green);font-weight:700">&euro;13.559</td><td class="num" style="font-weight:700">28.7%</td><td class="num">&euro;25</td></tr>
+          <tr><td class="highlight">A.S.V.CELA</td><td class="num">478</td><td class="num">464</td><td class="num">&euro;37.291</td><td class="num" style="color:var(--green);font-weight:700">&euro;9.958</td><td class="num" style="font-weight:700">26.7%</td><td class="num">&euro;21</td></tr>
+          <tr><td>Allavarium Tours</td><td class="num">—</td><td class="num">119</td><td class="num">&euro;1.428</td><td class="num" style="color:var(--green)">&euro;372</td><td class="num">26.1%</td><td class="num">&euro;3</td></tr>
+          <tr><td>Paramedicos Catastrofe</td><td class="num">108</td><td class="num">107</td><td class="num">&euro;11.035</td><td class="num" style="color:var(--green)">&euro;4.294</td><td class="num" style="color:var(--green);font-weight:700">38.9%</td><td class="num">&euro;40</td></tr>
+          <tr><td>AMBFAF</td><td class="num">108</td><td class="num">101</td><td class="num">&euro;8.114</td><td class="num" style="color:var(--green)">&euro;2.004</td><td class="num">24.7%</td><td class="num">&euro;20</td></tr>
+          <tr><td>Impactepisode Lda</td><td class="num">—</td><td class="num">86</td><td class="num">&euro;5.387</td><td class="num" style="color:var(--green)">&euro;1.369</td><td class="num">25.4%</td><td class="num">&euro;16</td></tr>
+          <tr><td>Fenix Ambulancia</td><td class="num">77</td><td class="num">75</td><td class="num">&euro;5.877</td><td class="num" style="color:var(--green)">&euro;1.566</td><td class="num">26.6%</td><td class="num">&euro;21</td></tr>
+          <tr><td>Invicta Ambulancias</td><td class="num">—</td><td class="num">56</td><td class="num">&euro;5.273</td><td class="num" style="color:var(--green)">&euro;1.385</td><td class="num">26.3%</td><td class="num">&euro;25</td></tr>
+          <tr><td>SPT Ambulancias</td><td class="num">—</td><td class="num">55</td><td class="num">&euro;5.296</td><td class="num" style="color:var(--green)">&euro;1.525</td><td class="num">28.8%</td><td class="num">&euro;28</td></tr>
+          <tr><td>Vouga Coimbra</td><td class="num">55</td><td class="num">52</td><td class="num">&euro;6.550</td><td class="num" style="color:var(--green)">&euro;1.867</td><td class="num">28.5%</td><td class="num">&euro;36</td></tr>
+          <tr><td>Amb. Pires e Justo</td><td class="num">—</td><td class="num">46</td><td class="num">&euro;6.571</td><td class="num" style="color:var(--green)">&euro;1.582</td><td class="num">24.1%</td><td class="num">&euro;34</td></tr>
+          <tr><td>Ambatlantico Amb.</td><td class="num">41</td><td class="num">—</td><td class="num">&euro;7.768</td><td class="num" style="color:var(--green)">&euro;2.812</td><td class="num" style="color:var(--green);font-weight:700">36.2%</td><td class="num">—</td></tr>
+          <tr style="background:var(--gray-50);font-weight:600"><td>Outros (27 empresas)</td><td class="num">—</td><td class="num">349</td><td class="num">&euro;26.517</td><td class="num" style="color:var(--green)">&euro;7.497</td><td class="num">28.3%</td><td class="num">&euro;21</td></tr>
+          <tr style="background:var(--navy);color:white;font-weight:700"><td>TOTAL</td><td class="num">11.498</td><td class="num">3.011</td><td class="num">&euro;251.423</td><td class="num">&euro;74.221</td><td class="num">29.5%</td><td class="num">&euro;25</td></tr>
         </tbody>
       </table>
     </div>
 
-    <div class="chart-comment warn" style="margin-bottom:16px"><strong>Dado critico:</strong> Dos 11.498 agendamentos totais, apenas 38.6% geram comissao para a Ambula. Os restantes 61.4% passam pela plataforma sem receita. Nos bookings COM comissao, o take rate medio e ~22% — mas diluido pelo total, fica em 7.7%. <strong>Prioridade: garantir comissao em 100% dos agendamentos.</strong></div>
+    <div class="alert-box" style="background: var(--green-light); border-color: var(--green);">
+      <div class="alert-title" style="color: var(--green);">Comissao: Bem Cobrada</div>
+      <p>Dos 3.028 servicos finalizados, <strong>3.011 (99.4%) geraram comissao</strong>. Apenas 17 passaram sem comissao (acordos especiais). O take rate real nos finalizados e de 29.5% — muito acima dos 7.7% que aparecia quando se diluia por todos os agendamentos (incluindo simulacoes).</p>
+    </div>
+
+    <div class="chart-comment warn" style="margin-top:16px;margin-bottom:16px"><strong>Funil real:</strong> Dos 11.498 agendamentos, 74% ficam em Simulacao (nunca convertem), 4% sao cancelados, e <strong>26% chegam a Finalizado</strong> (3.028 servicos). A comissao esta a ser cobrada correctamente em 99.4% dos finalizados. O desafio e converter mais simulacoes em servicos — nao ha fuga de comissao.</div>
 
     <div class="alert-box">
       <div class="alert-title">Risco de Concentracao</div>
-      <p>Saint Martin + Mobilidade + CELA = 66% do volume e 62% da receita Ambula. Se um destes parceiros sair, o impacto e devastador. Prioridade: diversificar a base de supply e activar os 30 parceiros dormentes.</p>
+      <p>Saint Martin + Mobilidade + CELA = 64% dos servicos finalizados e 63% da comissao Ambula. Se um destes parceiros sair, o impacto e devastador. Prioridade: diversificar a base de supply e activar os 30 parceiros dormentes.</p>
+    </div>
+  </div>
+
+  <!-- DEBT & PAYMENT -->
+  <div class="section">
+    <div class="section-title">Divida & Cobranças <span class="badge" style="background:var(--red-light);color:var(--red)">Cash Flow</span></div>
+    <div class="section-subtitle">~50 transportes identificados com problemas de pagamento, bugs, ou servicos nao realizados. €12K reportados pela gestao como irrecuperaveis.</div>
+
+    <div class="kpi-grid" style="margin:0 0 20px;grid-template-columns:repeat(4,1fr)">
+      <div class="kpi-card red">
+        <div class="kpi-label">Divida Total Reportada</div>
+        <div class="kpi-value">&euro;12K</div>
+        <div class="kpi-detail">~50 transportes com problemas</div>
+        <span class="kpi-trend down">irrecuperavel segundo gestao</span>
+      </div>
+      <div class="kpi-card amber">
+        <div class="kpi-label">Cobranca Extrajudicial</div>
+        <div class="kpi-value">&euro;2.696</div>
+        <div class="kpi-detail">33 servicos tagados no Airtable</div>
+        <span class="kpi-trend down">todos via PINPAY</span>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Diferenca por Apurar</div>
+        <div class="kpi-value">~&euro;9.3K</div>
+        <div class="kpi-detail">~17 transportes adicionais</div>
+        <span class="kpi-trend down">bugs + pagamentos em falta</span>
+      </div>
+      <div class="kpi-card green">
+        <div class="kpi-label">Solucao</div>
+        <div class="kpi-value">Prepay</div>
+        <div class="kpi-detail">Pagamento upfront obrigatorio</div>
+        <span class="kpi-trend up">elimina risco de divida futura</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Cobrança Extrajudicial por Parceiro <span class="badge" style="background:var(--red-light);color:var(--red)">33 Serviços</span></div>
+      <table class="data-table">
+        <thead>
+          <tr><th>Parceiro</th><th>Servicos</th><th>Valor em Divida</th><th>% do Total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="highlight">+Mobilidade, Lda</td><td class="num">11</td><td class="num" style="color:var(--red);font-weight:700">&euro;973</td><td class="num">36%</td></tr>
+          <tr><td class="highlight">A.S.V.CELA</td><td class="num">9</td><td class="num" style="color:var(--red);font-weight:700">&euro;729</td><td class="num">27%</td></tr>
+          <tr><td class="highlight">Amb. Saint Martin</td><td class="num">9</td><td class="num" style="color:var(--red);font-weight:700">&euro;650</td><td class="num">24%</td></tr>
+          <tr><td>Amb. Vouga Coimbra</td><td class="num">2</td><td class="num" style="color:var(--red)">&euro;185</td><td class="num">7%</td></tr>
+          <tr><td>Fenix Ambulancia</td><td class="num">1</td><td class="num" style="color:var(--red)">&euro;109</td><td class="num">4%</td></tr>
+          <tr><td>AMBFAF</td><td class="num">1</td><td class="num" style="color:var(--red)">&euro;49</td><td class="num">2%</td></tr>
+          <tr style="background:var(--navy);color:white;font-weight:700"><td>TOTAL EXTRAJUDICIAL</td><td class="num">33</td><td class="num">&euro;2.696</td><td class="num">100%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="chart-comment danger" style="margin-bottom:16px"><strong>O que aconteceu (confirmado pelo Valdemir):</strong> Dos ~50 transportes problemáticos, os problemas incluem: <strong>(1)</strong> pagamento em falta — cliente recebeu serviço mas nunca pagou; <strong>(2)</strong> bug no site que marcou pagamentos como "aprovado" quando não estavam; <strong>(3)</strong> serviços marcados como finalizados no Airtable que na realidade não foram concluídos ou pagos. Os dados não são apagados — são tagados com o tipo de problema na tabela final. Os 33 em cobrança extrajudicial (€2.7K) são os formalmente identificados; os restantes ~17 (~€9.3K) estão em análise.</div>
+
+    <div class="alert-box" style="background:var(--red-light);border-color:var(--red);">
+      <div class="alert-title" style="color:var(--red);">Accao Imediata: Pagamento Upfront</div>
+      <p>O modelo actual permite que serviços sejam realizados antes do pagamento estar confirmado. Isto criou €12K de divida irrecuperavel. <strong>Recomendação:</strong> (1) Pagamento upfront obrigatório — o cliente paga antes de o serviço ser confirmado ao parceiro. Nunca ao contrário. (2) Corrigir o bug que marca pagamentos como aprovados incorrectamente. (3) Reconciliar os ~17 transportes adicionais por apurar. Com 100 cancelamentos por pagamento ja identificados no funil, este flow tambem recupera 5-8pp de conversao. Valdemir a implementar ate 18 Abr.</p>
     </div>
   </div>
 
