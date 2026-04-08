@@ -170,28 +170,28 @@
   <!-- KPI GRID -->
   <div class="kpi-grid">
     <div class="kpi-card">
-      <div class="kpi-label">GMV (Cobrado ao Cliente)</div>
-      <div class="kpi-value">&euro;1.385M</div>
-      <div class="kpi-detail">11.498 agendamentos historico</div>
+      <div class="kpi-label">GMV Finalizados</div>
+      <div class="kpi-value">&euro;359K</div>
+      <div class="kpi-detail">3.028 servicos finalizados</div>
       <span class="kpi-trend down">-15% m/m desde Jan</span>
     </div>
     <div class="kpi-card amber">
       <div class="kpi-label">Pago a Parceiros</div>
-      <div class="kpi-value">&euro;1.277M</div>
-      <div class="kpi-detail">92.2% do GMV vai para ambulancias</div>
-      <span class="kpi-trend neutral">64 empresas registadas</span>
+      <div class="kpi-value">&euro;253K</div>
+      <div class="kpi-detail">70.5% do GMV finalizado</div>
+      <span class="kpi-trend neutral">~20 parceiros activos</span>
     </div>
     <div class="kpi-card green">
       <div class="kpi-label">Receita Ambula</div>
       <div class="kpi-value">&euro;106K</div>
-      <div class="kpi-detail">Take rate efectivo: 7.7%</div>
-      <span class="kpi-trend up">99.4% dos finalizados com comissao</span>
+      <div class="kpi-detail">Take rate: 29.5% dos finalizados</div>
+      <span class="kpi-trend up">99.4% com comissao cobrada</span>
     </div>
     <div class="kpi-card purple">
-      <div class="kpi-label">Ticket Medio / Pipeline</div>
-      <div class="kpi-value">&euro;120</div>
-      <div class="kpi-detail">GMV/booking &middot; 513 leads B2B</div>
-      <span class="kpi-trend up">75% por contactar</span>
+      <div class="kpi-label">Ticket Medio Finalizado</div>
+      <div class="kpi-value">&euro;119</div>
+      <div class="kpi-detail">GMV/servico finalizado</div>
+      <span class="kpi-trend up">513 leads B2B &middot; 75% por contactar</span>
     </div>
   </div>
 
@@ -231,7 +231,7 @@
       <div class="chart-card full">
         <div class="card-title">Volume de Agendamentos & Receita Mensal</div>
         <canvas id="revenueChart"></canvas>
-        <div class="chart-comment warn"><strong>Pico em Nov-Dez 2025</strong> (936 agendamentos, €152K GMV) seguido de queda sustentada. Janeiro-Março 2026 mostra retração de ~15% m/m. A comissão Ambula acompanha a queda — de €6.4K (Nov) para €4.4K (Mar). <strong>Dos 11.498 agendamentos, apenas 3.028 foram finalizados (26%). Destes, 99.4% geraram comissao. O desafio real e aumentar a conversao do funil, nao a cobranca de comissao.</strong></div>
+        <div class="chart-comment warn"><strong>Pico em Nov-Dez 2025</strong> seguido de queda sustentada. Janeiro-Marco 2026 mostra retracao de ~15% m/m. A comissao Ambula acompanha a queda — de €6.4K (Nov) para €4.4K (Mar). <strong>3.028 servicos finalizados = €359K GMV, €106K receita Ambula (take rate 29.5%). 99.4% dos finalizados com comissao cobrada. O desafio real e aumentar a conversao do funil (apenas 26% finalizam).</strong></div>
       </div>
 
       <div class="chart-card">
@@ -306,26 +306,26 @@
   <!-- DEBT & PAYMENT -->
   <div class="section">
     <div class="section-title">Divida & Cobranças <span class="badge" style="background:var(--red-light);color:var(--red)">Cash Flow</span></div>
-    <div class="section-subtitle">~50 transportes identificados com problemas de pagamento, bugs, ou servicos nao realizados. €12K reportados pela gestao como irrecuperaveis.</div>
+    <div class="section-subtitle">~50 transportes identificados com problemas de pagamento, bugs, ou servicos nao realizados. €12K estimativa inicial, nao reportada oficialmente.</div>
 
     <div class="kpi-grid" style="margin:0 0 20px;grid-template-columns:repeat(4,1fr)">
       <div class="kpi-card red">
-        <div class="kpi-label">Divida Total Reportada</div>
+        <div class="kpi-label">Divida Total Estimada</div>
         <div class="kpi-value">&euro;12K</div>
         <div class="kpi-detail">~50 transportes com problemas</div>
-        <span class="kpi-trend down">irrecuperavel segundo gestao</span>
+        <span class="kpi-trend down">estimativa inicial, por confirmar</span>
       </div>
       <div class="kpi-card amber">
         <div class="kpi-label">Cobranca Extrajudicial</div>
         <div class="kpi-value">&euro;2.696</div>
-        <div class="kpi-detail">33 servicos tagados no Airtable</div>
-        <span class="kpi-trend down">todos via PINPAY</span>
+        <div class="kpi-detail">33 servicos — pago ao prestador, nao recebido do cliente</div>
+        <span class="kpi-trend down">Ambula ficou a descoberto</span>
       </div>
       <div class="kpi-card">
-        <div class="kpi-label">Diferenca por Apurar</div>
+        <div class="kpi-label">Em Analise (Valdemir)</div>
         <div class="kpi-value">~&euro;9.3K</div>
         <div class="kpi-detail">~17 transportes adicionais</div>
-        <span class="kpi-trend down">bugs + pagamentos em falta</span>
+        <span class="kpi-trend down">bugs + falsa finalizacao + fraude parceiro</span>
       </div>
       <div class="kpi-card green">
         <div class="kpi-label">Solucao</div>
@@ -336,7 +336,7 @@
     </div>
 
     <div class="card">
-      <div class="card-title">Cobrança Extrajudicial por Parceiro <span class="badge" style="background:var(--red-light);color:var(--red)">33 Serviços</span></div>
+      <div class="card-title">Cobranca Extrajudicial por Parceiro — Pago ao Prestador, Nao Recebido do Cliente <span class="badge" style="background:var(--red-light);color:var(--red)">33 Servicos</span></div>
       <table class="data-table">
         <thead>
           <tr><th>Parceiro</th><th>Servicos</th><th>Valor em Divida</th><th>% do Total</th></tr>
@@ -353,11 +353,11 @@
       </table>
     </div>
 
-    <div class="chart-comment danger" style="margin-bottom:16px"><strong>O que aconteceu (confirmado pelo Valdemir):</strong> Dos ~50 transportes problemáticos, os problemas incluem: <strong>(1)</strong> pagamento em falta — cliente recebeu serviço mas nunca pagou; <strong>(2)</strong> bug no site que marcou pagamentos como "aprovado" quando não estavam; <strong>(3)</strong> serviços marcados como finalizados no Airtable que na realidade não foram concluídos ou pagos. Os dados não são apagados — são tagados com o tipo de problema na tabela final. Os 33 em cobrança extrajudicial (€2.7K) são os formalmente identificados; os restantes ~17 (~€9.3K) estão em análise.</div>
+    <div class="chart-comment danger" style="margin-bottom:16px"><strong>O que aconteceu (confirmado pelo Valdemir):</strong><br><br><strong>33 servicos em cobranca extrajudicial (€2.7K):</strong> Servicos realizados e pagos ao prestador pela Ambula, mas cujo pagamento nunca foi recebido do cliente. A Ambula ficou a descoberto — dinheiro saiu mas nao entrou.<br><br><strong>~17 transportes adicionais em analise (~€9.3K):</strong> Segundo o Valdemir, as causas incluem: <strong>(1)</strong> pagamento em falta — cliente usou o servico mas nunca pagou; <strong>(2)</strong> bug no site que marcou pagamentos como "aprovado" quando nao estavam; <strong>(3)</strong> falsa finalizacao — servicos marcados como finalizados no Airtable que na realidade nao foram concluidos ou pagos; <strong>(4)</strong> possivel fraude do parceiro — prestador liga diretamente ao cliente, recebe o pagamento em mao (€), marca o servico como finalizado, e em alguns casos recebe a dobrar (do cliente em cash + transferencia da Ambula). Estes ~17 estao a ser reconciliados caso a caso pelo Valdemir.</div>
 
     <div class="alert-box" style="background:var(--red-light);border-color:var(--red);">
       <div class="alert-title" style="color:var(--red);">Accao Imediata: Pagamento Upfront</div>
-      <p>O modelo actual permite que serviços sejam realizados antes do pagamento estar confirmado. Isto criou €12K de divida irrecuperavel. <strong>Recomendação:</strong> (1) Pagamento upfront obrigatório — o cliente paga antes de o serviço ser confirmado ao parceiro. Nunca ao contrário. (2) Corrigir o bug que marca pagamentos como aprovados incorrectamente. (3) Reconciliar os ~17 transportes adicionais por apurar. Com 100 cancelamentos por pagamento ja identificados no funil, este flow tambem recupera 5-8pp de conversao. Valdemir a implementar ate 18 Abr.</p>
+      <p>O modelo actual permite que serviços sejam realizados antes do pagamento estar confirmado. Isto criou uma divida estimada inicialmente em €12K (valor nao reportado oficialmente). <strong>Recomendação:</strong> (1) Pagamento upfront obrigatório — o cliente paga antes de o serviço ser confirmado ao parceiro. Nunca ao contrário. (2) Corrigir o bug que marca pagamentos como aprovados incorrectamente. (3) Reconciliar os ~17 transportes adicionais por apurar. Com 100 cancelamentos por pagamento ja identificados no funil, este flow tambem recupera 5-8pp de conversao. Valdemir a implementar ate 18 Abr.</p>
     </div>
   </div>
 
