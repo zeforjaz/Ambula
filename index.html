@@ -3,676 +3,1000 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMBULA — Report Operacional Abril 2026</title>
+<title>Ambula — Report Operacional · Abril 2026</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
 
   :root {
-    --navy: #0F1D3D;
-    --blue: #2563EB;
-    --blue-light: #3B82F6;
-    --sky: #E0F2FE;
-    --amber: #F59E0B;
-    --amber-light: #FEF3C7;
-    --green: #10B981;
-    --green-light: #D1FAE5;
-    --red: #EF4444;
-    --red-light: #FEE2E2;
-    --purple: #8B5CF6;
-    --purple-light: #EDE9FE;
-    --gray-50: #F9FAFB;
-    --gray-100: #F3F4F6;
-    --gray-200: #E5E7EB;
-    --gray-300: #D1D5DB;
-    --gray-500: #6B7280;
-    --gray-700: #374151;
-    --gray-900: #111827;
+    --ink: #0F172A;
+    --ink-2: #1e293b;
+    --ink-3: #64748b;
+    --ink-4: #94a3b8;
+    --paper: #f6f9fc;
+    --paper-2: #eef4fa;
+    --card: #ffffff;
+    --line: #dbe4ef;
+    --line-2: #e6edf5;
+    --brand: #0067FF;
+    --brand-dark: #005EE9;
+    --brand-soft: #E7F6FF;
+    --accent: #07223f;
+    --accent-soft: #d1dae5;
+    --danger: #d92d20;
+    --danger-soft: #fde7e5;
+    --warn: #b54708;
+    --warn-soft: #fef3e8;
+    --r: 12px;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--gray-50); color: var(--gray-900); line-height: 1.6; }
+  html { -webkit-font-smoothing: antialiased; }
+  body {
+    font-family: 'Rubik', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+  }
 
-  .header { background: linear-gradient(135deg, var(--navy) 0%, #1E3A6E 100%); color: white; padding: 48px 0; }
-  .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-  .header h1 { font-size: 42px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
-  .header .subtitle { font-size: 18px; color: #93C5FD; font-weight: 400; }
-  .header .date { font-size: 14px; color: #60A5FA; margin-top: 12px; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
 
-  .container { max-width: 1200px; margin: 0 auto; padding: 32px; }
+  /* ─── Hero (compact) ──────────────────────────────── */
+  .hero { padding: 36px 0 28px; border-bottom: 1px solid var(--line); }
+  .hero-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
+  .hero-title-block { flex: 1 1 auto; }
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .hero h1 .accent { color: var(--brand); font-weight: 500; }
+  .hero-lead {
+    font-size: 13.5px;
+    color: var(--ink-3);
+    max-width: 640px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 24px;
+    font-size: 10px;
+    color: var(--ink-3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+  .hero-meta span { display: block; }
+  .hero-meta strong { color: var(--ink); font-weight: 600; letter-spacing: 0; text-transform: none; font-size: 12px; margin-top: 2px; display: block; }
 
-  /* KPI Grid */
-  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: -40px 0 32px; position: relative; z-index: 10; }
-  .kpi-card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); border-left: 4px solid var(--blue); }
-  .kpi-card.amber { border-left-color: var(--amber); }
-  .kpi-card.green { border-left-color: var(--green); }
-  .kpi-card.red { border-left-color: var(--red); }
-  .kpi-card.purple { border-left-color: var(--purple); }
-  .kpi-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--gray-500); margin-bottom: 4px; }
-  .kpi-value { font-size: 28px; font-weight: 800; color: var(--gray-900); }
-  .kpi-detail { font-size: 12px; color: var(--gray-500); margin-top: 4px; }
-  .kpi-trend { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 12px; margin-top: 6px; }
-  .kpi-trend.up { background: var(--green-light); color: #059669; }
-  .kpi-trend.down { background: var(--red-light); color: #DC2626; }
-  .kpi-trend.neutral { background: var(--gray-100); color: var(--gray-500); }
+  /* ─── Section framing (tight) ─────────────────────── */
+  section { padding: 36px 0; border-bottom: 1px solid var(--line); }
+  section.dark { background: var(--paper-2); }
+  .section-head { margin-bottom: 24px; display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 12px; }
+  .section-head-left { flex: 1 1 auto; min-width: 0; }
+  .section-num {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-right: 10px;
+  }
+  .section-title {
+    display: inline;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+  .section-title em { font-style: normal; font-weight: 400; color: var(--ink-3); }
+  .section-lead {
+    font-size: 12.5px;
+    color: var(--ink-3);
+    line-height: 1.5;
+    max-width: 640px;
+    margin-top: 6px;
+  }
 
-  /* Section */
-  .section { margin-bottom: 40px; }
-  .section-title { font-size: 24px; font-weight: 700; color: var(--navy); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
-  .section-title .badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 12px; background: var(--sky); color: var(--blue); }
-  .section-subtitle { font-size: 14px; color: var(--gray-500); margin-bottom: 20px; }
+  /* ─── Stat rows (tight) ───────────────────────────── */
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
+  .stat {
+    padding: 16px 18px 16px 0;
+    border-right: 1px solid var(--line);
+  }
+  .stat:last-child { border-right: none; padding-right: 0; }
+  .stat-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 6px;
+  }
+  .stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .stat-detail { font-size: 11.5px; color: var(--ink-3); line-height: 1.4; }
+  .stat-trend {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    margin-top: 6px;
+    color: var(--ink-2);
+    letter-spacing: 0.02em;
+  }
+  .stat-trend.up::before { content: "↑ "; color: var(--brand); }
+  .stat-trend.down::before { content: "↓ "; color: var(--danger); }
+  .stat-trend.flat::before { content: "→ "; color: var(--ink-4); }
 
-  /* Cards */
-  .card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 1px 8px rgba(0,0,0,0.06); margin-bottom: 20px; }
-  .card-title { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 16px; }
+  .stat-grid.two-row { border-bottom: 1px solid var(--line); }
+  .stat-grid.two-row > .stat { border-bottom: 1px solid var(--line); padding-bottom: 16px; padding-top: 16px; }
+  .stat-grid.two-row > .stat:nth-child(n+5) { border-bottom: none; padding-bottom: 0; }
 
-  /* Chart containers */
-  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .chart-card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 1px 8px rgba(0,0,0,0.06); }
-  .chart-card canvas { max-height: 300px; }
-  .chart-card.full { grid-column: 1 / -1; }
-  .chart-comment { margin-top: 12px; padding: 10px 14px; background: var(--gray-50); border-left: 3px solid var(--blue); border-radius: 0 6px 6px 0; font-size: 12px; color: var(--gray-700); line-height: 1.5; }
-  .chart-comment strong { color: var(--navy); }
-  .chart-comment.warn { border-left-color: var(--amber); background: #FFFBEB; }
-  .chart-comment.danger { border-left-color: var(--red); background: #FEF2F2; }
-  .chart-comment.good { border-left-color: var(--green); background: #F0FDF4; }
+  /* ─── Chart blocks (compact) ──────────────────────── */
+  .chart-block {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    padding: 18px 22px;
+    margin-bottom: 16px;
+  }
+  .chart-block.full { width: 100%; }
+  .chart-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--line-2); }
+  .chart-title { font-size: 13px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
+  .chart-sub { font-size: 10.5px; color: var(--ink-3); letter-spacing: 0.03em; }
+  .chart-canvas-wrap { position: relative; height: 240px; }
+  .chart-canvas-wrap.sm { height: 180px; }
+  .chart-note {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--line-2);
+    font-size: 11.5px;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+  .chart-note strong { color: var(--ink); font-weight: 600; }
+  .chart-note.warn { color: var(--warn); }
+  .chart-note.warn strong { color: #6b4600; }
+  .chart-note.danger { color: var(--danger); }
+  .chart-note.danger strong { color: #6b1c1c; }
+  .chart-note.good { color: var(--brand); }
+  .chart-note.good strong { color: var(--brand-dark); }
 
-  /* Tables */
-  .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .data-table th { background: var(--navy); color: white; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .data-table th:first-child { border-radius: 8px 0 0 0; }
-  .data-table th:last-child { border-radius: 0 8px 0 0; }
-  .data-table td { padding: 10px 14px; border-bottom: 1px solid var(--gray-100); }
-  .data-table tr:nth-child(even) { background: var(--gray-50); }
-  .data-table tr:hover { background: var(--sky); }
-  .data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
-  .data-table .highlight { font-weight: 700; color: var(--blue); }
+  .chart-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .chart-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 
-  /* Progress bars */
-  .progress-bar { height: 8px; background: var(--gray-100); border-radius: 4px; overflow: hidden; margin-top: 4px; }
-  .progress-fill { height: 100%; border-radius: 4px; transition: width 0.5s; }
-  .progress-fill.blue { background: var(--blue); }
-  .progress-fill.green { background: var(--green); }
-  .progress-fill.amber { background: var(--amber); }
-  .progress-fill.red { background: var(--red); }
+  /* ─── Tables (compact) ────────────────────────────── */
+  .table-wrap { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+  .table-header { padding: 12px 18px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+  .table-header h3 { font-size: 13px; font-weight: 700; letter-spacing: -0.005em; }
+  .table-header .tag {
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 100px;
+    background: var(--paper);
+    color: var(--ink-2);
+    border: 1px solid var(--line);
+  }
+  .data-table { width: 100%; border-collapse: collapse; }
+  .data-table th {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    text-align: left;
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+  }
+  .data-table td {
+    padding: 10px 18px;
+    font-size: 12.5px;
+    color: var(--ink-2);
+    border-bottom: 1px solid var(--line-2);
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table .num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
+  .data-table .name { color: var(--ink); font-weight: 500; }
+  .data-table .lead { color: var(--ink); font-weight: 600; }
+  .data-table .rev { color: var(--brand); font-weight: 600; }
+  .data-table .neg { color: var(--danger); font-weight: 600; }
+  .data-table tr.total { background: var(--paper); }
+  .data-table tr.total td { color: var(--ink); font-weight: 700; border-top: 1px solid var(--ink); border-bottom: none; padding-top: 20px; padding-bottom: 20px; }
 
-  /* Fase 1 Alignment */
-  .fase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .fase-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 1px 8px rgba(0,0,0,0.06); border-top: 3px solid var(--gray-200); }
-  .fase-card.on-track { border-top-color: var(--green); }
-  .fase-card.at-risk { border-top-color: var(--amber); }
-  .fase-card.behind { border-top-color: var(--red); }
-  .fase-card .fase-num { font-size: 11px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 1px; }
-  .fase-card .fase-title { font-size: 16px; font-weight: 700; color: var(--navy); margin: 4px 0 8px; }
-  .fase-card .fase-status { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 12px; }
-  .fase-card .fase-status.green { background: var(--green-light); color: #059669; }
-  .fase-card .fase-status.amber { background: var(--amber-light); color: #B45309; }
-  .fase-card .fase-status.red { background: var(--red-light); color: #DC2626; }
-  .fase-card .fase-body { font-size: 13px; color: var(--gray-700); margin-top: 12px; }
-  .fase-card .fase-data { font-size: 12px; color: var(--gray-500); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--gray-100); }
-  .fase-card .fase-data strong { color: var(--gray-700); }
+  /* ─── Callouts (compact) ──────────────────────────── */
+  .callout {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-top: 12px;
+    border-left: 3px solid var(--brand);
+    background: var(--brand-soft);
+  }
+  .callout.warn { border-left-color: var(--warn); background: var(--warn-soft); }
+  .callout.danger { border-left-color: var(--danger); background: var(--danger-soft); }
+  .callout h4 {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand-dark);
+    margin-bottom: 4px;
+  }
+  .callout.warn h4 { color: var(--warn); }
+  .callout.danger h4 { color: var(--danger); }
+  .callout p { font-size: 12px; color: var(--ink-2); line-height: 1.55; }
+  .callout p strong { color: var(--ink); font-weight: 600; }
+  .callout p + p { margin-top: 6px; }
+  .callout + .callout { margin-top: 8px; }
 
-  /* Sprint Plan */
+  /* ─── Fase Cards (grid) ───────────────────────────── */
+  .fase-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .fase {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .fase-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .fase-num {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+  }
+  .fase-status {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 100px;
+  }
+  .fase-status.on { background: var(--brand-soft); color: var(--brand-dark); }
+  .fase-status.risk { background: var(--warn-soft); color: var(--warn); }
+  .fase-status.off { background: var(--danger-soft); color: var(--danger); }
+  .fase h3 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .fase-meta { font-size: 10.5px; color: var(--ink-3); margin-bottom: 6px; }
+  .fase-meta strong { color: var(--ink-2); font-weight: 500; }
+  .fase-body { font-size: 11.5px; color: var(--ink-2); line-height: 1.5; padding-top: 6px; border-top: 1px dashed var(--line); }
+
+  /* ─── Team grid ───────────────────────────────────── */
+  .team-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .team-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .team-card.hire { background: var(--accent-soft); border-color: var(--accent); border-style: dashed; }
+  .team-name { font-size: 13px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 2px; }
+  .team-role { font-size: 9.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px; }
+  .team-desc { font-size: 11px; color: var(--ink-2); line-height: 1.4; padding-top: 6px; border-top: 1px solid var(--line-2); }
+  .team-card.hire .team-role { color: var(--accent); }
+
+  /* ─── Sprint table (compact) ──────────────────────── */
   .sprint-table { width: 100%; border-collapse: collapse; }
-  .sprint-table th { background: var(--navy); color: white; padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 600; text-transform: uppercase; }
-  .sprint-table td { padding: 12px 16px; border-bottom: 1px solid var(--gray-100); font-size: 13px; }
-  .sprint-table tr:hover { background: var(--sky); }
-  .sprint-table th:first-child { border-radius: 8px 0 0 0; }
-  .sprint-table th:last-child { border-radius: 0 8px 0 0; }
-  .tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-right: 4px; }
-  .tag.supply { background: #DBEAFE; color: #1D4ED8; }
-  .tag.demand { background: #FEF3C7; color: #B45309; }
-  .tag.ops { background: #D1FAE5; color: #059669; }
-  .tag.finance { background: #EDE9FE; color: #6D28D9; }
-  .tag.b2b { background: #FCE7F3; color: #BE185D; }
-  .tag.media { background: #FFF7ED; color: #C2410C; }
+  .sprint-table th {
+    text-align: left;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+  }
+  .sprint-table td { padding: 10px 14px; border-bottom: 1px solid var(--line-2); font-size: 11.5px; color: var(--ink-2); vertical-align: top; }
+  .sprint-table tr:last-child td { border-bottom: none; }
+  .sprint-table .idx { color: var(--ink-4); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .sprint-table .action { color: var(--ink); font-weight: 600; font-size: 12.5px; display: block; margin-bottom: 2px; letter-spacing: -0.005em; }
+  .sprint-table .subtext { font-size: 11px; color: var(--ink-3); line-height: 1.4; }
+  .pill {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 100px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    color: var(--ink-2);
+  }
+  .pill.b2b { background: var(--brand-soft); color: var(--brand-dark); border-color: #b8def9; }
+  .pill.ops { background: var(--warn-soft); color: var(--warn); border-color: #f7d9b8; }
+  .pill.supply { background: #eef2f7; color: var(--accent); border-color: var(--accent-soft); }
+  .pill.media { background: #ede8ff; color: #5b3ec7; border-color: #dcd3f5; }
+  .pill.fin { background: #e8f7ef; color: #0e7c3e; border-color: #c3e9d2; }
 
-  /* Media section */
-  .insight-box { background: linear-gradient(135deg, #FFF7ED 0%, #FEF3C7 100%); border-radius: 12px; padding: 20px; margin: 16px 0; border-left: 4px solid var(--amber); }
-  .insight-box .insight-title { font-size: 14px; font-weight: 700; color: #92400E; margin-bottom: 8px; }
-  .insight-box p { font-size: 13px; color: #78350F; }
+  /* ─── Footer ──────────────────────────────────────── */
+  footer {
+    padding: 24px 0;
+    text-align: center;
+    font-size: 10px;
+    color: var(--ink-4);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
 
-  .alert-box { background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%); border-radius: 12px; padding: 20px; margin: 16px 0; border-left: 4px solid var(--red); }
-  .alert-box .alert-title { font-size: 14px; font-weight: 700; color: #991B1B; margin-bottom: 8px; }
-  .alert-box p { font-size: 13px; color: #7F1D1D; }
+  /* ─── Nav (sticky jumper) ─────────────────────────── */
+  .topnav { position: sticky; top: 0; z-index: 10; background: rgba(246,249,252,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  .topnav-inner { display: flex; justify-content: space-between; align-items: center; padding: 10px 32px; max-width: 1180px; margin: 0 auto; gap: 16px; flex-wrap: wrap; }
+  .topnav-brand { font-size: 12px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
+  .topnav-brand span { color: var(--brand); font-weight: 400; }
+  .topnav-links { display: flex; gap: 2px; flex-wrap: wrap; }
+  .topnav-links a {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .topnav-links a:hover { color: var(--ink); background: var(--line-2); }
 
-  .success-box { background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%); border-radius: 12px; padding: 20px; margin: 16px 0; border-left: 4px solid var(--green); }
-  .success-box .success-title { font-size: 14px; font-weight: 700; color: #065F46; margin-bottom: 8px; }
-  .success-box p { font-size: 13px; color: #064E3B; }
-
-  .two-col { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
-
+  /* ─── Responsive ──────────────────────────────────── */
   @media (max-width: 900px) {
-    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-    .chart-grid, .fase-grid, .two-col { grid-template-columns: 1fr; }
+    .wrap { padding: 0 24px; }
+    section { padding: 64px 0; }
+    .hero { padding: 64px 0 48px; }
+    .stat-grid, .chart-grid-2, .chart-grid-3, .fase-list, .team-grid { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--line); padding: 24px 0; }
+    .stat:last-child { border-bottom: none; }
+    .fase, .fase:nth-child(2n) { padding: 28px 0; border-right: none; }
+    .hero-meta { flex-direction: column; gap: 16px; }
+    .chart-block { padding: 24px; }
   }
 
   @media print {
-    body { background: white; }
-    .header { padding: 24px 0; }
-    .kpi-grid { margin-top: 16px; }
-    .card, .chart-card, .fase-card { box-shadow: none; border: 1px solid var(--gray-200); }
+    body { background: #fff; }
+    section { break-inside: avoid; padding: 40px 0; }
+    .chart-block, .table-wrap, .callout { break-inside: avoid; }
   }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-inner">
-    <h1>AMBULA</h1>
-    <div class="subtitle">Report Operacional & Estratégico — Análise Airtable + Fase 1</div>
-    <div class="date">7 de Abril 2026 &middot; Manapar — New Business &middot; Preparado para Ze Forjaz</div>
-  </div>
-</div>
-
-<div class="container">
-
-  <!-- KPI GRID -->
-  <div class="kpi-grid">
-    <div class="kpi-card">
-      <div class="kpi-label">GMV Finalizados</div>
-      <div class="kpi-value">&euro;359K</div>
-      <div class="kpi-detail">3.028 servicos finalizados</div>
-      <span class="kpi-trend down">-15% m/m desde Jan</span>
-    </div>
-    <div class="kpi-card amber">
-      <div class="kpi-label">Pago a Parceiros</div>
-      <div class="kpi-value">&euro;253K</div>
-      <div class="kpi-detail">70.5% do GMV finalizado</div>
-      <span class="kpi-trend neutral">~20 parceiros activos</span>
-    </div>
-    <div class="kpi-card green">
-      <div class="kpi-label">Receita Ambula</div>
-      <div class="kpi-value">&euro;106K</div>
-      <div class="kpi-detail">Take rate: 29.5% dos finalizados</div>
-      <span class="kpi-trend up">99.4% com comissao cobrada</span>
-    </div>
-    <div class="kpi-card purple">
-      <div class="kpi-label">Ticket Medio Finalizado</div>
-      <div class="kpi-value">&euro;119</div>
-      <div class="kpi-detail">GMV/servico finalizado</div>
-      <span class="kpi-trend up">513 leads B2B &middot; 75% por contactar</span>
+<!-- ═══ TOP NAV ═══════════════════════════════════ -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="topnav-brand">Ambula <span>· Report Abril 2026</span></div>
+    <div class="topnav-links">
+      <a href="#kpis">01 KPIs</a>
+      <a href="#evol">02 Evolução</a>
+      <a href="#parc">03 Parceiros</a>
+      <a href="#div">04 Dívida</a>
+      <a href="#fase">05 Fase 1</a>
+      <a href="#eq">06 Equipa</a>
+      <a href="#plano">07 Plano</a>
     </div>
   </div>
+</nav>
 
-  <div class="kpi-grid" style="margin-top:0">
-    <div class="kpi-card">
-      <div class="kpi-label">Parceiros</div>
-      <div class="kpi-value">64</div>
-      <div class="kpi-detail">~20 activos | 30 dormentes</div>
-      <span class="kpi-trend down">47% nunca usaram</span>
-    </div>
-    <div class="kpi-card green">
-      <div class="kpi-label">Utilizadores</div>
-      <div class="kpi-value">5.677</div>
-      <div class="kpi-detail">+188 em Marco 2026</div>
-      <span class="kpi-trend down">-57% vs pico Ago 2025</span>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Tripulantes</div>
-      <div class="kpi-value">122</div>
-      <div class="kpi-detail">~10 realmente activos</div>
-      <span class="kpi-trend down">92% inactivos</span>
-    </div>
-    <div class="kpi-card amber">
-      <div class="kpi-label">Conversao</div>
-      <div class="kpi-value">~28%</div>
-      <div class="kpi-detail">Simulacao &rarr; Finalizado</div>
-      <span class="kpi-trend down">79% Mar vs 84% Fev</span>
-    </div>
-  </div>
-
-  <!-- CHARTS -->
-  <div class="section">
-    <div class="section-title">Evolucao Operacional <span class="badge">Graficos</span></div>
-    <div class="section-subtitle">Analise temporal de volume, receita e aquisicao</div>
-
-    <div class="chart-grid">
-      <div class="chart-card full">
-        <div class="card-title">Volume de Agendamentos & Receita Mensal</div>
-        <canvas id="revenueChart"></canvas>
-        <div class="chart-comment warn"><strong>Pico em Nov-Dez 2025</strong> seguido de queda sustentada. Janeiro-Marco 2026 mostra retracao de ~15% m/m. A comissao Ambula acompanha a queda — de €6.4K (Nov) para €4.4K (Mar). <strong>3.028 servicos finalizados = €359K GMV, €106K receita Ambula (take rate 29.5%). 99.4% dos finalizados com comissao cobrada. O desafio real e aumentar a conversao do funil (apenas 26% finalizam).</strong></div>
+<!-- ═══ HERO (compact) ════════════════════════════ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-row">
+      <div class="hero-title-block">
+        <div class="hero-eyebrow">Report Operacional</div>
+        <h1>Ambula — <span class="accent">Estado actual</span></h1>
+        <p class="hero-lead">Análise operacional, supply, demanda e alinhamento com a Fase 1 Manapar.</p>
       </div>
-
-      <div class="chart-card">
-        <div class="card-title">Funil de Conversão (últimos 6 meses)</div>
-        <canvas id="funnelChart"></canvas>
-        <div class="chart-comment danger"><strong>Conversão a cair:</strong> de 84% (Fev) para 79% (Mar). O volume de simulações mantém-se estável (~600/mês), mas menos chegam a finalizar. Os cancelamentos por pagamento (100 casos) sugerem que o pagamento upfront pode recuperar 5-8pp de conversão.</div>
-      </div>
-
-      <div class="chart-card">
-        <div class="card-title">Canais de Aquisição</div>
-        <canvas id="channelChart"></canvas>
-        <div class="chart-comment"><strong>Website domina (74%)</strong> mas é um canal passivo — sem tracking de origem, não sabemos se é SEO, directo ou referral. O call center (25%) converte bem mas custa caro. <strong>WhatsApp = 0%</strong> — oportunidade imediata de canal com custo baixo e conversão alta.</div>
-      </div>
-
-      <div class="chart-card">
-        <div class="card-title">Novos Utilizadores por Mês</div>
-        <canvas id="usersChart"></canvas>
-        <div class="chart-comment danger"><strong>Queda de -57% desde o pico</strong> (542 em Ago 2025 → 188 em Mar 2026). Sem campanhas pagas ou SEO activo, o crescimento depende apenas de boca-a-boca e tráfego directo. A reactivação dos 5.677 utilizadores registados via email/WhatsApp é o quick win mais óbvio.</div>
-      </div>
-
-      <div class="chart-card">
-        <div class="card-title">Motivos de Cancelamento</div>
-        <canvas id="cancelChart"></canvas>
-        <div class="chart-comment warn"><strong>464 cancelamentos no total.</strong> "Responsável" (35%) e "Sem motivo" (24%) são difíceis de atacar, mas "Pagamento" (22%) = €13K+ de receita perdida — resolvível com pagamento upfront obrigatório. "Espera" (14%) indica falta de supply em certas zonas/horários.</div>
+      <div class="hero-meta">
+        <div><span>Data</span><strong>10 Abr 2026</strong></div>
+        <div><span>Período</span><strong>Mai 25 – Abr 26</strong></div>
+        <div><span>Para</span><strong>Manapar</strong></div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- TOP PARTNERS -->
-  <div class="section">
-    <div class="section-title">Top Parceiros & Margem Real <span class="badge">Supply Side</span></div>
-    <div class="section-subtitle">GMV = valor cobrado ao cliente (todos os estados). Pago = valor transferido ao parceiro. Receita Ambula = diferenca (comissao). Take rate nos finalizados: 29.5%.</div>
+<!-- ═══ 01 — KPIs ═════════════════════════════════ -->
+<section id="kpis">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-head-left">
+        <span class="section-num">01</span><h2 class="section-title">Indicadores <em>— serviços finalizados</em></h2>
+        <p class="section-lead">Só finalizados (não inclui simulações nem cancelados). Take rate real é 29.5%, não 7.7%.</p>
+      </div>
+    </div>
 
-    <div class="card">
+    <div class="stat-grid two-row">
+      <div class="stat">
+        <div class="stat-label">GMV Finalizados</div>
+        <div class="stat-value">€359K</div>
+        <div class="stat-detail">3.028 serviços concluídos</div>
+        <div class="stat-trend down">-15% m/m desde Janeiro</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Pago a Parceiros</div>
+        <div class="stat-value">€253K</div>
+        <div class="stat-detail">70.5% do GMV finalizado</div>
+        <div class="stat-trend flat">~20 parceiros activos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Receita Ambula</div>
+        <div class="stat-value">€106K</div>
+        <div class="stat-detail">Take rate 29.5% nos finalizados</div>
+        <div class="stat-trend up">99.4% com comissão cobrada</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Ticket Médio</div>
+        <div class="stat-value">€119</div>
+        <div class="stat-detail">GMV por serviço finalizado</div>
+        <div class="stat-trend up">513 leads B2B no pipeline</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">Parceiros</div>
+        <div class="stat-value">64</div>
+        <div class="stat-detail">~20 activos · 30 dormentes</div>
+        <div class="stat-trend down">47% nunca usaram</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Utilizadores</div>
+        <div class="stat-value">5.677</div>
+        <div class="stat-detail">+188 em Março 2026</div>
+        <div class="stat-trend down">-57% vs pico Ago 2025</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Tripulantes</div>
+        <div class="stat-value">122</div>
+        <div class="stat-detail">~10 realmente activos</div>
+        <div class="stat-trend down">92% inactivos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Conversão</div>
+        <div class="stat-value">~26%</div>
+        <div class="stat-detail">Simulação → Finalizado</div>
+        <div class="stat-trend down">74% fica em simulação</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 02 — Evolução Operacional ═════════════════ -->
+<section id="evol" class="dark">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-head-left">
+        <span class="section-num">02</span><h2 class="section-title">Evolução <em>— financeiro e operacional</em></h2>
+        <p class="section-lead">Volume e receita ao longo do tempo. Só finalizados.</p>
+      </div>
+    </div>
+
+    <div class="chart-block full">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Volume Finalizado & Receita Mensal</div>
+          <div class="chart-sub">Mai 2025 – Abr 2026 · GMV · Pago a Parceiros · Receita Ambula</div>
+        </div>
+      </div>
+      <div class="chart-canvas-wrap"><canvas id="revenueChart"></canvas></div>
+      <div class="chart-note warn"><strong>Pico em Novembro-Dezembro 2025</strong> seguido de queda sustentada. Janeiro–Março 2026 mostra retracção de ~15% m/m. A receita Ambula acompanha: €6.4K (Nov) → €4.4K (Mar). Dos 11.498 agendamentos totais, apenas 3.028 foram finalizados (26%). <strong>O desafio é aumentar a conversão do funil, não a cobrança de comissão — 99.4% dos finalizados já geram comissão.</strong></div>
+    </div>
+
+    <div class="chart-grid-3">
+      <div class="chart-block">
+        <div class="chart-header">
+          <div class="chart-title">Funil</div>
+          <div class="chart-sub">últimos 6 meses</div>
+        </div>
+        <div class="chart-canvas-wrap sm"><canvas id="funnelChart"></canvas></div>
+        <div class="chart-note danger"><strong>Conversão a cair:</strong> 84% (Fev) → 79% (Mar). 100 cancelamentos por pagamento sugerem que prepay pode recuperar 5–8pp de conversão.</div>
+      </div>
+
+      <div class="chart-block">
+        <div class="chart-header">
+          <div class="chart-title">Aquisição</div>
+          <div class="chart-sub">por canal</div>
+        </div>
+        <div class="chart-canvas-wrap sm"><canvas id="channelChart"></canvas></div>
+        <div class="chart-note"><strong>WebBase domina (74%)</strong> mas é um canal passivo. Call center (25%) converte bem mas custa caro. WhatsApp = 0% é oportunidade imediata.</div>
+      </div>
+
+      <div class="chart-block">
+        <div class="chart-header">
+          <div class="chart-title">Novos Users</div>
+          <div class="chart-sub">registos mensais</div>
+        </div>
+        <div class="chart-canvas-wrap sm"><canvas id="usersChart"></canvas></div>
+        <div class="chart-note danger"><strong>−57% desde pico</strong> de Ago 2025 (542/mês → 188/mês em Mar). Sem paid media activa nem SEO tracking.</div>
+      </div>
+    </div>
+
+    <div class="chart-grid-2" style="margin-top:16px">
+      <div class="chart-block">
+        <div class="chart-header">
+          <div class="chart-title">Motivos de Cancelamento</div>
+          <div class="chart-sub">464 cancelamentos</div>
+        </div>
+        <div class="chart-canvas-wrap sm"><canvas id="cancelChart"></canvas></div>
+        <div class="chart-note warn">100 cancelamentos por pagamento = <strong>€13K+ potencial perdido</strong>. Prepay resolveria 22% dos cancelamentos.</div>
+      </div>
+
+      <div class="chart-block">
+        <div class="chart-header">
+          <div class="chart-title">Tipo de Transporte</div>
+          <div class="chart-sub">todos os pedidos</div>
+        </div>
+        <div class="chart-canvas-wrap sm"><canvas id="transportChart"></canvas></div>
+        <div class="chart-note good"><strong>81% são acamado/maca</strong> — segmento de maior valor. Valida a tese de 2 VDTD próprias em Lisboa para o segmento mais lucrativo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 03 — Top Parceiros ═══════════════════════ -->
+<section id="parc">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-head-left">
+        <span class="section-num">03</span><h2 class="section-title">Supply side <em>— parceiros & margem</em></h2>
+        <p class="section-lead">Top 14 parceiros por volume. Take rate médio nos finalizados: 29.5%.</p>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-header">
+        <h3>Parceiros Activos</h3>
+        <span class="tag">3.011 de 3.028 finalizados com comissão</span>
+      </div>
       <table class="data-table">
         <thead>
-          <tr><th>Empresa</th><th>Total Agend.</th><th>Finalizados</th><th>GMV (Cliente)</th><th>Comissao Ambula</th><th>Take Rate</th><th>&euro;/Servico</th></tr>
+          <tr>
+            <th>Empresa</th>
+            <th class="num">Total Agend.</th>
+            <th class="num">Finalizados</th>
+            <th class="num">GMV Cliente</th>
+            <th class="num">Comissão Ambula</th>
+            <th class="num">Take Rate</th>
+            <th class="num">€/Serviço</th>
+          </tr>
         </thead>
         <tbody>
-          <tr><td class="highlight">Amb. Saint Martin</td><td class="num">914</td><td class="num">907</td><td class="num">&euro;77.005</td><td class="num" style="color:var(--green);font-weight:700">&euro;23.431</td><td class="num" style="font-weight:700">30.4%</td><td class="num">&euro;26</td></tr>
-          <tr><td class="highlight">+Mobilidade, Lda</td><td class="num">551</td><td class="num">548</td><td class="num">&euro;47.311</td><td class="num" style="color:var(--green);font-weight:700">&euro;13.559</td><td class="num" style="font-weight:700">28.7%</td><td class="num">&euro;25</td></tr>
-          <tr><td class="highlight">A.S.V.CELA</td><td class="num">478</td><td class="num">464</td><td class="num">&euro;37.291</td><td class="num" style="color:var(--green);font-weight:700">&euro;9.958</td><td class="num" style="font-weight:700">26.7%</td><td class="num">&euro;21</td></tr>
-          <tr><td>Allavarium Tours</td><td class="num">—</td><td class="num">119</td><td class="num">&euro;1.428</td><td class="num" style="color:var(--green)">&euro;372</td><td class="num">26.1%</td><td class="num">&euro;3</td></tr>
-          <tr><td>Paramedicos Catastrofe</td><td class="num">108</td><td class="num">107</td><td class="num">&euro;11.035</td><td class="num" style="color:var(--green)">&euro;4.294</td><td class="num" style="color:var(--green);font-weight:700">38.9%</td><td class="num">&euro;40</td></tr>
-          <tr><td>AMBFAF</td><td class="num">108</td><td class="num">101</td><td class="num">&euro;8.114</td><td class="num" style="color:var(--green)">&euro;2.004</td><td class="num">24.7%</td><td class="num">&euro;20</td></tr>
-          <tr><td>Impactepisode Lda</td><td class="num">—</td><td class="num">86</td><td class="num">&euro;5.387</td><td class="num" style="color:var(--green)">&euro;1.369</td><td class="num">25.4%</td><td class="num">&euro;16</td></tr>
-          <tr><td>Fenix Ambulancia</td><td class="num">77</td><td class="num">75</td><td class="num">&euro;5.877</td><td class="num" style="color:var(--green)">&euro;1.566</td><td class="num">26.6%</td><td class="num">&euro;21</td></tr>
-          <tr><td>Invicta Ambulancias</td><td class="num">—</td><td class="num">56</td><td class="num">&euro;5.273</td><td class="num" style="color:var(--green)">&euro;1.385</td><td class="num">26.3%</td><td class="num">&euro;25</td></tr>
-          <tr><td>SPT Ambulancias</td><td class="num">—</td><td class="num">55</td><td class="num">&euro;5.296</td><td class="num" style="color:var(--green)">&euro;1.525</td><td class="num">28.8%</td><td class="num">&euro;28</td></tr>
-          <tr><td>Vouga Coimbra</td><td class="num">55</td><td class="num">52</td><td class="num">&euro;6.550</td><td class="num" style="color:var(--green)">&euro;1.867</td><td class="num">28.5%</td><td class="num">&euro;36</td></tr>
-          <tr><td>Amb. Pires e Justo</td><td class="num">—</td><td class="num">46</td><td class="num">&euro;6.571</td><td class="num" style="color:var(--green)">&euro;1.582</td><td class="num">24.1%</td><td class="num">&euro;34</td></tr>
-          <tr><td>Ambatlantico Amb.</td><td class="num">41</td><td class="num">—</td><td class="num">&euro;7.768</td><td class="num" style="color:var(--green)">&euro;2.812</td><td class="num" style="color:var(--green);font-weight:700">36.2%</td><td class="num">—</td></tr>
-          <tr style="background:var(--gray-50);font-weight:600"><td>Outros (27 empresas)</td><td class="num">—</td><td class="num">349</td><td class="num">&euro;26.517</td><td class="num" style="color:var(--green)">&euro;7.497</td><td class="num">28.3%</td><td class="num">&euro;21</td></tr>
-          <tr style="background:var(--navy);color:white;font-weight:700"><td>TOTAL</td><td class="num">11.498</td><td class="num">3.011</td><td class="num">&euro;251.423</td><td class="num">&euro;74.221</td><td class="num">29.5%</td><td class="num">&euro;25</td></tr>
+          <tr><td class="lead">Ambulâncias Saint Martin</td><td class="num">914</td><td class="num">907</td><td class="num">€77.005</td><td class="num rev">€23.431</td><td class="num">30.4%</td><td class="num">€26</td></tr>
+          <tr><td class="lead">+Mobilidade, Lda</td><td class="num">551</td><td class="num">548</td><td class="num">€47.311</td><td class="num rev">€13.559</td><td class="num">28.7%</td><td class="num">€25</td></tr>
+          <tr><td class="lead">A.S.V.CELA</td><td class="num">478</td><td class="num">464</td><td class="num">€37.291</td><td class="num rev">€9.958</td><td class="num">26.7%</td><td class="num">€21</td></tr>
+          <tr><td class="name">Allavarium Tours</td><td class="num">—</td><td class="num">119</td><td class="num">€1.428</td><td class="num rev">€372</td><td class="num">26.1%</td><td class="num">€3</td></tr>
+          <tr><td class="name">Paramédicos Catástrofe</td><td class="num">108</td><td class="num">107</td><td class="num">€11.035</td><td class="num rev">€4.294</td><td class="num">38.9%</td><td class="num">€40</td></tr>
+          <tr><td class="name">AMBFAF</td><td class="num">108</td><td class="num">101</td><td class="num">€8.114</td><td class="num rev">€2.004</td><td class="num">24.7%</td><td class="num">€20</td></tr>
+          <tr><td class="name">Impactepisode Lda</td><td class="num">—</td><td class="num">86</td><td class="num">€5.387</td><td class="num rev">€1.369</td><td class="num">25.4%</td><td class="num">€16</td></tr>
+          <tr><td class="name">Fénix Ambulância</td><td class="num">77</td><td class="num">75</td><td class="num">€5.877</td><td class="num rev">€1.566</td><td class="num">26.6%</td><td class="num">€21</td></tr>
+          <tr><td class="name">Invicta Ambulâncias</td><td class="num">—</td><td class="num">56</td><td class="num">€5.273</td><td class="num rev">€1.385</td><td class="num">26.3%</td><td class="num">€25</td></tr>
+          <tr><td class="name">SPT Ambulâncias</td><td class="num">—</td><td class="num">55</td><td class="num">€5.296</td><td class="num rev">€1.525</td><td class="num">28.8%</td><td class="num">€28</td></tr>
+          <tr><td class="name">Vouga Coimbra</td><td class="num">55</td><td class="num">52</td><td class="num">€6.550</td><td class="num rev">€1.867</td><td class="num">28.5%</td><td class="num">€36</td></tr>
+          <tr><td class="name">Amb. Pires e Justo</td><td class="num">—</td><td class="num">46</td><td class="num">€6.571</td><td class="num rev">€1.582</td><td class="num">24.1%</td><td class="num">€34</td></tr>
+          <tr><td class="name">Ambatlântico Amb.</td><td class="num">41</td><td class="num">—</td><td class="num">€7.768</td><td class="num rev">€2.812</td><td class="num">36.2%</td><td class="num">—</td></tr>
+          <tr><td class="name">Outros (27 empresas)</td><td class="num">—</td><td class="num">349</td><td class="num">€26.517</td><td class="num rev">€7.497</td><td class="num">28.3%</td><td class="num">€21</td></tr>
+          <tr class="total"><td>Total</td><td class="num">11.498</td><td class="num">3.011</td><td class="num">€251.423</td><td class="num">€74.221</td><td class="num">29.5%</td><td class="num">€25</td></tr>
         </tbody>
       </table>
     </div>
 
-    <div class="alert-box" style="background: var(--green-light); border-color: var(--green);">
-      <div class="alert-title" style="color: var(--green);">Comissao: Bem Cobrada</div>
-      <p>Dos 3.028 servicos finalizados, <strong>3.011 (99.4%) geraram comissao</strong>. Apenas 17 passaram sem comissao (acordos especiais). O take rate real nos finalizados e de 29.5% — muito acima dos 7.7% que aparecia quando se diluia por todos os agendamentos (incluindo simulacoes).</p>
+    <div class="callout">
+      <h4>Comissão — Bem Cobrada</h4>
+      <p>Dos 3.028 serviços finalizados, <strong>3.011 (99.4%) geraram comissão</strong>. Apenas 17 passaram sem (acordos especiais). O take rate real nos finalizados é 29.5% — muito acima dos 7.7% que aparecia quando se diluía por todos os agendamentos incluindo simulações.</p>
     </div>
 
-    <div class="chart-comment warn" style="margin-top:16px;margin-bottom:16px"><strong>Funil real:</strong> Dos 11.498 agendamentos, 74% ficam em Simulacao (nunca convertem), 4% sao cancelados, e <strong>26% chegam a Finalizado</strong> (3.028 servicos). A comissao esta a ser cobrada correctamente em 99.4% dos finalizados. O desafio e converter mais simulacoes em servicos — nao ha fuga de comissao.</div>
-
-    <div class="alert-box">
-      <div class="alert-title">Risco de Concentracao</div>
-      <p>Saint Martin + Mobilidade + CELA = 64% dos servicos finalizados e 63% da comissao Ambula. Se um destes parceiros sair, o impacto e devastador. Prioridade: diversificar a base de supply e activar os 30 parceiros dormentes.</p>
+    <div class="callout warn">
+      <h4>Risco de Concentração</h4>
+      <p>Saint Martin + Mobilidade + CELA = <strong>64% dos serviços finalizados</strong> e 63% da comissão Ambula. Se um destes parceiros sair, o impacto é devastador. Prioridade: diversificar a base de supply e activar os 30 parceiros dormentes.</p>
     </div>
   </div>
+</section>
 
-  <!-- DEBT & PAYMENT -->
-  <div class="section">
-    <div class="section-title">Divida & Cobranças <span class="badge" style="background:var(--red-light);color:var(--red)">Cash Flow</span></div>
-    <div class="section-subtitle">~50 transportes identificados com problemas de pagamento, bugs, ou servicos nao realizados. €12K estimativa inicial, nao reportada oficialmente.</div>
-
-    <div class="kpi-grid" style="margin:0 0 20px;grid-template-columns:repeat(4,1fr)">
-      <div class="kpi-card red">
-        <div class="kpi-label">Divida Total Estimada</div>
-        <div class="kpi-value">&euro;12K</div>
-        <div class="kpi-detail">~50 transportes com problemas</div>
-        <span class="kpi-trend down">estimativa inicial, por confirmar</span>
-      </div>
-      <div class="kpi-card amber">
-        <div class="kpi-label">Cobranca Extrajudicial</div>
-        <div class="kpi-value">&euro;2.696</div>
-        <div class="kpi-detail">33 servicos — pago ao prestador, nao recebido do cliente</div>
-        <span class="kpi-trend down">Ambula ficou a descoberto</span>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Em Analise (Valdemir)</div>
-        <div class="kpi-value">~&euro;9.3K</div>
-        <div class="kpi-detail">~17 transportes adicionais</div>
-        <span class="kpi-trend down">bugs + falsa finalizacao + fraude parceiro</span>
-      </div>
-      <div class="kpi-card green">
-        <div class="kpi-label">Solucao</div>
-        <div class="kpi-value">Prepay</div>
-        <div class="kpi-detail">Pagamento upfront obrigatorio</div>
-        <span class="kpi-trend up">elimina risco de divida futura</span>
+<!-- ═══ 04 — Dívida ══════════════════════════════ -->
+<section id="div" class="dark">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-head-left">
+        <span class="section-num">04</span><h2 class="section-title">Cash flow <em>— dívida & cobranças</em></h2>
+        <p class="section-lead">~50 transportes com problemas de pagamento, bugs ou não realizados. €12K = estimativa inicial, não reportada oficialmente.</p>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-title">Cobranca Extrajudicial por Parceiro — Pago ao Prestador, Nao Recebido do Cliente <span class="badge" style="background:var(--red-light);color:var(--red)">33 Servicos</span></div>
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="stat-label">Dívida Total Estimada</div>
+        <div class="stat-value">€12K</div>
+        <div class="stat-detail">~50 transportes com problemas</div>
+        <div class="stat-trend down">estimativa inicial, por confirmar</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Cobrança Extrajudicial</div>
+        <div class="stat-value">€2.696</div>
+        <div class="stat-detail">33 serviços — pago ao prestador, não recebido do cliente</div>
+        <div class="stat-trend down">Ambula a descoberto</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Em Análise</div>
+        <div class="stat-value">~€9.3K</div>
+        <div class="stat-detail">~17 transportes adicionais (Valdemir)</div>
+        <div class="stat-trend down">bugs + fraude + falsa finalização</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Solução</div>
+        <div class="stat-value">Prepay</div>
+        <div class="stat-detail">Pagamento upfront obrigatório</div>
+        <div class="stat-trend up">elimina risco de dívida futura</div>
+      </div>
+    </div>
+
+    <div class="table-wrap" style="margin-top:16px">
+      <div class="table-header">
+        <h3>Cobrança Extrajudicial por Parceiro</h3>
+        <span class="tag">Pago ao prestador, não recebido do cliente</span>
+      </div>
       <table class="data-table">
         <thead>
-          <tr><th>Parceiro</th><th>Servicos</th><th>Valor em Divida</th><th>% do Total</th></tr>
+          <tr>
+            <th>Parceiro</th>
+            <th class="num">Serviços</th>
+            <th class="num">Valor em Dívida</th>
+            <th class="num">% do Total</th>
+          </tr>
         </thead>
         <tbody>
-          <tr><td class="highlight">+Mobilidade, Lda</td><td class="num">11</td><td class="num" style="color:var(--red);font-weight:700">&euro;973</td><td class="num">36%</td></tr>
-          <tr><td class="highlight">A.S.V.CELA</td><td class="num">9</td><td class="num" style="color:var(--red);font-weight:700">&euro;729</td><td class="num">27%</td></tr>
-          <tr><td class="highlight">Amb. Saint Martin</td><td class="num">9</td><td class="num" style="color:var(--red);font-weight:700">&euro;650</td><td class="num">24%</td></tr>
-          <tr><td>Amb. Vouga Coimbra</td><td class="num">2</td><td class="num" style="color:var(--red)">&euro;185</td><td class="num">7%</td></tr>
-          <tr><td>Fenix Ambulancia</td><td class="num">1</td><td class="num" style="color:var(--red)">&euro;109</td><td class="num">4%</td></tr>
-          <tr><td>AMBFAF</td><td class="num">1</td><td class="num" style="color:var(--red)">&euro;49</td><td class="num">2%</td></tr>
-          <tr style="background:var(--navy);color:white;font-weight:700"><td>TOTAL EXTRAJUDICIAL</td><td class="num">33</td><td class="num">&euro;2.696</td><td class="num">100%</td></tr>
+          <tr><td class="lead">+Mobilidade, Lda</td><td class="num">11</td><td class="num neg">€973</td><td class="num">36%</td></tr>
+          <tr><td class="lead">A.S.V.CELA</td><td class="num">9</td><td class="num neg">€729</td><td class="num">27%</td></tr>
+          <tr><td class="lead">Ambulâncias Saint Martin</td><td class="num">9</td><td class="num neg">€650</td><td class="num">24%</td></tr>
+          <tr><td class="name">Amb. Vouga Coimbra</td><td class="num">2</td><td class="num neg">€185</td><td class="num">7%</td></tr>
+          <tr><td class="name">Fénix Ambulância</td><td class="num">1</td><td class="num neg">€109</td><td class="num">4%</td></tr>
+          <tr><td class="name">AMBFAF</td><td class="num">1</td><td class="num neg">€49</td><td class="num">2%</td></tr>
+          <tr class="total"><td>Total Extrajudicial</td><td class="num">33</td><td class="num">€2.696</td><td class="num">100%</td></tr>
         </tbody>
       </table>
     </div>
 
-    <div class="chart-comment danger" style="margin-bottom:16px"><strong>O que aconteceu (confirmado pelo Valdemir):</strong><br><br><strong>33 servicos em cobranca extrajudicial (€2.7K):</strong> Servicos realizados e pagos ao prestador pela Ambula, mas cujo pagamento nunca foi recebido do cliente. A Ambula ficou a descoberto — dinheiro saiu mas nao entrou.<br><br><strong>~17 transportes adicionais em analise (~€9.3K):</strong> Segundo o Valdemir, as causas incluem: <strong>(1)</strong> pagamento em falta — cliente usou o servico mas nunca pagou; <strong>(2)</strong> bug no site que marcou pagamentos como "aprovado" quando nao estavam; <strong>(3)</strong> falsa finalizacao — servicos marcados como finalizados no Airtable que na realidade nao foram concluidos ou pagos; <strong>(4)</strong> possivel fraude do parceiro — prestador liga diretamente ao cliente, recebe o pagamento em mao (€), marca o servico como finalizado, e em alguns casos recebe a dobrar (do cliente em cash + transferencia da Ambula). Estes ~17 estao a ser reconciliados caso a caso pelo Valdemir.</div>
+    <div class="callout danger">
+      <h4>O que aconteceu — Confirmado pelo Valdemir</h4>
+      <p><strong>33 serviços em cobrança extrajudicial (€2.7K):</strong> serviços realizados e pagos ao prestador pela Ambula, mas cujo pagamento nunca foi recebido do cliente. Dinheiro saiu, não entrou.</p>
+      <p style="margin-top:12px"><strong>~17 transportes adicionais em análise (~€9.3K):</strong> as causas incluem <strong>(1)</strong> pagamento em falta — cliente usou o serviço mas nunca pagou; <strong>(2)</strong> bug no site que marcou pagamentos como "aprovado" quando não estavam; <strong>(3)</strong> falsa finalização — serviços marcados como finalizados no Airtable que na realidade não foram concluídos; <strong>(4)</strong> possível fraude do parceiro — prestador liga directamente ao cliente, recebe em mão, marca como finalizado, e em alguns casos recebe a dobrar (cash do cliente + transferência Ambula). Estes ~17 estão a ser reconciliados caso a caso.</p>
+    </div>
 
-    <div class="alert-box" style="background:var(--red-light);border-color:var(--red);">
-      <div class="alert-title" style="color:var(--red);">Accao Imediata: Pagamento Upfront</div>
-      <p>O modelo actual permite que serviços sejam realizados antes do pagamento estar confirmado. Isto criou uma divida estimada inicialmente em €12K (valor nao reportado oficialmente). <strong>Recomendação:</strong> (1) Pagamento upfront obrigatório — o cliente paga antes de o serviço ser confirmado ao parceiro. Nunca ao contrário. (2) Corrigir o bug que marca pagamentos como aprovados incorrectamente. (3) Reconciliar os ~17 transportes adicionais por apurar. Com 100 cancelamentos por pagamento ja identificados no funil, este flow tambem recupera 5-8pp de conversao. Valdemir a implementar ate 18 Abr.</p>
+    <div class="callout danger">
+      <h4>Acção Imediata — Pagamento Upfront</h4>
+      <p>O modelo actual permite que serviços sejam realizados antes do pagamento estar confirmado. Isto criou uma dívida estimada inicialmente em €12K. <strong>Recomendação:</strong> (1) pagamento upfront obrigatório — o cliente paga antes do serviço ser confirmado ao parceiro; (2) corrigir o bug que marca pagamentos como aprovados incorrectamente; (3) reconciliar os ~17 transportes adicionais. Este flow também recupera 5–8pp de conversão. Valdemir a implementar até 18 Abr.</p>
     </div>
   </div>
+</section>
 
-  <!-- MEDIA & ACQUISITION STRATEGY -->
-  <div class="section">
-    <div class="section-title">Estrategia de Media & Aquisicao <span class="badge">Demand Side</span></div>
-    <div class="section-subtitle">Como e que os clientes chegam a Ambula — e o que esta a falhar</div>
-
-    <div class="chart-grid">
-      <div class="chart-card">
-        <div class="card-title">Distribuição de Canais</div>
-        <canvas id="mediaDetailChart"></canvas>
-        <div class="chart-comment"><strong>Sem paid media, sem social, sem referral tracking.</strong> Toda a aquisição depende de tráfego orgânico ao site e chamadas. Com UTM tracking + Google Ads para "transporte de doentes [cidade]", conseguimos visibilidade imediata sobre o que funciona.</div>
-      </div>
-      <div class="chart-card">
-        <div class="card-title">Tipo de Transporte Pedido</div>
-        <canvas id="transportChart"></canvas>
-        <div class="chart-comment good"><strong>81% dos pedidos são acamado/maca</strong> — serviço de maior valor e que exige ambulância. Isto valida a tese de frota própria: com 2 VDTD em Lisboa cobrimos o segmento mais lucrativo. Cadeira de rodas (17%) pode ser servido com veículos adaptados mais baratos.</div>
+<!-- ═══ 05 — Fase 1 ═══════════════════════════════ -->
+<section id="fase">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-head-left">
+        <span class="section-num">05</span><h2 class="section-title">Fase 1 <em>— estado das 6 frentes</em></h2>
+        <p class="section-lead">Airtable × documento Ambula_Fase 1 (0–60 dias).</p>
       </div>
     </div>
 
-    <div class="card" style="margin-top:20px">
-      <div class="card-title">Diagnostico da Aquisicao de Clientes</div>
-
-      <div class="insight-box">
-        <div class="insight-title">1. WebBase domina (74%) mas e passiva</div>
-        <p>A grande maioria dos pedidos vem do website. Isto sugere que o trafego e organico/directo e que nao ha investimento significativo em paid media. O website esta a funcionar como unico funil, o que e fragil.</p>
+    <div class="fase-list">
+      <div class="fase">
+        <div class="fase-head">
+          <div class="fase-num">Fase 1.1</div>
+          <div class="fase-status risk">Em Risco</div>
+        </div>
+        <h3>Supply Strategy</h3>
+        <div class="fase-meta"><strong>Owner:</strong> Zé + Ricardo · <em style="color:var(--accent)">B2B Sales Rep (a contratar)</em></div>
+        <div class="fase-body">64 empresas registadas, só ~20 activas. 9 parceiros TVDE/Veículo Adaptado registados, poucos activos. 2 bombeiros (Óbidos, Campo de Ourique) — ambos com 0 transportes. Precisa proposta de valor clara e push comercial.</div>
       </div>
 
-      <div class="insight-box">
-        <div class="insight-title">2. Call Center e o segundo canal (25%) — e critico</div>
-        <p>Quase 2.000 pedidos vieram por chamada telefónica. Este canal tem custo operacional elevado mas alta conversão. O Valdemir (TI) e a Roseanne (CS) já gerem este canal — a integração de WhatsApp pode aliviar o call center e aumentar conversão.</p>
+      <div class="fase">
+        <div class="fase-head">
+          <div class="fase-num">Fase 1.2</div>
+          <div class="fase-status risk">Em Risco</div>
+        </div>
+        <h3>Supply Scaling & Frota Própria</h3>
+        <div class="fase-meta"><strong>Owner:</strong> Zé + Ricardo</div>
+        <div class="fase-body">28 viaturas registadas (parceiros), 0 próprias. 14 VDTD, 4 A1, 4 A2. Prioridade: Lisboa (53% da procura). Break-even estimado: ~165 serviços/mês com 2 ambulâncias próprias. Ricardo a explorar híbridas.</div>
       </div>
 
-      <div class="alert-box">
-        <div class="alert-title">3. App Mobile quase inexistente (1%)</div>
-        <p>Apenas 77 pedidos vieram da app mobile em toda a historia da plataforma. Isto significa que o investimento em app nao gerou retorno. A prioridade deve ser melhorar o canal web + WhatsApp antes de investir mais na app.</p>
+      <div class="fase">
+        <div class="fase-head">
+          <div class="fase-num">Fase 1.3</div>
+          <div class="fase-status off">Atrasado</div>
+        </div>
+        <h3>Retenção de Receita & Cancelamentos</h3>
+        <div class="fase-meta"><strong>Owner:</strong> Valdemir (implementação) + Zé (decisão)</div>
+        <div class="fase-body">464 cancelamentos: 162 responsável, 111 sem motivo, 100 por pagamento, 64 por espera, 25 pela empresa. Cancelamento por pagamento = <strong>€13K+ potencial perdido</strong>. Prepay resolveria 22% dos cancelamentos.</div>
       </div>
 
-      <div class="alert-box">
-        <div class="alert-title">4. Queda de novos utilizadores: -57% desde o pico</div>
-        <p>O pico de registos foi Agosto 2025 (542/mes). Desde entao caiu para 188 em Marco 2026. Nao ha evidencia no Airtable de campanhas de paid media activas, SEO tracking, ou source attribution. Sem tracking de origem, e impossivel saber o que funciona.</p>
+      <div class="fase">
+        <div class="fase-head">
+          <div class="fase-num">Fase 1.4</div>
+          <div class="fase-status risk">Em Risco</div>
+        </div>
+        <h3>Jornada de Cliente (WhatsApp + Tel.)</h3>
+        <div class="fase-meta"><strong>Owner:</strong> Valdemir + Roseanne</div>
+        <div class="fase-body">74% dos pedidos via WebBase, 25% chamada, 0% WhatsApp. A transição para WhatsApp é crítica — pode reduzir custo do call center em 50% e aumentar conversão. 93% dos users não indicaram motivo de registo (onboarding fraco).</div>
       </div>
 
-      <div class="success-box">
-        <div class="success-title">5. Oportunidade: B2B como motor de volume</div>
-        <p>Os 19 lares activos e os 2 clientes B2B activos demonstram que este canal funciona. 44 lares Tier A + 70 contactos B2B de alta prioridade = potencial de volume previsivel e recorrente, sem depender de aquisicao B2C.</p>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">Recomendacoes Media (Proximas 2-4 Semanas)</div>
-      <table class="data-table">
-        <thead><tr><th>Accao</th><th>Canal</th><th>Impacto Esperado</th><th>Esforco</th></tr></thead>
-        <tbody>
-          <tr><td>Implementar UTM tracking em todos os links</td><td>Web</td><td>Visibilidade de source attribution</td><td style="color:var(--green)">Baixo</td></tr>
-          <tr><td>WhatsApp Business como canal principal</td><td>WhatsApp</td><td>+20-30% conversao vs chamada</td><td style="color:var(--amber)">Medio</td></tr>
-          <tr><td>Google Ads para "transporte de doentes Lisboa"</td><td>Paid</td><td>Trafego qualificado imediato</td><td style="color:var(--amber)">Medio</td></tr>
-          <tr><td>SEO: paginas de destino por cidade/servico</td><td>Organico</td><td>Trafego sustentavel a medio prazo</td><td style="color:var(--red)">Alto</td></tr>
-          <tr><td>Email marketing para 5.677 users registados</td><td>Email</td><td>Reactivar users dormentes</td><td style="color:var(--green)">Baixo</td></tr>
-          <tr><td>Parceria com lares Tier A para referral</td><td>B2B</td><td>Volume recorrente e previsivel</td><td style="color:var(--amber)">Medio</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- FASE 1 ALIGNMENT -->
-  <div class="section">
-    <div class="section-title">Alinhamento com Fase 1 <span class="badge">0-60 dias</span></div>
-    <div class="section-subtitle">Cruzamento dos dados Airtable com os 6 entregaveis do documento Ambula_Fase 1</div>
-
-    <div class="fase-grid">
-      <div class="fase-card at-risk">
-        <div class="fase-num">Fase 1.1</div>
-        <div class="fase-title">Supply Strategy</div>
-        <span class="fase-status amber">Em Risco</span>
-        <div class="fase-body">
-          <strong>Objectivo:</strong> Parcerias com bombeiros + canal escalável para Taxi/TVDE/NEMT<br>
-          <strong>Responsável:</strong> Zé + Ricardo | <em style="color:#B45309">B2B Sales Rep</em>
+      <div class="fase">
+        <div class="fase-head">
+          <div class="fase-num">Fase 1.5</div>
+          <div class="fase-status off">Atrasado</div>
         </div>
-        <div class="fase-data">
-          <strong>Dados Airtable:</strong> 64 empresas registadas, mas so ~20 activas. 9 parceiros TVDE/Veiculo Adaptado registados, poucos activos. 2 bombeiros registados (Obidos, Campo de Ourique) — ambos com 0 transportes. Precisa de proposta de valor clara e push comercial.
-        </div>
+        <h3>Controlo Financeiro & Cash Flow</h3>
+        <div class="fase-meta"><strong>Owner:</strong> Zé + Ricardo</div>
+        <div class="fase-body">Existe tabela de Transacções e Relatórios Semanais/Mensais por empresa, mas não há campo de "estado pagamento" preenchido consistentemente. A tabela CancelamentosCSV tem dados de facturação mas está isolada. Dashboard não existe.</div>
       </div>
 
-      <div class="fase-card at-risk">
-        <div class="fase-num">Fase 1.2</div>
-        <div class="fase-title">Supply Scaling & Frota Propria</div>
-        <span class="fase-status amber">Em Risco</span>
-        <div class="fase-body">
-          <strong>Objectivo:</strong> Estratégia de frota própria (quando e onde)<br>
-          <strong>Responsável:</strong> Zé + Ricardo
+      <div class="fase">
+        <div class="fase-head">
+          <div class="fase-num">Fase 1.6</div>
+          <div class="fase-status risk">Em Risco</div>
         </div>
-        <div class="fase-data">
-          <strong>Dados Airtable:</strong> 28 viaturas registadas (parceiros), 0 proprias. 14 VDTD, 4 A1, 4 A2. Prioridade: Lisboa (53% da procura). Break-even estimado: ~165 servicos/mes com 2 ambulancias proprias. Ricardo a explorar hibridas.
-        </div>
-      </div>
-
-      <div class="fase-card behind">
-        <div class="fase-num">Fase 1.3</div>
-        <div class="fase-title">Retencao de Receita & Cancelamentos</div>
-        <span class="fase-status red">Atrasado</span>
-        <div class="fase-body">
-          <strong>Objectivo:</strong> Pagamento upfront + política cancelamento + tracking<br>
-          <strong>Responsável:</strong> Valdemir (implementação) + Zé (decisão)
-        </div>
-        <div class="fase-data">
-          <strong>Dados Airtable:</strong> 464 cancelamentos identificados: 162 pelo responsavel, 111 sem motivo, 100 por pagamento, 64 por espera, 25 pela empresa. <strong>Cancelamento por pagamento = &euro;13K+ potencial perdido.</strong> Pagamento upfront resolveria 22% dos cancelamentos.
-        </div>
-      </div>
-
-      <div class="fase-card at-risk">
-        <div class="fase-num">Fase 1.4</div>
-        <div class="fase-title">Jornada de Cliente (WhatsApp + Tel.)</div>
-        <span class="fase-status amber">Em Risco</span>
-        <div class="fase-body">
-          <strong>Objectivo:</strong> WhatsApp como canal dominante + automação<br>
-          <strong>Responsável:</strong> Valdemir (implementação) + Roseanne (operação)
-        </div>
-        <div class="fase-data">
-          <strong>Dados Airtable:</strong> 74% dos pedidos via WebBase, 25% chamada. 0% WhatsApp (nao existe como canal registado). A transicao para WhatsApp e critica — pode reduzir custo do call center em 50% e aumentar conversao. 93% dos users nao indicaram motivo de registo (onboarding fraco).
-        </div>
-      </div>
-
-      <div class="fase-card behind">
-        <div class="fase-num">Fase 1.5</div>
-        <div class="fase-title">Controlo Financeiro & Cash Flow</div>
-        <span class="fase-status red">Atrasado</span>
-        <div class="fase-body">
-          <strong>Objectivo:</strong> Owner de cobranças + Dashboard faturado vs recebido<br>
-          <strong>Responsável:</strong> Zé + Ricardo
-        </div>
-        <div class="fase-data">
-          <strong>Dados Airtable:</strong> Existe tabela de Transacoes e Relatorios Semanais/Mensais por empresa, mas nao ha campo de "estado pagamento" preenchido de forma consistente. A tabela CancelamentosCSV tem dados de faturacao mas esta isolada do fluxo principal. Dashboard nao existe.
-        </div>
-      </div>
-
-      <div class="fase-card at-risk">
-        <div class="fase-num">Fase 1.6</div>
-        <div class="fase-title">B2B Engine</div>
-        <span class="fase-status amber">Em Risco</span>
-        <div class="fase-body">
-          <strong>Objectivo:</strong> 2-3 contratos B2B + playbook de vendas<br>
-          <strong>Responsável:</strong> Zé → <em style="color:#B45309">B2B Sales Rep</em>
-        </div>
-        <div class="fase-data">
-          <strong>Dados Airtable:</strong> Pipeline robusto (243 B2B + 270 lares) mas <strong>75% por contactar</strong>. So 2 clientes activos B2B, 1 em piloto, 3 em negociacao. 19 lares activos. 70 contactos alta prioridade parados. Com outreach sistematico, fechar 2-3 contratos em 60 dias e viavel.
-        </div>
+        <h3>B2B Engine</h3>
+        <div class="fase-meta"><strong>Owner:</strong> Zé → <em style="color:var(--accent)">B2B Sales Rep</em></div>
+        <div class="fase-body">Pipeline robusto (243 B2B + 270 lares) mas <strong>75% por contactar</strong>. 2 clientes activos B2B, 1 em piloto, 3 em negociação. 19 lares activos. 70 contactos alta prioridade parados. Fechar 2–3 contratos em 60 dias é viável.</div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- TEAM -->
-  <div class="section">
-    <div class="section-title">Equipa & Responsabilidades <span class="badge">Quem faz o quê</span></div>
-    <div class="section-subtitle">Divisão de tarefas por perfil — inclui B2B Sales Rep a contratar nas próximas semanas</div>
+<!-- ═══ 06 — Equipa ═══════════════════════════════ -->
+<section id="eq" class="dark">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-head-left">
+        <span class="section-num">06</span><h2 class="section-title">Equipa <em>— quem faz o quê</em></h2>
+        <p class="section-lead">B2B Sales Rep é a contratação prioritária.</p>
+      </div>
+    </div>
 
-    <div class="card" style="padding:20px 24px">
-      <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:12px;">
-        <div style="padding:12px; background:var(--sky); border-radius:8px; text-align:center;">
-          <div style="font-size:20px; font-weight:800; color:var(--navy);">Zé</div>
-          <div style="font-size:11px; color:var(--gray-500); margin-top:4px;">Estratégia, Decisões<br>Supply Side, Produto</div>
-        </div>
-        <div style="padding:12px; background:var(--sky); border-radius:8px; text-align:center;">
-          <div style="font-size:20px; font-weight:800; color:var(--navy);">Ricardo</div>
-          <div style="font-size:11px; color:var(--gray-500); margin-top:4px;">Supply, Frota Própria<br>Financeiro</div>
-        </div>
-        <div style="padding:12px; background:var(--sky); border-radius:8px; text-align:center;">
-          <div style="font-size:20px; font-weight:800; color:var(--navy);">Valdemir</div>
-          <div style="font-size:11px; color:var(--gray-500); margin-top:4px;">TI, Plataforma, Apps<br>Integrações Técnicas</div>
-        </div>
-        <div style="padding:12px; background:var(--sky); border-radius:8px; text-align:center;">
-          <div style="font-size:20px; font-weight:800; color:var(--navy);">Roseanne</div>
-          <div style="font-size:11px; color:var(--gray-500); margin-top:4px;">CS, Atendimento<br>Chamadas Operacionais</div>
-        </div>
-        <div style="padding:12px; background:var(--amber-light); border-radius:8px; text-align:center;">
-          <div style="font-size:20px; font-weight:800; color:var(--navy);">B2B Sales Rep</div>
-          <div style="font-size:10px; color:#92400E; margin-top:4px; font-weight:600;">A CONTRATAR</div>
-          <div style="font-size:11px; color:var(--gray-500); margin-top:2px;">Outreach Comercial<br>Lares, Seguradoras, B2B</div>
-        </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-name">Zé</div>
+        <div class="team-role">Estratégia</div>
+        <div class="team-desc">Decisões, supply side, produto</div>
+      </div>
+      <div class="team-card">
+        <div class="team-name">Ricardo</div>
+        <div class="team-role">Ops & Finance</div>
+        <div class="team-desc">Supply, frota própria, financeiro</div>
+      </div>
+      <div class="team-card">
+        <div class="team-name">Valdemir</div>
+        <div class="team-role">TI</div>
+        <div class="team-desc">Plataforma, apps, integrações técnicas</div>
+      </div>
+      <div class="team-card">
+        <div class="team-name">Roseanne</div>
+        <div class="team-role">Customer Success</div>
+        <div class="team-desc">Atendimento, chamadas operacionais</div>
+      </div>
+      <div class="team-card hire">
+        <div class="team-name">B2B Sales Rep</div>
+        <div class="team-role">A Contratar</div>
+        <div class="team-desc">Outreach comercial: lares, seguradoras, B2B</div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- SPRINT PLAN -->
-  <div class="section">
-    <div class="section-title">Plano de Acção: Próximas 2 Semanas <span class="badge">7-21 Abril 2026</span></div>
-    <div class="section-subtitle">Acções concretas e mensuráveis alinhadas com a Fase 1. Tasks B2B preparadas para handover ao Sales Rep quando entrar.</div>
+<!-- ═══ 07 — Plano de Acção ══════════════════════ -->
+<section id="plano">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-head-left">
+        <span class="section-num">07</span><h2 class="section-title">Plano de acção <em>— 2 semanas</em></h2>
+        <p class="section-lead">Acções concretas alinhadas à Fase 1. Tarefas B2B preparadas para handover ao Sales Rep.</p>
+      </div>
+    </div>
 
-    <div class="card">
+    <div class="table-wrap">
       <table class="sprint-table">
         <thead>
-          <tr><th>#</th><th>Acção</th><th>Fase 1</th><th>Owner</th><th>Meta</th><th>Prazo</th></tr>
+          <tr>
+            <th>#</th>
+            <th>Acção</th>
+            <th>Frente</th>
+            <th>Owner</th>
+            <th>Meta</th>
+            <th>Prazo</th>
+          </tr>
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
-            <td><strong>Blitz B2B: contactar 20 leads alta prioridade</strong><br><span style="font-size:11px;color:var(--gray-500)">Dos 70 B2B alta prioridade por contactar — seguradoras, hospitais, clínicas</span></td>
-            <td><span class="tag b2b">B2B Engine</span></td>
-            <td>Zé → <em style="color:#B45309">B2B Sales Rep</em></td>
-            <td>20 contactos, 3 reuniões agendadas</td>
+            <td class="idx">01</td>
+            <td>
+              <span class="action">Blitz B2B — contactar 20 leads alta prioridade</span>
+              <span class="subtext">Dos 70 B2B alta prioridade por contactar: seguradoras, hospitais, clínicas</span>
+            </td>
+            <td><span class="pill b2b">B2B</span></td>
+            <td>Zé → <em style="color:var(--accent)">Sales Rep</em></td>
+            <td>20 contactos · 3 reuniões</td>
             <td>14 Abr</td>
           </tr>
           <tr>
-            <td>2</td>
-            <td><strong>Contactar 10 lares Tier A</strong><br><span style="font-size:11px;color:var(--gray-500)">Focus nos 44 lares Tier A por converter — Lisboa e Porto</span></td>
-            <td><span class="tag b2b">B2B Engine</span></td>
-            <td>Zé → <em style="color:#B45309">B2B Sales Rep</em></td>
-            <td>10 contactos, 2 pilotos iniciados</td>
+            <td class="idx">02</td>
+            <td>
+              <span class="action">Contactar 10 lares Tier A</span>
+              <span class="subtext">Focus nos 44 lares Tier A por converter — Lisboa e Porto</span>
+            </td>
+            <td><span class="pill b2b">B2B</span></td>
+            <td>Zé → <em style="color:var(--accent)">Sales Rep</em></td>
+            <td>10 contactos · 2 pilotos</td>
             <td>18 Abr</td>
           </tr>
           <tr>
-            <td>3</td>
-            <td><strong>Implementar pagamento upfront</strong><br><span style="font-size:11px;color:var(--gray-500)">Resolver os 100 cancelamentos por pagamento — prepagamento mínimo obrigatório. Valdemir implementa no flow da plataforma.</span></td>
-            <td><span class="tag ops">Retenção</span></td>
+            <td class="idx">03</td>
+            <td>
+              <span class="action">Implementar pagamento upfront</span>
+              <span class="subtext">Resolver os 100 cancelamentos por pagamento — prepagamento mínimo obrigatório</span>
+            </td>
+            <td><span class="pill ops">Ops</span></td>
             <td>Valdemir</td>
-            <td>Flow de pagamento live</td>
+            <td>Flow live</td>
             <td>18 Abr</td>
           </tr>
           <tr>
-            <td>4</td>
-            <td><strong>Ligar a 5 parceiros dormentes</strong><br><span style="font-size:11px;color:var(--gray-500)">Dos 30 com 0 transportes: perceber bloqueios e reactivar</span></td>
-            <td><span class="tag supply">Supply</span></td>
+            <td class="idx">04</td>
+            <td>
+              <span class="action">Ligar a 5 parceiros dormentes</span>
+              <span class="subtext">Dos 30 com 0 transportes: perceber bloqueios e reactivar</span>
+            </td>
+            <td><span class="pill supply">Supply</span></td>
             <td>Zé + Ricardo</td>
-            <td>5 chamadas, 2 reactivados</td>
+            <td>5 calls · 2 reactivados</td>
             <td>14 Abr</td>
           </tr>
           <tr>
-            <td>5</td>
-            <td><strong>Setup WhatsApp Business + flow básico</strong><br><span style="font-size:11px;color:var(--gray-500)">Integração técnica do canal WhatsApp na plataforma — substituir parte do call center</span></td>
-            <td><span class="tag demand">Jornada</span></td>
+            <td class="idx">05</td>
+            <td>
+              <span class="action">Setup WhatsApp Business + flow básico</span>
+              <span class="subtext">Integração técnica do canal WhatsApp — substituir parte do call center</span>
+            </td>
+            <td><span class="pill media">Demand</span></td>
             <td>Valdemir</td>
-            <td>WhatsApp live como canal</td>
+            <td>WhatsApp live</td>
             <td>21 Abr</td>
           </tr>
           <tr>
-            <td>6</td>
-            <td><strong>UTM tracking em todos os links</strong><br><span style="font-size:11px;color:var(--gray-500)">Website, emails, social — saber de onde vem cada lead. Implementação técnica.</span></td>
-            <td><span class="tag media">Media</span></td>
+            <td class="idx">06</td>
+            <td>
+              <span class="action">UTM tracking em todos os links</span>
+              <span class="subtext">Website, emails, social — saber de onde vem cada lead</span>
+            </td>
+            <td><span class="pill media">Media</span></td>
             <td>Valdemir</td>
             <td>100% links com UTM</td>
             <td>11 Abr</td>
           </tr>
           <tr>
-            <td>7</td>
-            <td><strong>Email blast para 5.677 utilizadores</strong><br><span style="font-size:11px;color:var(--gray-500)">Roseanne prepara lista e envia — conteúdo aprovado pelo Zé</span></td>
-            <td><span class="tag media">Media</span></td>
+            <td class="idx">07</td>
+            <td>
+              <span class="action">Email blast para 5.677 utilizadores</span>
+              <span class="subtext">Roseanne prepara lista e envia — conteúdo aprovado pelo Zé</span>
+            </td>
+            <td><span class="pill media">Media</span></td>
             <td>Roseanne</td>
-            <td>Email enviado, track opens/clicks</td>
+            <td>Envio · tracking</td>
             <td>14 Abr</td>
           </tr>
           <tr>
-            <td>8</td>
-            <td><strong>Dashboard financeiro básico</strong><br><span style="font-size:11px;color:var(--gray-500)">Faturado vs recebido vs overdue — pode ser Google Sheet inicial</span></td>
-            <td><span class="tag finance">Financeiro</span></td>
+            <td class="idx">08</td>
+            <td>
+              <span class="action">Dashboard financeiro básico</span>
+              <span class="subtext">Facturado vs recebido vs overdue — pode ser Google Sheet inicial</span>
+            </td>
+            <td><span class="pill fin">Finance</span></td>
             <td>Zé + Ricardo</td>
             <td>Dashboard operacional</td>
             <td>21 Abr</td>
           </tr>
           <tr>
-            <td>9</td>
-            <td><strong>Entrevistar 3 tripulantes top</strong><br><span style="font-size:11px;color:var(--gray-500)">Marcos (390 trans), João Paulino (187), Bruno (183) — pain points e feedback da app</span></td>
-            <td><span class="tag supply">Supply</span></td>
+            <td class="idx">09</td>
+            <td>
+              <span class="action">Entrevistar 3 tripulantes top</span>
+              <span class="subtext">Marcos (390), João Paulino (187), Bruno (183) — pain points e feedback da app</span>
+            </td>
+            <td><span class="pill supply">Supply</span></td>
             <td>Zé</td>
-            <td>3 entrevistas realizadas</td>
+            <td>3 entrevistas</td>
             <td>18 Abr</td>
           </tr>
           <tr>
-            <td>10</td>
-            <td><strong>Proposta bombeiros: 2 corpos</strong><br><span style="font-size:11px;color:var(--gray-500)">Óbidos e Campo de Ourique já registados — proposta de valor + pricing</span></td>
-            <td><span class="tag supply">Supply</span></td>
+            <td class="idx">10</td>
+            <td>
+              <span class="action">Proposta bombeiros — 2 corpos</span>
+              <span class="subtext">Óbidos e Campo de Ourique já registados — proposta de valor + pricing</span>
+            </td>
+            <td><span class="pill supply">Supply</span></td>
             <td>Zé + Ricardo</td>
             <td>2 propostas enviadas</td>
             <td>21 Abr</td>
           </tr>
           <tr>
-            <td>11</td>
-            <td><strong>Cobrar maca retida: definir regra + implementar</strong><br><span style="font-size:11px;color:var(--gray-500)">4-5 hospitais em Lisboa retêm macas — cobrar 50€/hora ao cliente. Valdemir implementa no sistema.</span></td>
-            <td><span class="tag ops">Retenção</span></td>
+            <td class="idx">11</td>
+            <td>
+              <span class="action">Cobrar maca retida — regra + implementação</span>
+              <span class="subtext">4–5 hospitais em Lisboa retêm macas — cobrar 50€/hora ao cliente</span>
+            </td>
+            <td><span class="pill ops">Ops</span></td>
             <td>Zé + Valdemir</td>
-            <td>Regra definida + campo no sistema</td>
+            <td>Regra + campo no sistema</td>
             <td>21 Abr</td>
           </tr>
           <tr>
-            <td>12</td>
-            <td><strong>Preparar playbook B2B para Sales Rep</strong><br><span style="font-size:11px;color:var(--gray-500)">Pitch deck, pricing, lista de leads prioritários, script de chamada — tudo pronto para onboarding</span></td>
-            <td><span class="tag b2b">B2B Engine</span></td>
+            <td class="idx">12</td>
+            <td>
+              <span class="action">Preparar playbook B2B para Sales Rep</span>
+              <span class="subtext">Pitch deck, pricing, lista de leads prioritários, script de chamada</span>
+            </td>
+            <td><span class="pill b2b">B2B</span></td>
             <td>Zé</td>
-            <td>Playbook completo + lista de 50 leads</td>
+            <td>Playbook + 50 leads</td>
             <td>21 Abr</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="insight-box">
-      <div class="insight-title">Nota sobre B2B Sales Rep</div>
-      <p>As tasks 1 e 2 (outreach B2B e lares) estão atribuídas ao Zé como interim — quando o Sales Rep entrar, faz-se handover imediato. A task 12 (playbook) garante que o onboarding é rápido. O Sales Rep deve herdar também o pipeline de 243 contactos B2B + 270 lares do Airtable.</p>
+    <div class="callout">
+      <h4>Nota — B2B Sales Rep</h4>
+      <p>As tarefas 01 e 02 (outreach B2B e lares) estão atribuídas ao Zé como interim — quando o Sales Rep entrar, faz-se handover imediato. A tarefa 12 (playbook) garante que o onboarding é rápido. O Sales Rep deve herdar também o pipeline de 243 contactos B2B + 270 lares do Airtable.</p>
     </div>
   </div>
+</section>
 
-  <div style="text-align:center; padding:32px 0; color:var(--gray-500); font-size:12px; border-top:1px solid var(--gray-200); margin-top:40px;">
-    Report gerado a 7 de Abril 2026 &middot; Dados: AMBULA BASE Airtable + Ambula_Fase 1 (Google Doc) &middot; Manapar — New Business
-  </div>
-</div>
+<footer>
+  Report gerado 10 Abr 2026 · Dados Airtable + Fase 1 Doc · Manapar — New Business
+</footer>
 
 <script>
-// Color palette
-const COLORS = {
-  blue: '#2563EB', blueLight: '#93C5FD', navy: '#0F1D3D',
-  amber: '#F59E0B', amberLight: '#FCD34D',
-  green: '#10B981', greenLight: '#6EE7B7',
-  red: '#EF4444', redLight: '#FCA5A5',
-  purple: '#8B5CF6', gray: '#9CA3AF'
-};
+const INK = '#0F172A';
+const INK_3 = '#64748b';
+const LINE = '#dbe4ef';
+const BRAND = '#0067FF';
+const BRAND_LIGHT = '#7fb4ff';
+const ACCENT = '#07223f';
+const ACCENT_LIGHT = '#364151';
+const WARN = '#b54708';
+const DANGER = '#d92d20';
+const GRAY = '#94a3b8';
+
+Chart.defaults.font.family = "'Rubik', sans-serif";
+Chart.defaults.font.size = 11;
+Chart.defaults.color = INK_3;
+Chart.defaults.borderColor = LINE;
 
 // 1. Revenue Chart
 new Chart(document.getElementById('revenueChart'), {
@@ -683,36 +1007,36 @@ new Chart(document.getElementById('revenueChart'), {
       {
         label: 'GMV Finalizados (€)',
         data: [7119,8746,9403,11181,12356,16831,21820,18861,15207,16190,14786,2159],
-        backgroundColor: COLORS.blue,
-        borderRadius: 4,
-        yAxisID: 'y',
-        order: 2
-      },
-      {
-        label: 'Pago a Parceiros (€)',
-        data: [5019,6166,6629,7883,8711,11866,15383,13297,10721,11414,10424,1522],
-        backgroundColor: '#93C5FD',
-        borderRadius: 4,
+        backgroundColor: BRAND,
+        borderRadius: 2,
         yAxisID: 'y',
         order: 3
       },
       {
-        label: 'Receita Ambula (€)',
-        data: [2100,2580,2774,3298,3645,4965,6437,5564,4486,4776,4362,637],
-        backgroundColor: COLORS.amber,
-        borderRadius: 4,
+        label: 'Pago a Parceiros (€)',
+        data: [5019,6166,6629,7883,8711,11866,15383,13297,10721,11414,10424,1522],
+        backgroundColor: BRAND_LIGHT,
+        borderRadius: 2,
         yAxisID: 'y',
         order: 4
+      },
+      {
+        label: 'Receita Ambula (€)',
+        data: [2100,2580,2774,3298,3645,4965,6437,5564,4486,4776,4362,637],
+        backgroundColor: ACCENT,
+        borderRadius: 2,
+        yAxisID: 'y',
+        order: 5
       },
       {
         label: 'Nr Finalizados',
         data: [84,103,111,132,146,198,251,280,218,148,140,25],
         type: 'line',
-        borderColor: COLORS.navy,
+        borderColor: INK,
         backgroundColor: 'transparent',
-        borderWidth: 2.5,
-        pointRadius: 4,
-        pointBackgroundColor: COLORS.navy,
+        borderWidth: 2,
+        pointRadius: 3,
+        pointBackgroundColor: INK,
         yAxisID: 'y1',
         order: 1
       }
@@ -720,55 +1044,58 @@ new Chart(document.getElementById('revenueChart'), {
   },
   options: {
     responsive: true,
+    maintainAspectRatio: false,
     interaction: { mode: 'index', intersect: false },
-    plugins: { legend: { position: 'top', labels: { usePointStyle: true, padding: 16, font: { size: 11 } } } },
+    plugins: {
+      legend: { position: 'top', align: 'end', labels: { usePointStyle: true, padding: 20, boxWidth: 8, font: { size: 11 } } }
+    },
     scales: {
-      y: { beginAtZero: true, position: 'left', ticks: { callback: v => '€' + (v/1000).toFixed(0) + 'K', font: {size:10} }, grid: { color: '#F3F4F6' } },
-      y1: { beginAtZero: true, position: 'right', grid: { drawOnChartArea: false }, ticks: { font: {size:10} } },
-      x: { ticks: { font: {size:10} }, grid: { display: false } }
+      y: { beginAtZero: true, position: 'left', ticks: { callback: v => '€' + (v/1000).toFixed(0) + 'K' }, grid: { color: LINE, drawBorder: false } },
+      y1: { beginAtZero: true, position: 'right', grid: { drawOnChartArea: false } },
+      x: { grid: { display: false }, border: { color: LINE } }
     }
   }
 });
 
-// 2. Funnel Chart
+// 2. Funnel
 new Chart(document.getElementById('funnelChart'), {
   type: 'bar',
   data: {
-    labels: ['Out 25','Nov 25','Dez 25','Jan 26','Fev 26','Mar 26'],
+    labels: ['Out 25','Nov','Dez','Jan 26','Fev','Mar'],
     datasets: [
-      { label: 'Finalizado', data: [198,251,280,218,148,140], backgroundColor: COLORS.green, borderRadius: 3 },
-      { label: 'Cancelado', data: [42,55,48,38,28,37], backgroundColor: COLORS.red, borderRadius: 3 },
-      { label: 'Simulacao', data: [286,630,600,607,580,602], backgroundColor: COLORS.gray, borderRadius: 3 }
+      { label: 'Finalizado', data: [198,251,280,218,148,140], backgroundColor: BRAND, borderRadius: 2 },
+      { label: 'Cancelado', data: [42,55,48,38,28,37], backgroundColor: DANGER, borderRadius: 2 },
+      { label: 'Simulação', data: [286,630,600,607,580,602], backgroundColor: GRAY, borderRadius: 2 }
     ]
   },
   options: {
     responsive: true,
-    plugins: { legend: { position: 'top', labels: { usePointStyle: true, padding: 12, font: {size:10} } } },
+    maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, padding: 14, boxWidth: 8, font: {size:10} } } },
     scales: {
-      x: { stacked: true, ticks: { font: {size:10} }, grid: { display: false } },
-      y: { stacked: true, ticks: { font: {size:10} }, grid: { color: '#F3F4F6' } }
+      x: { stacked: true, grid: { display: false } },
+      y: { stacked: true, grid: { color: LINE, drawBorder: false } }
     }
   }
 });
 
-// 3. Channel Chart
+// 3. Channel
 new Chart(document.getElementById('channelChart'), {
   type: 'doughnut',
   data: {
-    labels: ['WebBase (74%)', 'Chamada Tel. (25%)', 'Mobile App (1%)'],
+    labels: ['WebBase (74%)', 'Chamada (25%)', 'Mobile (1%)'],
     datasets: [{
       data: [5948, 1975, 77],
-      backgroundColor: [COLORS.blue, COLORS.amber, COLORS.gray],
+      backgroundColor: [BRAND, ACCENT, GRAY],
       borderWidth: 2,
       borderColor: '#fff'
     }]
   },
   options: {
     responsive: true,
-    cutout: '60%',
-    plugins: {
-      legend: { position: 'bottom', labels: { usePointStyle: true, padding: 12, font: {size:11} } }
-    }
+    maintainAspectRatio: false,
+    cutout: '62%',
+    plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, padding: 14, boxWidth: 8, font: {size:10} } } }
   }
 });
 
@@ -780,21 +1107,22 @@ new Chart(document.getElementById('usersChart'), {
     datasets: [{
       label: 'Novos Utilizadores',
       data: [312,414,498,542,446,416,243,283,238,182,188,48],
-      borderColor: COLORS.purple,
-      backgroundColor: 'rgba(139,92,246,0.1)',
+      borderColor: BRAND,
+      backgroundColor: 'rgba(0,103,255,0.08)',
       fill: true,
-      tension: 0.3,
-      borderWidth: 2.5,
-      pointRadius: 4,
-      pointBackgroundColor: COLORS.purple
+      tension: 0.35,
+      borderWidth: 2,
+      pointRadius: 3,
+      pointBackgroundColor: BRAND
     }]
   },
   options: {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: { legend: { display: false } },
     scales: {
-      y: { beginAtZero: true, ticks: { font: {size:10} }, grid: { color: '#F3F4F6' } },
-      x: { ticks: { font: {size:10} }, grid: { display: false } }
+      y: { beginAtZero: true, grid: { color: LINE, drawBorder: false } },
+      x: { grid: { display: false } }
     }
   }
 });
@@ -803,61 +1131,42 @@ new Chart(document.getElementById('usersChart'), {
 new Chart(document.getElementById('cancelChart'), {
   type: 'bar',
   data: {
-    labels: ['Responsavel','Sem motivo','Pagamento','Espera','Empresa','Tripulante'],
+    labels: ['Responsável','Sem motivo','Pagamento','Espera','Empresa','Tripulante'],
     datasets: [{
       data: [162,111,100,64,25,4],
-      backgroundColor: [COLORS.red, COLORS.redLight, COLORS.amber, COLORS.amberLight, COLORS.gray, '#D1D5DB'],
-      borderRadius: 4
+      backgroundColor: [DANGER, '#f08478', WARN, BRAND_LIGHT, GRAY, '#d1dae5'],
+      borderRadius: 2
     }]
   },
   options: {
     indexAxis: 'y',
     responsive: true,
+    maintainAspectRatio: false,
     plugins: { legend: { display: false } },
     scales: {
-      x: { ticks: { font: {size:10} }, grid: { color: '#F3F4F6' } },
-      y: { ticks: { font: {size:10} }, grid: { display: false } }
+      x: { grid: { color: LINE, drawBorder: false } },
+      y: { grid: { display: false } }
     }
   }
 });
 
-// 6. Media Detail
-new Chart(document.getElementById('mediaDetailChart'), {
-  type: 'bar',
-  data: {
-    labels: ['WebBase','Chamada','Mobile'],
-    datasets: [{
-      data: [5948,1975,77],
-      backgroundColor: [COLORS.blue, COLORS.amber, COLORS.gray],
-      borderRadius: 6
-    }]
-  },
-  options: {
-    responsive: true,
-    plugins: { legend: { display: false } },
-    scales: {
-      y: { beginAtZero: true, ticks: { font: {size:10} }, grid: { color: '#F3F4F6' } },
-      x: { ticks: { font: {size:10} }, grid: { display: false } }
-    }
-  }
-});
-
-// 7. Transport Type
+// 6. Transport Type
 new Chart(document.getElementById('transportChart'), {
   type: 'doughnut',
   data: {
-    labels: ['Acamado/Maca (81%)','Cadeira Rodas (17%)','Autonomo (2%)'],
+    labels: ['Acamado/Maca (81%)','Cadeira Rodas (17%)','Autónomo (2%)'],
     datasets: [{
       data: [6484,1357,159],
-      backgroundColor: [COLORS.blue, COLORS.green, COLORS.gray],
+      backgroundColor: [BRAND, BRAND_LIGHT, GRAY],
       borderWidth: 2,
       borderColor: '#fff'
     }]
   },
   options: {
     responsive: true,
-    cutout: '60%',
-    plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, padding: 12, font: {size:11} } } }
+    maintainAspectRatio: false,
+    cutout: '62%',
+    plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, padding: 14, boxWidth: 8, font: {size:10} } } }
   }
 });
 </script>
