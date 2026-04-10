@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ambula WhatsApp - Fluxos de Pagamento & Reserva</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0b141a; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+
+  .section-header { color: #fff; font-size: 22px; font-weight: 700; text-align: center; margin: 50px 0 8px; }
+  .section-header:first-of-type { margin-top: 10px; }
+  .section-sub { color: #8696a0; font-size: 14px; text-align: center; margin-bottom: 24px; max-width: 700px; line-height: 1.5; }
+
+  .phones-row { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 30px; }
+
+  .phone-container { width: 380px; flex-shrink: 0; }
+  .phone-label { color: #fff; font-size: 14px; font-weight: 600; text-align: center; margin-bottom: 10px; padding: 6px 16px; background: rgba(255,255,255,0.1); border-radius: 20px; display: inline-block; width: 100%; }
+  .phone-label .sub { font-weight: 400; font-size: 12px; color: #8696a0; display: block; margin-top: 2px; }
+
+  .phone { background: #0b141a; border-radius: 24px; overflow: hidden; border: 2px solid #2a3942; }
+
+  .wa-header { background: #202c33; padding: 12px 16px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #2a3942; }
+  .wa-header .back { color: #00a884; font-size: 20px; }
+  .wa-avatar { width: 40px; height: 40px; border-radius: 50%; background: #00a884; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 16px; }
+  .wa-header-info { flex: 1; }
+  .wa-header-name { color: #e9edef; font-size: 16px; font-weight: 500; }
+  .wa-header-status { color: #8696a0; font-size: 12px; }
+
+  .chat-bg { background: #0b141a; padding: 12px; overflow-y: auto; max-height: 680px; }
+  .chat-bg::-webkit-scrollbar { width: 4px; }
+  .chat-bg::-webkit-scrollbar-thumb { background: #374045; border-radius: 2px; }
+
+  .msg { max-width: 85%; padding: 8px 10px; border-radius: 8px; margin-bottom: 6px; font-size: 13.5px; line-height: 1.45; position: relative; word-wrap: break-word; }
+  .msg-in { background: #202c33; color: #e9edef; border-top-left-radius: 0; margin-right: auto; }
+  .msg-out { background: #005c4b; color: #e9edef; border-top-right-radius: 0; margin-left: auto; }
+  .msg-time { font-size: 11px; color: #8696a0; text-align: right; margin-top: 4px; }
+  .msg-out .msg-time { color: rgba(255,255,255,0.5); }
+
+  .day-divider { text-align: center; margin: 12px 0; }
+  .day-divider span { background: #1d2b33; color: #8696a0; font-size: 12px; padding: 4px 12px; border-radius: 8px; }
+
+  .msg-header { font-size: 13px; font-weight: 600; color: #00a884; margin-bottom: 4px; }
+
+  .alert-box { background: rgba(255,152,0,0.15); border-left: 3px solid #ff9800; padding: 6px 8px; border-radius: 0 6px 6px 0; margin: 4px 0; font-size: 12.5px; }
+  .alert-box.urgent { background: rgba(244,67,54,0.15); border-left-color: #f44336; }
+  .alert-box.info { background: rgba(0,168,132,0.1); border-left-color: #00a884; }
+
+  .payment-btn { display: block; background: #00a884; color: white; text-align: center; padding: 8px; border-radius: 6px; margin-top: 8px; font-size: 13px; font-weight: 600; text-decoration: none; }
+  .payment-btn.urgent { background: #f44336; }
+
+  .quick-reply-row { display: flex; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.1); }
+  .quick-reply-btn { flex: 1; background: transparent; border: 1px solid #00a884; color: #00a884; padding: 8px 4px; border-radius: 8px; font-size: 13px; font-weight: 600; text-align: center; cursor: pointer; }
+  .quick-reply-btn.selected { background: #00a884; color: white; }
+
+  .feedback-row { display: flex; gap: 4px; margin: 6px 0; }
+  .feedback-star { background: #2a3942; color: #e9edef; padding: 6px 10px; border-radius: 20px; font-size: 13px; cursor: pointer; text-align: center; flex: 1; }
+  .feedback-star.selected { background: #00a884; }
+
+  .countdown { font-size: 20px; font-weight: 700; color: #f44336; text-align: center; margin: 6px 0; letter-spacing: 1px; }
+
+  .timeline-arrow { color: #374045; font-size: 24px; text-align: center; margin: 6px 0; }
+
+  .section-divider { width: 100%; max-width: 900px; height: 1px; background: #2a3942; margin: 30px 0; }
+
+  .msg-faded { opacity: 0.45; }
+
+  /* ========== PAYMENT PAGE — ifthenpay style ========== */
+  .payment-page-container { width: 380px; flex-shrink: 0; }
+  .payment-page { background: #fff; border-radius: 16px; overflow: hidden; max-height: 720px; overflow-y: auto; border: 1px solid #e5e7eb; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1f2937; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+  .payment-page::-webkit-scrollbar { width: 6px; }
+  .payment-page::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+
+  /* Browser topbar */
+  .pp-topbar { background: #f3f4f6; padding: 10px 16px; font-size: 12px; color: #6b7280; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid #e5e7eb; }
+  .pp-topbar .lock { color: #16a34a; font-size: 11px; }
+
+  /* Merchant header bar — Ambula */
+  .pp-merchant { padding: 18px 24px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between; }
+  .pp-merchant-name { font-size: 15px; font-weight: 700; color: #0f172a; letter-spacing: -0.2px; }
+  .pp-merchant-sub { font-size: 11px; color: #94a3b8; margin-top: 1px; }
+  .pp-merchant-amount { text-align: right; }
+  .pp-merchant-amount-val { font-size: 20px; font-weight: 700; color: #0f172a; }
+  .pp-merchant-amount-lbl { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .pp-body { padding: 20px 24px 24px; }
+
+  .pp-section { margin-bottom: 22px; }
+  .pp-section-title { font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; }
+
+  /* Order summary — compact */
+  .pp-summary { background: #f8fafc; border-radius: 8px; padding: 12px 14px; font-size: 12.5px; }
+  .pp-summary-row { display: flex; justify-content: space-between; padding: 3px 0; color: #475569; }
+  .pp-summary-row b { color: #1e293b; font-weight: 600; }
+
+  /* Radio options */
+  .pp-radio-group { display: flex; flex-direction: column; gap: 8px; }
+  .pp-radio { border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 13px 14px; cursor: pointer; transition: all 0.15s; background: #fff; }
+  .pp-radio:hover { border-color: #cbd5e1; }
+  .pp-radio.selected { border-color: #1e40af; background: #f8faff; }
+  .pp-radio-top { display: flex; align-items: center; gap: 10px; }
+  .pp-radio-dot { width: 16px; height: 16px; border-radius: 50%; border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .pp-radio.selected .pp-radio-dot { border-color: #1e40af; }
+  .pp-radio.selected .pp-radio-dot::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #1e40af; }
+  .pp-radio-label { font-size: 13.5px; font-weight: 600; color: #0f172a; }
+  .pp-radio-price { margin-left: auto; font-size: 14px; font-weight: 700; color: #0f172a; }
+  .pp-radio-desc { font-size: 11.5px; color: #64748b; margin-top: 5px; padding-left: 26px; line-height: 1.45; }
+  .pp-radio-warn { font-size: 10.5px; color: #92400e; background: #fef9c3; padding: 5px 8px; border-radius: 5px; margin-top: 7px; margin-left: 26px; border: 1px solid #fde68a; }
+
+  /* Post-service sub-options */
+  .pp-post-options { margin-top: 10px; padding-left: 26px; display: flex; flex-direction: column; gap: 7px; }
+  .pp-post-opt { display: flex; align-items: flex-start; gap: 8px; font-size: 11.5px; color: #64748b; line-height: 1.4; cursor: pointer; }
+  .pp-post-dot { width: 13px; height: 13px; border-radius: 50%; border: 1.5px solid #cbd5e1; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .pp-post-opt.selected .pp-post-dot { border-color: #1e40af; }
+  .pp-post-opt.selected .pp-post-dot::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #1e40af; }
+  .pp-post-opt b { color: #0f172a; font-weight: 600; }
+  .pp-post-sub-title { font-size: 10.5px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; }
+
+  /* Payment methods — real Portuguese brands */
+  .pp-methods { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .pp-method { border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 12px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 10px; background: #fff; }
+  .pp-method:hover { border-color: #cbd5e1; }
+  .pp-method.selected { border-color: #1e40af; background: #f8faff; }
+  .pp-method-brand { flex: 1; font-size: 12px; font-weight: 600; color: #0f172a; }
+
+  /* Brand marks — small, text-based, real-looking */
+  .brand-mbway { font-family: Arial, sans-serif; background: #e30613; color: #fff; padding: 3px 6px; border-radius: 3px; font-size: 9px; font-weight: 900; letter-spacing: 0.5px; }
+  .brand-mb { font-family: Arial, sans-serif; background: #0b3d91; color: #fff; padding: 3px 6px; border-radius: 3px; font-size: 9px; font-weight: 900; letter-spacing: 0.5px; }
+  .brand-card { font-family: Arial, sans-serif; background: #0f172a; color: #fff; padding: 3px 6px; border-radius: 3px; font-size: 9px; font-weight: 700; letter-spacing: 0.3px; }
+  .brand-transfer { font-family: Arial, sans-serif; background: #475569; color: #fff; padding: 3px 6px; border-radius: 3px; font-size: 9px; font-weight: 700; letter-spacing: 0.3px; }
+
+  /* CTA */
+  .pp-cta { width: 100%; background: #1e40af; color: white; border: none; border-radius: 8px; padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 8px; letter-spacing: 0.2px; }
+  .pp-cta:hover { background: #1e3a8a; }
+
+  /* Footer */
+  .pp-footer { text-align: center; font-size: 10.5px; color: #94a3b8; padding: 12px 16px 16px; border-top: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; }
+  .pp-footer .lock { color: #16a34a; }
+  .pp-footer-ifthen { font-weight: 700; color: #0b3d91; font-family: Arial, sans-serif; letter-spacing: -0.3px; }
+</style>
+</head>
+<body>
+
+<!-- ===================================================================== -->
+<!-- JORNADA A: Lembrete 48h → Cliente paga → Serviço completo           -->
+<!-- ===================================================================== -->
+<div class="section-header">Jornada A — Lembrete 48h, cliente paga a tempo</div>
+<div class="section-sub">O cliente agenda mas esquece-se de pagar. Recebe lembrete 48h antes, paga, e o serviço decorre normalmente.</div>
+
+<div class="phones-row">
+
+  <!-- Contacto Principal -->
+  <div class="phone-container">
+    <div class="phone-label">
+      Contacto Principal
+      <span class="sub">Pedro Fernandes (filho, solicitou transporte)</span>
+    </div>
+    <div class="phone">
+      <div class="wa-header">
+        <span class="back">←</span>
+        <div class="wa-avatar">A</div>
+        <div class="wa-header-info">
+          <div class="wa-header-name">Ambula</div>
+          <div class="wa-header-status">online</div>
+        </div>
+      </div>
+      <div class="chat-bg">
+
+        <div class="day-divider"><span>Segunda, 6 Abril 2026</span></div>
+
+        <!-- Pedido recebido -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          Olá Pedro! O pedido de transporte para <b>Maria Fernandes</b> foi recebido.<br><br>
+          📅 Data: <b>10 Abril 2026</b><br>
+          ⏰ Hora: <b>09:00</b><br>
+          📍 Rua Augusta 45, Lisboa → Hospital Santa Maria<br>
+          💰 Valor: <b>€93,00</b><br><br>
+          Para confirmar, efectue o pagamento:<br>
+          <a class="payment-btn" href="#">💳 Pagar €93,00</a>
+          <div class="alert-box">⚠️ O pagamento deve ser feito até 48h antes do transporte para garantir a reserva.</div>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">10:15</div>
+        </div>
+
+        <div class="timeline-arrow">⋮</div>
+        <div class="day-divider"><span>Quarta, 8 Abril — 48h antes do serviço</span></div>
+
+        <!-- LEMBRETE 48H -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          Olá Pedro 👋<br><br>
+          O transporte de <b>Maria Fernandes</b> está agendado para <b>10 Abril às 09:00</b>, mas o pagamento ainda está pendente.<br><br>
+          💰 Em falta: <b>€93,00</b><br><br>
+          <div class="alert-box">⚠️ <b>Tem até amanhã, 9 Abril às 09:00</b> (24h) para efectuar o pagamento. Após este prazo, a reserva será cancelada e o lugar atribuído a outro utente.</div>
+          <a class="payment-btn" href="#">💳 Pagar agora — €93,00</a>
+          <br>Precisa de ajuda? Responda a esta mensagem.<br><br>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">09:00</div>
+        </div>
+
+        <!-- Pedro paga -->
+        <div class="msg msg-out">
+          Desculpe, tinha-me esquecido! Vou pagar já
+          <div class="msg-time">11:20 ✓✓</div>
+        </div>
+
+        <!-- Confirmação -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          ✅ Pagamento recebido! O transporte de <b>Maria Fernandes</b> está <b>confirmado</b>.<br><br>
+          📅 <b>10 Abril</b> às <b>09:00</b><br>
+          🚑 Operador: <b>Samaritã - Transportes</b><br><br>
+          Receberá uma notificação quando a ambulância estiver a caminho.<br><br>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">11:25</div>
+        </div>
+
+        <div class="msg msg-out">
+          Obrigado 👍
+          <div class="msg-time">11:26 ✓✓</div>
+        </div>
+
+        <div class="day-divider"><span>Sexta, 10 Abril — dia do serviço</span></div>
+
+        <!-- A caminho -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          🚑 A ambulância está a caminho para recolher <b>Maria Fernandes</b>.<br><br>
+          ⏰ Chegada estimada: <b>15 minutos</b><br><br>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">08:45</div>
+        </div>
+
+        <!-- Recolhida -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          ✅ <b>Maria Fernandes</b> foi recolhida e está a caminho do <b>Hospital Santa Maria</b>.<br><br>
+          Informaremos quando chegar ao destino.<br><br>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">09:08</div>
+        </div>
+
+        <!-- Concluído -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          ✅ Transporte concluído com sucesso!<br><br>
+          <b>Maria Fernandes</b> chegou ao Hospital Santa Maria às 09:32.<br><br>
+          Obrigado por confiar na Ambula! 🙏<br><br>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">09:35</div>
+        </div>
+
+        <!-- Feedback -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          Como correu o transporte de <b>Maria Fernandes</b>?<br><br>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="quick-reply-row">
+            <div class="quick-reply-btn">😟 Mau</div>
+            <div class="quick-reply-btn">👍 Bom</div>
+            <div class="quick-reply-btn selected">🌟 Excelente</div>
+          </div>
+          <div class="msg-time">11:00</div>
+        </div>
+
+        <div class="msg msg-out">
+          🌟 Excelente
+          <div class="msg-time">12:30 ✓✓</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Contacto Secundário (paciente) -->
+  <div class="phone-container">
+    <div class="phone-label">
+      Contacto Secundário
+      <span class="sub">D. Maria Fernandes (paciente, 74 anos)</span>
+    </div>
+    <div class="phone">
+      <div class="wa-header">
+        <span class="back">←</span>
+        <div class="wa-avatar">A</div>
+        <div class="wa-header-info">
+          <div class="wa-header-name">Ambula</div>
+          <div class="wa-header-status">online</div>
+        </div>
+      </div>
+      <div class="chat-bg">
+
+        <div class="day-divider"><span>Quarta, 8 Abril</span></div>
+
+        <!-- Confirmação para paciente -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          Olá D. Maria! O transporte para a sua consulta está confirmado.<br><br>
+          📅 <b>10 Abril</b> às <b>09:00</b><br>
+          📍 Vamos buscá-la a <b>Rua Augusta 45</b><br>
+          📍 Destino: <b>Hospital Santa Maria</b><br><br>
+          O tripulante irá contactá-la à chegada.<br><br>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">11:26</div>
+        </div>
+
+        <div class="msg msg-out">
+          Obrigada! 🙏
+          <div class="msg-time">11:40 ✓✓</div>
+        </div>
+
+        <div class="day-divider"><span>Sexta, 10 Abril — dia do serviço</span></div>
+
+        <!-- A caminho -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          🚑 Bom dia D. Maria! A ambulância está a caminho.<br><br>
+          ⏰ Chegada estimada: <b>15 minutos</b><br><br>
+          Por favor prepare-se para o transporte.<br><br>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">08:45</div>
+        </div>
+
+        <div class="msg msg-out">
+          Ok estou pronta 🙏
+          <div class="msg-time">08:48 ✓✓</div>
+        </div>
+
+        <!-- Concluído -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          ✅ Transporte concluído! Esperamos que a consulta corra bem, D. Maria.<br><br>
+          Se precisar de transporte de regresso, é só responder a esta mensagem.<br><br>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">09:35</div>
+        </div>
+
+        <div class="msg msg-out">
+          Muito obrigada, o senhor foi muito simpático!
+          <div class="msg-time">09:40 ✓✓</div>
+        </div>
+
+        <!-- Feedback -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          Como correu o serviço?<br>
+          <div class="quick-reply-row">
+            <div class="quick-reply-btn">😟 Mau</div>
+            <div class="quick-reply-btn">👍 Bom</div>
+            <div class="quick-reply-btn selected">🌟 Excelente</div>
+          </div>
+          <div class="msg-time">11:00</div>
+        </div>
+
+        <div class="msg msg-out">
+          🌟 Excelente
+          <div class="msg-time">11:15 ✓✓</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ===================================================================== -->
+<!-- JORNADA B: 2 alertas — lembrete 48h + urgente 4h → paga à última   -->
+<!-- ===================================================================== -->
+<div class="section-header">Jornada B — 2 alertas, cliente paga à última hora</div>
+<div class="section-sub">O cliente ignora o primeiro lembrete (48h). Recebe segundo alerta urgente (4h antes) — paga no limite e o serviço avança.</div>
+
+<div class="phones-row">
+
+  <div class="phone-container">
+    <div class="phone-label">
+      Contacto Principal
+      <span class="sub">Ana Costa (filha, solicitou transporte para o pai)</span>
+    </div>
+    <div class="phone">
+      <div class="wa-header">
+        <span class="back">←</span>
+        <div class="wa-avatar">A</div>
+        <div class="wa-header-info">
+          <div class="wa-header-name">Ambula</div>
+          <div class="wa-header-status">online</div>
+        </div>
+      </div>
+      <div class="chat-bg">
+
+        <div class="day-divider"><span>Segunda, 6 Abril 2026</span></div>
+
+        <!-- Pedido -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          Olá Ana! O pedido de transporte para <b>José Costa</b> foi recebido.<br><br>
+          📅 Data: <b>10 Abril 2026</b><br>
+          ⏰ Hora: <b>14:00</b><br>
+          📍 Av. da República 120 → Hospital Amadora-Sintra<br>
+          💰 Valor: <b>€78,00</b><br><br>
+          <a class="payment-btn" href="#">💳 Pagar €78,00</a>
+          <div class="alert-box">⚠️ O pagamento deve ser feito até 48h antes do transporte.</div>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">16:00</div>
+        </div>
+
+        <div class="timeline-arrow">⋮</div>
+        <div class="day-divider"><span>Quarta, 8 Abril — 48h antes</span></div>
+
+        <!-- ALERTA 1: Lembrete 48h -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          Olá Ana 👋<br><br>
+          O transporte de <b>José Costa</b> está agendado para <b>10 Abril às 14:00</b>, mas o pagamento ainda está pendente.<br><br>
+          💰 Em falta: <b>€78,00</b><br><br>
+          <div class="alert-box">⚠️ <b>Tem até 9 Abril às 14:00</b> para pagar. Após esse prazo, a reserva poderá ser cancelada.</div>
+          <a class="payment-btn" href="#">💳 Pagar agora — €78,00</a>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">14:00</div>
+        </div>
+
+        <!-- Ana não responde -->
+        <div class="timeline-arrow">⋮</div>
+        <div class="day-divider"><span>Sexta, 10 Abril — dia do serviço</span></div>
+
+        <!-- ALERTA 2: Urgente 4h antes -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          🚨 <b>Aviso Urgente</b><br><br>
+          Ana, o transporte de <b>José Costa</b> é <b>hoje às 14:00</b> e o pagamento continua pendente.<br><br>
+          <div class="countdown">⏰ 4h para cancelamento</div>
+          <div class="alert-box urgent">🔴 <b>A reserva será cancelada às 10:00</b> se o pagamento não for efectuado. Após cancelamento, não garantimos disponibilidade para reagendar.</div>
+          <a class="payment-btn urgent" href="#">⚡ PAGAR AGORA — €78,00</a>
+          <br>Se já não precisa do transporte, responda "Cancelar".<br><br>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">06:00</div>
+        </div>
+
+        <!-- Ana acorda e paga -->
+        <div class="msg msg-out">
+          Meu Deus desculpe!! O meu pai precisa sim, vou pagar já!
+          <div class="msg-time">08:15 ✓✓</div>
+        </div>
+
+        <!-- Confirmação -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          ✅ Pagamento recebido! O transporte de <b>José Costa</b> está <b>confirmado</b> para hoje às 14:00.<br><br>
+          🚑 Operador: <b>Cruz Vermelha - Amadora</b><br><br>
+          Receberá notificação quando a ambulância estiver a caminho.<br><br>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">08:18</div>
+        </div>
+
+        <div class="msg msg-out">
+          🙏🙏 obrigada!
+          <div class="msg-time">08:19 ✓✓</div>
+        </div>
+
+        <!-- A caminho -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          🚑 A ambulância está a caminho para recolher <b>José Costa</b>.<br><br>
+          ⏰ Chegada estimada: <b>20 minutos</b><br><br>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">13:40</div>
+        </div>
+
+        <!-- Recolhido -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          ✅ <b>José Costa</b> foi recolhido e está a caminho do <b>Hospital Amadora-Sintra</b>.<br><br>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">14:05</div>
+        </div>
+
+        <div class="msg msg-out">
+          Obrigada! Podem dizer-me quando chegar?
+          <div class="msg-time">14:06 ✓✓</div>
+        </div>
+
+        <!-- Concluído -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          ✅ Transporte concluído! <b>José Costa</b> chegou ao Hospital Amadora-Sintra às 14:28.<br><br>
+          Obrigado pela confiança, Ana! 🙏<br><br>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">14:30</div>
+        </div>
+
+        <!-- Feedback -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          Como correu o transporte de <b>José Costa</b>?<br>
+          <div class="quick-reply-row">
+            <div class="quick-reply-btn">😟 Mau</div>
+            <div class="quick-reply-btn selected">👍 Bom</div>
+            <div class="quick-reply-btn">🌟 Excelente</div>
+          </div>
+          <div class="msg-time">16:00</div>
+        </div>
+
+        <div class="msg msg-out">
+          👍 Bom
+          <div class="msg-time">17:30 ✓✓</div>
+        </div>
+        <div class="msg msg-out">
+          Correu bem, só chegou um bocadinho atrasado mas nada de especial
+          <div class="msg-time">17:30 ✓✓</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Paciente -->
+  <div class="phone-container">
+    <div class="phone-label">
+      Contacto Secundário
+      <span class="sub">Sr. José Costa (paciente, 68 anos)</span>
+    </div>
+    <div class="phone">
+      <div class="wa-header">
+        <span class="back">←</span>
+        <div class="wa-avatar">A</div>
+        <div class="wa-header-info">
+          <div class="wa-header-name">Ambula</div>
+          <div class="wa-header-status">online</div>
+        </div>
+      </div>
+      <div class="chat-bg">
+
+        <div class="day-divider"><span>Sexta, 10 Abril — dia do serviço</span></div>
+
+        <!-- Confirmação para paciente -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          Bom dia Sr. José! O transporte para a sua consulta está confirmado.<br><br>
+          📅 <b>Hoje</b> às <b>14:00</b><br>
+          📍 Vamos buscá-lo à <b>Av. da República 120</b><br>
+          📍 Destino: <b>Hospital Amadora-Sintra</b><br><br>
+          O tripulante contactará à chegada.<br><br>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">08:20</div>
+        </div>
+
+        <div class="msg msg-out">
+          Obrigado
+          <div class="msg-time">09:15 ✓✓</div>
+        </div>
+
+        <!-- A caminho -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          🚑 A ambulância está a caminho!<br><br>
+          ⏰ Chegada em <b>20 minutos</b>.<br>
+          Por favor prepare-se.<br><br>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">13:40</div>
+        </div>
+
+        <div class="msg msg-out">
+          Está bem
+          <div class="msg-time">13:42 ✓✓</div>
+        </div>
+
+        <!-- Concluído -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          ✅ Transporte concluído! Esperamos que a consulta corra bem, Sr. José.<br><br>
+          Precisa de regresso? Responda a esta mensagem.<br><br>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">14:30</div>
+        </div>
+
+        <div class="msg msg-out">
+          Não obrigado, a minha filha vem buscar-me
+          <div class="msg-time">14:35 ✓✓</div>
+        </div>
+
+        <!-- Feedback -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          Como correu o serviço?<br>
+          <div class="quick-reply-row">
+            <div class="quick-reply-btn">😟 Mau</div>
+            <div class="quick-reply-btn selected">👍 Bom</div>
+            <div class="quick-reply-btn">🌟 Excelente</div>
+          </div>
+          <div class="msg-time">16:00</div>
+        </div>
+
+        <div class="msg msg-out">
+          👍 Bom
+          <div class="msg-time">16:45 ✓✓</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ===================================================================== -->
+<!-- PÁGINA DE PAGAMENTO — com opção de reserva 50%                      -->
+<!-- ===================================================================== -->
+<div class="section-header">Página de Pagamento</div>
+<div class="section-sub">O cliente clica em "Pagar" no WhatsApp e abre esta página no browser. Pode pagar a totalidade ou reservar com 50%.</div>
+
+<div class="phones-row">
+
+  <!-- WhatsApp que leva à página -->
+  <div class="phone-container">
+    <div class="phone-label">
+      Mensagem WhatsApp
+      <span class="sub">Cliente clica no botão de pagamento</span>
+    </div>
+    <div class="phone">
+      <div class="wa-header">
+        <span class="back">←</span>
+        <div class="wa-avatar">A</div>
+        <div class="wa-header-info">
+          <div class="wa-header-name">Ambula</div>
+          <div class="wa-header-status">online</div>
+        </div>
+      </div>
+      <div class="chat-bg">
+
+        <div class="day-divider"><span>Segunda, 6 Abril 2026</span></div>
+
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          Olá! O pedido de transporte para <b>Maria Fernandes</b> foi recebido.<br><br>
+          📅 <b>10 Abril 2026</b> às <b>09:00</b><br>
+          📍 Rua Augusta 45 → Hospital Santa Maria<br>
+          💰 Valor: <b>€93,00</b><br><br>
+          <a class="payment-btn" href="#">💳 Pagar / Reservar</a>
+          <div class="alert-box info">💡 Pode reservar com 50% agora e pagar o resto após o serviço.</div>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">14:32</div>
+        </div>
+
+        <div class="timeline-arrow">⋮</div>
+
+        <!-- Após pagamento -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          ✅ <b>Reserva confirmada!</b><br><br>
+          📅 <b>10 Abril</b> às <b>09:00</b><br>
+          📍 Rua Augusta 45 → Hospital Santa Maria<br><br>
+          💳 Pago: <b>€46,50</b> (reserva, não reembolsável)<br>
+          📋 Restante: <b>€46,50</b> após o serviço<br><br>
+          <div class="alert-box info">Escolheu: link de pagamento por WhatsApp após o serviço (48h para pagar).</div>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">14:40</div>
+        </div>
+
+        <div class="msg msg-out">
+          Perfeito 👍
+          <div class="msg-time">14:41 ✓✓</div>
+        </div>
+
+        <div class="timeline-arrow">⋮</div>
+        <div class="day-divider"><span>Sexta, 10 Abril — após serviço</span></div>
+
+        <!-- Cobrança pós-serviço -->
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          ✅ Transporte concluído!<br><br>
+          Falta completar o pagamento:<br>
+          💰 Em falta: <b>€46,50</b><br>
+          ⏰ Prazo: <b>12 Abril às 10:00</b><br><br>
+          <a class="payment-btn" href="#">💳 Pagar restante — €46,50</a>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">10:00</div>
+        </div>
+
+        <div class="msg msg-out">
+          Feito! ✅
+          <div class="msg-time">10:20 ✓✓</div>
+        </div>
+
+        <div class="msg msg-in">
+          <div class="msg-header">Ambula</div>
+          ✅ Pagamento completo — <b>€93,00</b>. Obrigado! 🙏<br><br>
+          <i>Ambula - Transporte de Doentes</i>
+          <div class="msg-time">10:22</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PÁGINA DE PAGAMENTO -->
+  <div class="payment-page-container">
+    <div class="phone-label">
+      Página de Pagamento
+      <span class="sub">Abre no browser do telemóvel ao clicar no link</span>
+    </div>
+    <div class="payment-page">
+
+      <!-- Browser bar -->
+      <div class="pp-topbar">
+        <span class="lock">🔒</span> pagar.ambula.pt/t/AMB-2026-0412
+      </div>
+
+      <!-- Merchant header -->
+      <div class="pp-merchant">
+        <div>
+          <div class="pp-merchant-name">Ambula</div>
+          <div class="pp-merchant-sub">Transporte de Doentes</div>
+        </div>
+        <div class="pp-merchant-amount">
+          <div class="pp-merchant-amount-val">€93,00</div>
+          <div class="pp-merchant-amount-lbl">Total</div>
+        </div>
+      </div>
+
+      <div class="pp-body">
+
+        <!-- Resumo do serviço -->
+        <div class="pp-section">
+          <div class="pp-section-title">Detalhes do serviço</div>
+          <div class="pp-summary">
+            <div class="pp-summary-row"><span>Paciente</span><b>Maria Fernandes</b></div>
+            <div class="pp-summary-row"><span>Data</span><b>10 Abril, 09:00</b></div>
+            <div class="pp-summary-row"><span>Origem</span><b>Rua Augusta 45</b></div>
+            <div class="pp-summary-row"><span>Destino</span><b>H. Santa Maria</b></div>
+          </div>
+        </div>
+
+        <!-- Modalidade -->
+        <div class="pp-section">
+          <div class="pp-section-title">Modalidade</div>
+          <div class="pp-radio-group">
+
+            <div class="pp-radio">
+              <div class="pp-radio-top">
+                <div class="pp-radio-dot"></div>
+                <div class="pp-radio-label">Pagar totalidade</div>
+                <div class="pp-radio-price">€93,00</div>
+              </div>
+              <div class="pp-radio-desc">Reembolso total se cancelar até 24h antes do serviço.</div>
+            </div>
+
+            <div class="pp-radio selected">
+              <div class="pp-radio-top">
+                <div class="pp-radio-dot"></div>
+                <div class="pp-radio-label">Reservar com 50%</div>
+                <div class="pp-radio-price">€46,50</div>
+              </div>
+              <div class="pp-radio-desc">Pague metade agora, o resto após o serviço.</div>
+              <div class="pp-radio-warn">A reserva de €46,50 não é reembolsável.</div>
+
+              <div class="pp-post-options">
+                <div class="pp-post-sub-title">Restantes 50% após o serviço</div>
+                <div class="pp-post-opt">
+                  <div class="pp-post-dot"></div>
+                  <div><b>Débito automático</b> no cartão até 24h após serviço</div>
+                </div>
+                <div class="pp-post-opt selected">
+                  <div class="pp-post-dot"></div>
+                  <div><b>Link por WhatsApp</b> — 48h para pagar</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Método de pagamento -->
+        <div class="pp-section">
+          <div class="pp-section-title">Método de pagamento</div>
+          <div class="pp-methods">
+            <div class="pp-method selected">
+              <span class="brand-mbway">MB&nbsp;WAY</span>
+              <span class="pp-method-brand">MB WAY</span>
+            </div>
+            <div class="pp-method">
+              <span class="brand-mb">MB</span>
+              <span class="pp-method-brand">Multibanco</span>
+            </div>
+            <div class="pp-method">
+              <span class="brand-card">VISA</span>
+              <span class="pp-method-brand">Cartão</span>
+            </div>
+            <div class="pp-method">
+              <span class="brand-transfer">SEPA</span>
+              <span class="pp-method-brand">Transferência</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="pp-cta">Reservar · €46,50</button>
+
+      </div>
+
+      <div class="pp-footer">
+        <span class="lock">🔒</span> Pagamento processado por
+        <span class="pp-footer-ifthen">ifthenpay</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
