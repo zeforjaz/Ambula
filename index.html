@@ -397,6 +397,7 @@
   <div class="topnav-inner">
     <div class="topnav-brand">Ambula <span>· Report Abril 2026</span></div>
     <div class="topnav-links">
+      <a href="#semana">Semana 13-17 Abr</a>
       <a href="#kpis">01 KPIs</a>
       <a href="#evol">02 Evolução</a>
       <a href="#parc">03 Parceiros</a>
@@ -418,11 +419,74 @@
         <p class="hero-lead">Análise operacional, supply, demanda e alinhamento com a Fase 1 Manapar.</p>
       </div>
       <div class="hero-meta">
-        <div><span>Data</span><strong>10 Abr 2026</strong></div>
+        <div><span>Actualizado</span><strong>17 Abr 2026</strong></div>
         <div><span>Período</span><strong>Mai 25 – Abr 26</strong></div>
-        <div><span>Para</span><strong>Manapar</strong></div>
+        <div><span>Destaque</span><strong>Semana 13-17 Abr</strong></div>
+        <div><span>Para</span><strong>Manapar + Rodrigo</strong></div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ═══ Semana 13-17 Abr — Actualização semanal ═══ -->
+<section id="semana" class="dark">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-head-left">
+        <span class="section-num">Semana</span><h2 class="section-title">13-17 Abril 2026 <em>— actualização semanal</em></h2>
+        <p class="section-lead">Cross-check Telefonemas × Agendamentos × Contactos Extras. A queda de -56% nos tels <strong>não é queda de procura</strong> — a máquina comercial está estável. O gargalo desta semana é operacional.</p>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="stat-label">Telefonemas Seg-Sex</div>
+        <div class="stat-value">50</div>
+        <div class="stat-detail">Semana anterior: 113</div>
+        <div class="stat-trend down">-56% s/s · em chamadas de menor valor</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Agendamentos Confirmados</div>
+        <div class="stat-value">39</div>
+        <div class="stat-detail">Semana anterior: 40</div>
+        <div class="stat-trend flat">-2% s/s · estável</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Simulações Web</div>
+        <div class="stat-value">192</div>
+        <div class="stat-detail">Semana anterior: 208</div>
+        <div class="stat-trend flat">-8% s/s · estável</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Contactos Extras (pós-venda)</div>
+        <div class="stat-value">57</div>
+        <div class="stat-detail">13 atrasos · 9 cancel. · 3 pagamento</div>
+        <div class="stat-trend down">Rácio extras/tels: 1.14×</div>
+      </div>
+    </div>
+
+    <div class="callout danger" style="margin-top:20px">
+      <h4>Parceiros a falhar — semana crítica</h4>
+      <p><strong>+Mobilidade:</strong> esqueceu o serviço SAU-13276 (com reembolso), sem resposta em SAU-13122, e fechou antes de dar retorno em SAU-13324. <strong>Santa Emília:</strong> sem retorno em 40min em SAU-13120/13283 e SAU-13224, obrigando a split para outra equipa. Estes dois parceiros concentram &gt;60% das notas negativas da semana.</p>
+      <p><strong>Acção:</strong> reunião formal com +Mobilidade + SLA de comunicação escrito (máx 15min de silêncio antes de escalar).</p>
+    </div>
+
+    <div class="callout warn">
+      <h4>Cobertura Coimbra + Santarém — perdas directas</h4>
+      <p>SAU-13210 cancelado e reembolsado: cliente recusou o único parceiro disponível em Coimbra. Pedido para Santarém sem equipa no próprio dia. <strong>É urgente um 2º parceiro em cada cidade</strong> — mesmo antes de avançar com o algoritmo de dispatch.</p>
+    </div>
+
+    <div class="callout warn">
+      <h4>"Perdidas p/ concorrência" é KPI enganoso</h4>
+      <p>Dos 41 registos "Empresa Concorrente" em 2026 YTD, <strong>37 (90%) são wrong-number</strong> — pessoas a tentar ligar para outras empresas (2light 5×, Força de Viver 4×, IPO 2×, Santa Mónica, Salva Vidas, Bombeiros, Loures Macas). Perdas competitivas reais são apenas ~2-4 casos em 4 meses. Proposta: renomear a categoria Airtable para <em>"Engano — número de outra empresa"</em> para não gerar falsos alarmes.</p>
+    </div>
+
+    <div class="callout">
+      <h4>Oportunidades B2B activas esta semana</h4>
+      <p><strong>Medys</strong> pediu conhecer melhor a Ambula (qui 16). <strong>Novo parceiro-transportador</strong> pediu contacto formal por email (ter 14). Política de cancelamento tardio a funcionar — 60€ cobrados em SAU-13284.</p>
+    </div>
+
+    <div class="chart-note warn" style="margin-top:16px"><strong>Padrão recorrente nas notas:</strong> capacidade / velocidade. Clientes a querer equipa "mais rápida do que há disponibilidade" — Santarém, Coimbra, transporte aeroporto Porto, pedidos para 19h. É a principal causa de perda directa desta semana. Argumento forte para frota própria pequena (1-2 ambulâncias) para cobrir picos. Detalhe completo no report semanal <em>Ambula_Telefonemas_Semana_13-19Abr</em>.</div>
   </div>
 </section>
 
@@ -509,6 +573,7 @@
       </div>
       <div class="chart-canvas-wrap"><canvas id="revenueChart"></canvas></div>
       <div class="chart-note warn"><strong>Pico em Novembro-Dezembro 2025</strong> seguido de queda sustentada. Janeiro–Março 2026 mostra retracção de ~15% m/m. A receita Ambula acompanha: €6.4K (Nov) → €4.4K (Mar). Dos 11.498 agendamentos totais, apenas 3.028 foram finalizados (26%). <strong>O desafio é aumentar a conversão do funil, não a cobrança de comissão — 99.4% dos finalizados já geram comissão.</strong></div>
+      <div class="chart-note" style="margin-top:8px"><strong>Abr 26 é parcial (dias 1-17)</strong>: 83 finalizados, GMV €8.834, Receita Ambula €2.179 (take rate 24,7%, ticket médio €106). <strong>Run-rate para o mês completo: ~147 finalizados, GMV ~€15,6K, Receita ~€3,8K</strong> — ligeiramente acima de Março (140 / €14,8K / €4,4K) em volume, mas com receita menor devido a mix e comissionamento. Leitura: estabilização, ainda sem recuperação clara.</div>
     </div>
 
     <div class="chart-grid-3">
@@ -816,9 +881,38 @@
   <div class="wrap">
     <div class="section-head">
       <div class="section-head-left">
-        <span class="section-num">07</span><h2 class="section-title">Plano de acção <em>— 2 semanas</em></h2>
-        <p class="section-lead">Acções concretas alinhadas à Fase 1. Tarefas B2B preparadas para handover ao Sales Rep.</p>
+        <span class="section-num">07</span><h2 class="section-title">Plano de acção <em>— retrospectiva + semana 20-26 Abr</em></h2>
+        <p class="section-lead">O que aconteceu esta semana + foco para a próxima. <strong>Lares fora de âmbito.</strong> <strong>Bombeiros adiado para Outubro.</strong></p>
       </div>
+    </div>
+
+    <!-- Retrospectiva da semana -->
+    <div class="callout" style="margin-bottom:20px">
+      <h4>Esta semana (13-17 Abr) — o que aconteceu</h4>
+      <div class="stat-grid" style="margin-bottom:14px">
+        <div class="stat">
+          <div class="stat-label">Reuniões parceiros</div>
+          <div class="stat-value">3</div>
+          <div class="stat-sub">Medilusa · Alma Alentejana · Alfa</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Agendadas p/ próxima semana</div>
+          <div class="stat-value">2</div>
+          <div class="stat-sub">Blitz B2B em curso</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Progresso vs objectivo</div>
+          <div class="stat-value">5 / 20</div>
+          <div class="stat-sub">25% — meta de reuniões B2B</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Finalizados Abr (1-17)</div>
+          <div class="stat-value">83</div>
+          <div class="stat-sub">12/21 dias úteis · esperado 80 @ pace Mar</div>
+          <div class="stat-trend up">+4% vs ritmo Março · run-rate ~147</div>
+        </div>
+      </div>
+      <p><strong>3 entrevistas parceiros concluídas (14-15 Abr):</strong> Carlos Simões / Medilusa (Lisboa — fornecedor de tripulantes, enfermeiros e médicos; usa iVProtec/iGest, €61/mês), Fátima Calado + António / Alma Alentejana (Baixo Alentejo, 6 ambulâncias, greenfield absoluto — gestão a papel), João Soares / Alfa (Portimão, 14 ambulâncias — <strong>empresa à venda, pede €1M, fechará em ~€800k</strong>). <strong>Insights transversais:</strong> iVProtec/iGest é concorrente real — benchmark obrigatório antes de definir v2 da plataforma; notificação automática (WhatsApp/SMS) de pedidos na zona é quick-win transversal aos 3; Ambula só precifica ida — nos trajetos longos (ex. Algarve→Lisboa) torna-se insustentável e parceiros recusam.</p>
     </div>
 
     <div class="table-wrap">
@@ -837,60 +931,27 @@
           <tr>
             <td class="idx">01</td>
             <td>
-              <span class="action">Blitz B2B — contactar 20 leads alta prioridade</span>
-              <span class="subtext">Dos 70 B2B alta prioridade por contactar: seguradoras, hospitais, clínicas</span>
+              <span class="action">2 reuniões parceiros já agendadas</span>
+              <span class="subtext">Manter ritmo ≥3/semana — progresso 5/20 (25%) contra meta de 20 reuniões B2B prioritárias</span>
             </td>
             <td><span class="pill b2b">B2B</span></td>
-            <td>Zé → <em style="color:var(--accent)">Sales Rep</em></td>
-            <td>20 contactos · 3 reuniões</td>
-            <td>14 Abr</td>
+            <td>Zé</td>
+            <td>2 reuniões · insights validados</td>
+            <td>24 Abr</td>
           </tr>
           <tr>
             <td class="idx">02</td>
             <td>
-              <span class="action">Contactar 10 lares Tier A</span>
-              <span class="subtext">Focus nos 44 lares Tier A por converter — Lisboa e Porto</span>
+              <span class="action">Setup WhatsApp Business + flow básico</span>
+              <span class="subtext">Integração técnica do canal — substituir parte do call center. <strong>Movido do Valdemir para o Zé</strong> — execução directa.</span>
             </td>
-            <td><span class="pill b2b">B2B</span></td>
-            <td>Zé → <em style="color:var(--accent)">Sales Rep</em></td>
-            <td>10 contactos · 2 pilotos</td>
-            <td>18 Abr</td>
+            <td><span class="pill media">Demand</span></td>
+            <td>Zé</td>
+            <td>WhatsApp live</td>
+            <td>26 Abr</td>
           </tr>
           <tr>
             <td class="idx">03</td>
-            <td>
-              <span class="action">Implementar pagamento upfront</span>
-              <span class="subtext">Resolver os 100 cancelamentos por pagamento — prepagamento mínimo obrigatório</span>
-            </td>
-            <td><span class="pill ops">Ops</span></td>
-            <td>Valdemir</td>
-            <td>Flow live</td>
-            <td>18 Abr</td>
-          </tr>
-          <tr>
-            <td class="idx">04</td>
-            <td>
-              <span class="action">Ligar a 5 parceiros dormentes</span>
-              <span class="subtext">Dos 30 com 0 transportes: perceber bloqueios e reactivar</span>
-            </td>
-            <td><span class="pill supply">Supply</span></td>
-            <td>Zé + Ricardo</td>
-            <td>5 calls · 2 reactivados</td>
-            <td>14 Abr</td>
-          </tr>
-          <tr>
-            <td class="idx">05</td>
-            <td>
-              <span class="action">Setup WhatsApp Business + flow básico</span>
-              <span class="subtext">Integração técnica do canal WhatsApp — substituir parte do call center</span>
-            </td>
-            <td><span class="pill media">Demand</span></td>
-            <td>Valdemir</td>
-            <td>WhatsApp live</td>
-            <td>21 Abr</td>
-          </tr>
-          <tr>
-            <td class="idx">06</td>
             <td>
               <span class="action">UTM tracking em todos os links</span>
               <span class="subtext">Website, emails, social — saber de onde vem cada lead</span>
@@ -898,54 +959,32 @@
             <td><span class="pill media">Media</span></td>
             <td>Valdemir</td>
             <td>100% links com UTM</td>
-            <td>11 Abr</td>
+            <td>24 Abr</td>
           </tr>
           <tr>
-            <td class="idx">07</td>
+            <td class="idx">04</td>
             <td>
-              <span class="action">Email blast para 5.677 utilizadores</span>
-              <span class="subtext">Roseanne prepara lista e envia — conteúdo aprovado pelo Zé</span>
+              <span class="action">Tech guy — 2 entrevistas + 2 orçamentos</span>
+              <span class="subtext">Candidatos para dev da plataforma. <strong>2 entrevistas e 2 orçamentos formais entregues até ao final da semana</strong>.</span>
             </td>
-            <td><span class="pill media">Media</span></td>
-            <td>Roseanne</td>
-            <td>Envio · tracking</td>
-            <td>14 Abr</td>
-          </tr>
-          <tr>
-            <td class="idx">08</td>
-            <td>
-              <span class="action">Dashboard financeiro básico</span>
-              <span class="subtext">Facturado vs recebido vs overdue — pode ser Google Sheet inicial</span>
-            </td>
-            <td><span class="pill fin">Finance</span></td>
-            <td>Zé + Ricardo</td>
-            <td>Dashboard operacional</td>
-            <td>21 Abr</td>
-          </tr>
-          <tr>
-            <td class="idx">09</td>
-            <td>
-              <span class="action">Entrevistar 3 tripulantes top</span>
-              <span class="subtext">Marcos (390), João Paulino (187), Bruno (183) — pain points e feedback da app</span>
-            </td>
-            <td><span class="pill supply">Supply</span></td>
+            <td><span class="pill supply">Tech</span></td>
             <td>Zé</td>
-            <td>3 entrevistas</td>
-            <td>18 Abr</td>
+            <td>2 entrevistas · 2 orçamentos</td>
+            <td>24 Abr</td>
           </tr>
           <tr>
-            <td class="idx">10</td>
+            <td class="idx">05</td>
             <td>
-              <span class="action">Proposta bombeiros — 2 corpos</span>
-              <span class="subtext">Óbidos e Campo de Ourique já registados — proposta de valor + pricing</span>
+              <span class="action">Implementar pagamento upfront</span>
+              <span class="subtext">Resolver os 100 cancelamentos por pagamento — prepagamento mínimo obrigatório</span>
             </td>
-            <td><span class="pill supply">Supply</span></td>
-            <td>Zé + Ricardo</td>
-            <td>2 propostas enviadas</td>
-            <td>21 Abr</td>
+            <td><span class="pill ops">Ops</span></td>
+            <td>Valdemir</td>
+            <td>Flow live</td>
+            <td>26 Abr</td>
           </tr>
           <tr>
-            <td class="idx">11</td>
+            <td class="idx">06</td>
             <td>
               <span class="action">Cobrar maca retida — regra + implementação</span>
               <span class="subtext">4–5 hospitais em Lisboa retêm macas — cobrar 50€/hora ao cliente</span>
@@ -953,27 +992,45 @@
             <td><span class="pill ops">Ops</span></td>
             <td>Zé + Valdemir</td>
             <td>Regra + campo no sistema</td>
-            <td>21 Abr</td>
+            <td>26 Abr</td>
           </tr>
           <tr>
-            <td class="idx">12</td>
+            <td class="idx">07</td>
             <td>
-              <span class="action">Preparar playbook B2B para Sales Rep</span>
-              <span class="subtext">Pitch deck, pricing, lista de leads prioritários, script de chamada</span>
+              <span class="action">Entrevistar 3 tripulantes top</span>
+              <span class="subtext">Marcos (390), João Paulino (187), Bruno (183) — pain points e feedback da app</span>
+            </td>
+            <td><span class="pill supply">Supply</span></td>
+            <td>Zé</td>
+            <td>3 entrevistas</td>
+            <td>24 Abr</td>
+          </tr>
+          <tr>
+            <td class="idx">08</td>
+            <td>
+              <span class="action">Playbook B2B para Sales Rep</span>
+              <span class="subtext">Pitch deck, pricing, lista de 50 leads prioritários, script de chamada</span>
             </td>
             <td><span class="pill b2b">B2B</span></td>
             <td>Zé</td>
             <td>Playbook + 50 leads</td>
-            <td>21 Abr</td>
+            <td>26 Abr</td>
+          </tr>
+          <tr>
+            <td class="idx">09</td>
+            <td>
+              <span class="action">Dashboard financeiro básico</span>
+              <span class="subtext">Facturado vs recebido vs overdue — Google Sheet inicial</span>
+            </td>
+            <td><span class="pill fin">Finance</span></td>
+            <td>Zé + Ricardo</td>
+            <td>Dashboard operacional</td>
+            <td>26 Abr</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="callout">
-      <h4>Nota — B2B Sales Rep</h4>
-      <p>As tarefas 01 e 02 (outreach B2B e lares) estão atribuídas ao Zé como interim — quando o Sales Rep entrar, faz-se handover imediato. A tarefa 12 (playbook) garante que o onboarding é rápido. O Sales Rep deve herdar também o pipeline de 243 contactos B2B + 270 lares do Airtable.</p>
-    </div>
   </div>
 </section>
 
@@ -1002,11 +1059,11 @@ Chart.defaults.borderColor = LINE;
 new Chart(document.getElementById('revenueChart'), {
   type: 'bar',
   data: {
-    labels: ['Mai 25','Jun 25','Jul 25','Ago 25','Set 25','Out 25','Nov 25','Dez 25','Jan 26','Fev 26','Mar 26','Abr 26*'],
+    labels: ['Mai 25','Jun 25','Jul 25','Ago 25','Set 25','Out 25','Nov 25','Dez 25','Jan 26','Fev 26','Mar 26','Abr 26 (1-17)'],
     datasets: [
       {
         label: 'GMV Finalizados (€)',
-        data: [7119,8746,9403,11181,12356,16831,21820,18861,15207,16190,14786,2159],
+        data: [7119,8746,9403,11181,12356,16831,21820,18861,15207,16190,14786,8834],
         backgroundColor: BRAND,
         borderRadius: 2,
         yAxisID: 'y',
@@ -1014,7 +1071,7 @@ new Chart(document.getElementById('revenueChart'), {
       },
       {
         label: 'Pago a Parceiros (€)',
-        data: [5019,6166,6629,7883,8711,11866,15383,13297,10721,11414,10424,1522],
+        data: [5019,6166,6629,7883,8711,11866,15383,13297,10721,11414,10424,6656],
         backgroundColor: BRAND_LIGHT,
         borderRadius: 2,
         yAxisID: 'y',
@@ -1022,7 +1079,7 @@ new Chart(document.getElementById('revenueChart'), {
       },
       {
         label: 'Receita Ambula (€)',
-        data: [2100,2580,2774,3298,3645,4965,6437,5564,4486,4776,4362,637],
+        data: [2100,2580,2774,3298,3645,4965,6437,5564,4486,4776,4362,2179],
         backgroundColor: ACCENT,
         borderRadius: 2,
         yAxisID: 'y',
@@ -1030,7 +1087,7 @@ new Chart(document.getElementById('revenueChart'), {
       },
       {
         label: 'Nr Finalizados',
-        data: [84,103,111,132,146,198,251,280,218,148,140,25],
+        data: [84,103,111,132,146,198,251,280,218,148,140,83],
         type: 'line',
         borderColor: INK,
         backgroundColor: 'transparent',
